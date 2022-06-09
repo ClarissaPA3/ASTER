@@ -103,7 +103,7 @@
                   <div class="col-sm-12">
                     <div class="description-block">
 
-                      <a class="description-text btn btn-block btn-danger" href=<?php echo site_url('C_login/logout_admin');?>>LOGOUT</a>
+                      <a class="description-text btn btn-block btn-danger" href=<?php echo site_url('C_login/logout_admin'); ?>>LOGOUT</a>
 
                     </div>
                     <!-- /.description-block -->
@@ -126,9 +126,9 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="<?php echo site_url('C_login/login_admin'); ?>" class="brand-link">
         <img src="<?php echo base_url('assets/'); ?>dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">E-Budgeting</span>
       </a>
 
       <!-- Sidebar -->
@@ -199,7 +199,6 @@
                 <i class="nav-icon fas fa-check"></i>
                 <p>
                   Pengajuan Anggaran
-                  <span class="right badge badge-danger">New</span>
                 </p>
               </a>
             </li>
@@ -210,7 +209,6 @@
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Koreksi Anggaran
-                  <span class="right badge badge-danger">New</span>
                 </p>
               </a>
             </li>
@@ -245,16 +243,15 @@
             <?php } ?>
 
             <!-- Menu transfer -->
-            <?php    if (in_array("menutransfer", $this->session->userdata('hakakses'))) :?>
-            <li class="nav-item">
-              <a href="<?php echo site_url("C_menutransfer");?>" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
-                <p>
-                  Menu Transfer
-                  <span class="right badge badge-danger">New</span>
-                </p>
-              </a>
-            </li>
+            <?php if (in_array("menutransfer", $this->session->userdata('hakakses'))) : ?>
+              <li class="nav-item">
+                <a href="<?php echo site_url("C_menutransfer"); ?>" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Menu Transfer
+                  </p>
+                </a>
+              </li>
             <?php endif; ?>
 
           </ul>
@@ -355,7 +352,7 @@
                 <div class="icon">
                   <i class="fas fa-chart-pie"></i>
                 </div>
-                
+
               </div>
             </div>
             <!-- ./col -->
@@ -365,11 +362,11 @@
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    
+
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
-      <b>Created by</b> Mahasiswa UNS 2020
+        <b>Created by</b> Mahasiswa UNS 2020
       </div>
       <strong>Copyright &copy; 2022 <a href="https://adminlte.io">PLN ASTER</a>.</strong> All rights
       reserved.

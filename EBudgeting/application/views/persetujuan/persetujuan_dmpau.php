@@ -2,26 +2,13 @@
 <html>
 
 <head>
-    <title>E-Budgeting | Persetujuan DM</title>
-    <?php $this->load->view("dashboard/_part/head.php") ?>
-    <!-- Google Font -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-    <style>
-        .example-modal .modal {
-            position: relative;
-            top: auto;
-            bottom: auto;
-            right: auto;
-            left: auto;
-            display: block;
-            z-index: 1;
-        }
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-Budgeting | Persetujuan DMPAU</title>
+    <?php $this->load->view('dashboard/_part/head'); ?>
 
-        .example-modal .modal {
-            background: transparent !important;
-        }
-    </style>
 </head>
+
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">

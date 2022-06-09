@@ -52,14 +52,6 @@
 </head>
 
 
-
-
-
-
-
-
-
-
 <body class="hold-transition login-page" style="overflow-y: hidden;background:url(
 	'<?php echo base_url('assets/image/plnLogin.jpeg'); ?>')no-repeat;background-size: cover;width: 100%;">
 

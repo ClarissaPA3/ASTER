@@ -152,7 +152,6 @@ class C_ajuananggaran extends CI_Controller
 	{
 		if ($this->session->userdata('hakakses') != 'rekapanggaran') {
 			
-			
 			redirect(site_url('C_login'));
 		}
 

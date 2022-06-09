@@ -71,8 +71,7 @@
     </div>
     <div id="tampilalert"></div>
     <!-- /.login-logo -->
-    <div class="login-box-body" style="border:2px solid #226bbf;">
-      <p class="login-box-msg" style="font-size:16px;"></p>
+    
       <form action="<?= base_url('C_login/authentikasi_admin'); ?>" method="POST">
         <div class="form-group has-feedback">
           <input type="text" class="form-control" placeholder="Username" id="user" name="user" required="required" autocomplete="off">

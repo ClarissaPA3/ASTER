@@ -1,184 +1,254 @@
-<header class="main-header">
-  <!-- Logo -->
-  <a href="<?php echo site_url('C_login/login_admin'); ?>" class="logo">
-    <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>BDG</b></span>
-    <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>E-Budgeting</b></span>
-  </a>
-  <!-- Header Navbar: style can be found in header.less -->
-  <nav class="navbar navbar-static-top">
-    <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-      <span class="sr-only">Toggle navigation</span>
-    </a>
-
-    <div class="navbar-custom-menu">
-      <ul class="nav navbar-nav">
-
-        <li class="dropdown notifications-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <i class="fa fa-bell-o"></i>
-            <span class="label label-warning"><?php echo  $this->session->userdata('totalnotifikasi'); ?></span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="header">Anda memiliki <?php echo  $this->session->userdata('totalnotifikasi'); ?> notifikasi</li>
-            <li>
-
-              <ul class="menu">
-                <?php foreach ($this->session->userdata('dm') as $iddm) : ?>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?>
-                    </a>
-                  </li>
-                <?php endforeach; ?>
-
-                <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?>
-                    </a>
-                  </li>
-                <?php endforeach; ?>
-              </ul>
-
-          </ul>
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-dark bg-lightblue ">
+      <!-- Left navbar links -->
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('C_login') ?>">Home</a>
         </li>
 
-        <!-- User Account: style can be found in dropdown.less -->
-        <li class="dropdown user user-menu">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-            <span class="hidden-xs"><?php echo $this->session->userdata('nama_anggota'); ?></span>
-          </a>
-          <ul class="dropdown-menu">
-            <!-- User image -->
-            <li class="user-header">
-              <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-              <p>
-                Account - DMPAU/ Admin
-              </p>
-            </li>
-
-            <!-- Menu Footer-->
-            <li class="user-footer">
-              <!-- <div class="pull-left">
-                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                  </div> -->
-              <div class="pull-right">
-                <a href="<?php echo site_url('C_login/logout_admin') ?>" class="btn btn-default btn-flat">Sign out</a>
-              </div>
-            </li>
-          </ul>
-        </li>
       </ul>
-    </div>
-  </nav>
-</header>
-  <!-- Left side column. contains the logo and sidebar -->
-  <aside class="main-sidebar">
-      <!-- sidebar: style can be found in sidebar.less -->
-      <section class="sidebar">
-        <!-- Sidebar user panel -->
-        <div class="user-panel">
-          <div class="pull-left image">
-            <img src="<?php echo base_url() ?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+      <!-- Right navbar links -->
+      <ul class="navbar-nav ml-auto">
+
+
+
+
+
+        <!-- Notifications Dropdown Menu -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="far fa-bell"></i>
+            <span class="badge badge-warning navbar-badge"><?php echo  $this->session->userdata('totalnotifikasi'); ?></span>
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span class="dropdown-item dropdown-header">Anda memiliki <?php echo  $this->session->userdata('totalnotifikasi'); ?> notifikasi</span>
+            <div class="dropdown-divider"></div>
+            <?php foreach ($this->session->userdata('dm') as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?>
+              </a>
+              <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+
+            <?php foreach ($this->session->userdata('dmpau')  as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DMPAU!'; ?>
+              </a>
+              <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+
+
+            <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?>
+              </a>
+            <?php endforeach; ?>
           </div>
-          <div class="pull-left info">
-            <p>Welcome DMPAU/ Admin</p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </li>
+
+        <!-- User Account -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fa-solid fa-user"></i>
+
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="card card-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-lightblue">
+                <h3 class="widget-user-username"><?php echo $this->session->userdata('nama_anggota'); ?></h3>
+                <h5 class="widget-user-desc">Account - Sub Bidang</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="<?php echo base_url('assets/'); ?>dist/img/user1-128x128.jpg" alt="User Avatar">
+              </div>
+              <div class="card-footer">
+                <div class="row">
+
+
+                  <div class="col-sm-12">
+                    <div class="description-block">
+
+                      <a class="description-text btn btn-block btn-danger" href="<?php echo site_url('C_login/logout_admin'); ?>">LOGOUT</a>
+
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+
+          </div>
+
+        </li>
+
+
+      </ul>
+    </nav>
+    <!-- /.navbar -->
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+      <!-- Brand Logo -->
+      <a href="index3.html" class="brand-link">
+        <img src="<?php echo base_url('assets/'); ?>dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">AdminLTE 3</span>
+      </a>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+          <div class="image">
+            <img src="<?php echo base_url('assets/'); ?>dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+          </div>
+          <div class="info">
+            <!-- nama orang -->
+            <a href="#" class="d-block"><?php echo $this->session->userdata('nama_anggota'); ?></a>
           </div>
         </div>
-        <!-- sidebar menu: : style can be found in sidebar.less -->
-        <ul class="sidebar-menu" data-widget="tree">
-          <li class="header">MAIN NAVIGATION</li>
-          <li class="treeview">
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Data Master</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
 
-            <ul class="treeview-menu">
-              <li><a href="<?php echo site_url("C_input_jabatan/show_jabatan"); ?>"><i class="fa fa-circle-o"></i> Jabatan</a></li>
-              <li><a href="<?php echo site_url("C_user/show_user"); ?>"><i class="fa fa-circle-o"></i> Pegawai</a></li>
-              <?php
-              if (in_array("masterpos", $this->session->userdata('hakakses'))) {
-                echo "<li><a href=" . site_url("C_masterpos_subpos/show_pos") . "><i class='fa fa-circle-o'></i> Pos</a></li>";
-              }
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+          <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu">
+            <!-- Add icons to the links using the .nav-icon class
+             with font-awesome or any other icon font library -->
 
-
-              ?>
-              <?php
-              if (in_array("mastersubpos", $this->session->userdata('hakakses'))) {
-                echo " <li><a href=" . site_url("C_masterpos_subpos/show_subpos") . "><i class='fa fa-circle-o'></i> Sub Pos</a></li>";
-              }
-
-
-              ?>
-              <?php
-              if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) {
-                echo "<li><a href=" . site_url("C_masterpos_subpos/show_subpos2") . "><i class='fa fa-circle-o'></i> Sub Pos Barang </a></li>";
-              }
-
-
-              ?>
-
-
-            </ul>
-          </li>
-          <li>
-            <a href="<?php echo site_url("C_persetujuan_dmpau"); ?>">
-              <i class="fa fa-check"></i> <span>Persetujuan DMPAU</span>
-              <span class="pull-right-container">
-                <span class="pull-right-container">
-                </span>
-            </a>
-          </li>
-          <?php
-          if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) {
-            echo "<li>
-              <a href=" . site_url("C_menutransfer") . ">
-                <i class='fa fa-edit'></i> <span>Transfer</span>
-                <span class='pull-right-container'>
-                </span>
+            <li class="nav-item menu-open">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-tachometer-alt"></i>
+                <p>
+                  Data Master
+                  <i class="right fas fa-angle-left"></i>
+                </p>
               </a>
-            </li>";
-          }
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="<?php echo site_url("C_input_jabatan/show_jabatan"); ?>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Jabatan</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="<?php echo site_url("C_user/show_user"); ?>" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Pegawai</p>
+                  </a>
+                </li>
+                <?php
+                if (in_array("masterpos", $this->session->userdata('hakakses'))) {
+                  echo "<li class='nav-item'>
+                <a href=" . site_url("C_masterpos_subpos/show_pos") . " class='nav-link'>
+                  <i class='far fa-circle nav-icon'></i>
+                  <p>Master Pos</p>
+                </a>
+              </li>";
+                }
+                ?>
+                <?php
+                if (in_array("mastersubpos", $this->session->userdata('hakakses'))) :
+
+                ?>
+                  <li class="nav-item">
+                    <a href="<?php echo site_url("C_masterpos_subpos/show_subpos"); ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Master Sub Pos</p>
+                    </a>
+                  </li>
+                <?php endif; ?>
+                <?php
+                if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
+
+                  <li class="nav-item">
+                    <a href="<?php echo site_url("C_masterpos_subpos/show_subpos2"); ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Master Sub Pos Barang</p>
+                    </a>
+                  </li>
+                <?php endif; ?>
+              </ul>
+            </li>
 
 
-          ?>
+
+            <!-- Pengajuananggaran -->
+            <li class="nav-item">
+              <a href="<?php echo site_url("C_persetujuan_dmpau"); ?>" class="nav-link">
+                <i class="nav-icon fas fa-check"></i>
+                <p>
+                  Pengajuan DMPAU
+                  <span class="right badge badge-danger">New</span>
+                </p>
+              </a>
+            </li>
 
 
-          <li>
-            <a href="<?php echo site_url("C_paguanggaran"); ?>">
-              <i class="fa fa-laptop"></i> <span>Setting Pagu Anggaran</span>
-              <span class="pull-right-container">
-              </span>
-            </a>
-          </li>
-          <?php
-          if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) {
-            echo "<li class='treeview'>
-            <a href='#'>
-              <i class='fa fa-files-o'></i> <span>Rekapitulasi</span>
-              <span class='pull-right-container'>
-                <i class='fa fa-angle-left pull-right'></i>
-              </span>
-            </a>
-            <ul class='treeview-menu'>
-              <li><a href=" . site_url("C_ajuananggaran/show_rekapposanggaran") . "><i class='fa fa-circle-o'></i> Rekap Pos Anggaran</a></li>
-              <li><a href=" . site_url("C_ajuananggaran/show_rekapitulasianggaran") . "><i class='fa fa-circle-o'></i> Rekap Anggaran </a></li>
-            </ul>
-          </li>";
-          }
+
+            <!-- Rekapitulasi anggaran -->
+            <?php if (in_array("rekapanggaran", $this->session->userdata('hakakses'))) { ?>
+              <li class="nav-item menu-open">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Menu Rekapitulasi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class='nav-item'>
+                    <a href="<?php echo site_url("C_ajuananggaran/show_rekapposanggaran"); ?>" class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Rekapitulasi Pos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?php echo site_url("C_ajuananggaran/show_rekapitulasianggaran"); ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Rekapitulasi anggaran</p>
+                    </a>
+                  </li>
 
 
-          ?>
+                </ul>
+              </li>
+            <?php } ?>
+            <!-- Pagu Anggaran -->
+            <li class="nav-item">
+              <a href="<?php echo site_url("C_paguanggaran"); ?>" class="nav-link">
+                <i class="nav-icon fas fa-laptop"></i>
+                <p>
+                  Setting Pagu Anggaran
+                  <span class="right badge badge-danger">New</span>
+                </p>
+              </a>
+            </li>
 
-      </section>
+
+
+            <!-- Menu transfer -->
+            <?php if (in_array("menutransfer", $this->session->userdata('hakakses'))) : ?>
+              <li class="nav-item">
+                <a href="<?php echo site_url("C_menutransfer"); ?>" class="nav-link">
+                  <i class="nav-icon fas fa-th"></i>
+                  <p>
+                    Menu Transfer
+                    <span class="right badge badge-danger">New</span>
+                  </p>
+                </a>
+              </li>
+            <?php endif; ?>
+
+          </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+      </div>
       <!-- /.sidebar -->
     </aside>

@@ -4,7 +4,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AdminLTE 3 | Fixed Sidebar</title>
+  <title>Dashboard | Home</title>
+
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
@@ -31,7 +34,7 @@
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo site_url('C_login')?>">Home</a>
+          <a class="nav-link" href="<?php echo site_url('C_login') ?>">Home</a>
         </li>
 
 
@@ -100,7 +103,7 @@
                   <div class="col-sm-12">
                     <div class="description-block">
 
-                      <a class="description-text btn btn-block btn-danger" href="">LOGOUT</a>
+                      <a class="description-text btn btn-block btn-danger" href=<?php echo site_url('C_login/logout_admin');?>>LOGOUT</a>
 
                     </div>
                     <!-- /.description-block -->
@@ -136,7 +139,8 @@
             <img src="<?php echo base_url('assets/'); ?>dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
           </div>
           <div class="info">
-            <a href="#" class="d-block">Alexander Pierce</a>
+            <!-- nama orang -->
+            <a href="#" class="d-block"><?php echo $this->session->userdata('nama_anggota'); ?></a>
           </div>
         </div>
 
@@ -241,8 +245,9 @@
             <?php } ?>
 
             <!-- Menu transfer -->
+            <?php    if (in_array("menutransfer", $this->session->userdata('hakakses'))) :?>
             <li class="nav-item">
-              <a href="#" class="nav-link">
+              <a href="<?php echo site_url("C_menutransfer");?>" class="nav-link">
                 <i class="nav-icon fas fa-th"></i>
                 <p>
                   Menu Transfer
@@ -250,6 +255,7 @@
                 </p>
               </a>
             </li>
+            <?php endif; ?>
 
           </ul>
         </nav>
@@ -269,7 +275,7 @@
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                
+
                 <li class="breadcrumb-item active">Home</li>
               </ol>
             </div>
@@ -283,21 +289,90 @@
 
         <div class="container-fluid">
           <div class="row">
-            
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-info">
+                <div class="inner">
+                  <h3><?php echo $pengajuan['totalanggaran'] == 0 ? '0' : $pengajuan['totalanggaran']; ?></h3>
+
+                  <p>Total Ajuan Anggaran</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-success">
+                <div class="inner">
+                  <h3><?php echo $pengajuan['totaldisetujui'] == 0 ? '0' : $pengajuan['totaldisetujui']; ?></h3>
+
+                  <p>Pengajuan Disetujui</p>
+                </div>
+                <div class="icon">
+                  <i class="ion ion-stats-bars"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-warning">
+                <div class="inner">
+                  <h3><?php echo $pengajuan['totalrevisi'] == 0 ? '0' : $pengajuan['totalrevisi']; ?></h3>
+
+                  <p>Koreksi</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-user-plus"></i>
+                </div>
+
+              </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-3 col-6">
+              <!-- small card -->
+              <div class="small-box bg-danger">
+                <div class="inner">
 
 
+                  <h7><?php echo $pagu['paguterpakai'] == 0 ? '0' :  'Rp.' . number_format($pagu['paguterpakai'], 2, ',', '.'); ?>/<?php echo $pagu['paguanggaran'] == 0 ? '0' :  'Rp.' . number_format($pagu['paguanggaran'], 2, ',', '.'); ?></h7>
+
+                  <h7>(
+                    <?php
+                    if ($pagu['paguanggaran'] != 0 && $pagu['paguterpakai'] != 0) {
+                      echo number_format(floatval($pagu['paguterpakai'] / $pagu['paguanggaran'] * 100), 1, ',', '.');
+                    } else {
+                      echo '0';
+                    }
+                    ?>%) Pagu Anggaran</h7>
+                  <p>Tersisa : Rp. <?= number_format(floatval($pagu['tersisa']), 2, ',', '.'); ?></p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-chart-pie"></i>
+                </div>
+                
+              </div>
+            </div>
+            <!-- ./col -->
           </div>
         </div>
       </section>
       <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+    
 
     <footer class="main-footer">
       <div class="float-right d-none d-sm-block">
-        <b>Version</b> 3.2.0
+      <b>Created by</b> Mahasiswa UNS 2020
       </div>
-      <strong>Copyright © 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
+      <strong>Copyright &copy; 2022 <a href="https://adminlte.io">PLN ASTER</a>.</strong> All rights
+      reserved.
     </footer>
 
     <!-- Control Sidebar -->

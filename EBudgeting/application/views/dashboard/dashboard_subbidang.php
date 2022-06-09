@@ -14,17 +14,24 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>plugins/overlayScrollbars/css/OverlayScrollbars.min.css">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/') ?>dist/css/adminlte.min.css">
+
+  <!-- fontawesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
+
 </head>
 
 <body class="sidebar-mini control-sidebar-slide-open sidebar-mini-md sidebar-closed sidebar-collapse" style="height: auto;">
   <!-- Site wrapper -->
   <div class="wrapper">
     <!-- Navbar -->
-    <nav class="main-header navbar navbar-expand navbar-light bg-lightblue">
+    <nav class="main-header navbar navbar-expand navbar-dark bg-lightblue ">
       <!-- Left navbar links -->
       <ul class="navbar-nav">
         <li class="nav-item">
           <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo site_url('C_login')?>">Home</a>
         </li>
 
 
@@ -41,28 +48,71 @@
         <li class="nav-item dropdown">
           <a class="nav-link" data-toggle="dropdown" href="#">
             <i class="far fa-bell"></i>
-            <span class="badge badge-warning navbar-badge">15</span>
+            <span class="badge badge-warning navbar-badge"><?php echo  $this->session->userdata('totalnotifikasi'); ?></span>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-            <span class="dropdown-item dropdown-header">15 Notifications</span>
+            <span class="dropdown-item dropdown-header">Anda memiliki <?php echo  $this->session->userdata('totalnotifikasi'); ?> notifikasi</span>
             <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-envelope mr-2"></i> 4 new messages
-              <span class="float-right text-muted text-sm">3 mins</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-users mr-2"></i> 8 friend requests
-              <span class="float-right text-muted text-sm">12 hours</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item">
-              <i class="fas fa-file mr-2"></i> 3 new reports
-              <span class="float-right text-muted text-sm">2 days</span>
-            </a>
-            <div class="dropdown-divider"></div>
-            <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+            <?php foreach ($this->session->userdata('dm') as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?>
+              </a>
+              <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+
+            <?php foreach ($this->session->userdata('dmpau')  as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DMPAU!'; ?>
+              </a>
+              <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+
+
+            <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
+              <a href="#" class="dropdown-item">
+                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?>
+              </a>
+            <?php endforeach; ?>
           </div>
+        </li>
+
+        <!-- User Account -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" data-toggle="dropdown" href="#">
+            <i class="fa-solid fa-user"></i>
+
+          </a>
+
+          <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="card card-widget widget-user">
+              <!-- Add the bg color to the header using any of the bg-* classes -->
+              <div class="widget-user-header bg-lightblue">
+                <h3 class="widget-user-username"><?php echo $this->session->userdata('nama_anggota'); ?></h3>
+                <h5 class="widget-user-desc">Account - Sub Bidang</h5>
+              </div>
+              <div class="widget-user-image">
+                <img class="img-circle elevation-2" src="<?php echo base_url('assets/'); ?>dist/img/user1-128x128.jpg" alt="User Avatar">
+              </div>
+              <div class="card-footer">
+                <div class="row">
+
+
+                  <div class="col-sm-12">
+                    <div class="description-block">
+
+                      <a class="description-text btn btn-block btn-danger" href="">LOGOUT</a>
+
+                    </div>
+                    <!-- /.description-block -->
+                  </div>
+                  <!-- /.col -->
+                </div>
+                <!-- /.row -->
+              </div>
+            </div>
+
+          </div>
+
         </li>
 
 
@@ -96,7 +146,7 @@
             <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
             <li class="nav-item menu-open">
-              <a href="#" class="nav-link active">
+              <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
                   Data Master
@@ -128,26 +178,79 @@
                   </li>
                 <?php endif; ?>
                 <?php
-              if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
+                if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
 
-                <li class="nav-item">
-                  <a href="<?php echo site_url("C_masterpos_subpos/show_subpos2"); ?>" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>Master Sub Pos Barang</p>
-                  </a>
-                </li>
-                <?php  endif;?>
+                  <li class="nav-item">
+                    <a href="<?php echo site_url("C_masterpos_subpos/show_subpos2"); ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Master Sub Pos Barang</p>
+                    </a>
+                  </li>
+                <?php endif; ?>
               </ul>
             </li>
+            <!-- Pengajuananggaran -->
             <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-th"></i>
+              <a href="<?php echo site_url('C_ajuananggaran/show_datapengajuan'); ?>" class="nav-link">
+                <i class="nav-icon fas fa-check"></i>
                 <p>
-                  Simple Link
+                  Pengajuan Anggaran
                   <span class="right badge badge-danger">New</span>
                 </p>
               </a>
             </li>
+
+            <!-- Koreksi anggaran -->
+            <li class="nav-item">
+              <a href="<?php echo site_url("C_koreksi_anggaran"); ?>" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Koreksi Anggaran
+                  <span class="right badge badge-danger">New</span>
+                </p>
+              </a>
+            </li>
+
+            <!-- Rekapitulasi anggaran -->
+            <?php if (in_array("rekapanggaran", $this->session->userdata('hakakses'))) { ?>
+              <li class="nav-item menu-open">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Menu Rekapitulasi
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <li class='nav-item'>
+                    <a href="<?php echo site_url("C_ajuananggaran/show_rekapposanggaran"); ?>" class='nav-link'>
+                      <i class='far fa-circle nav-icon'></i>
+                      <p>Rekapitulasi Pos</p>
+                    </a>
+                  </li>
+                  <li class="nav-item">
+                    <a href="<?php echo site_url("C_ajuananggaran/show_rekapitulasianggaran"); ?>" class="nav-link">
+                      <i class="far fa-circle nav-icon"></i>
+                      <p>Rekapitulasi anggaran</p>
+                    </a>
+                  </li>
+
+
+                </ul>
+              </li>
+            <?php } ?>
+
+            <!-- Menu transfer -->
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-th"></i>
+                <p>
+                  Menu Transfer
+                  <span class="right badge badge-danger">New</span>
+                </p>
+              </a>
+            </li>
+
           </ul>
         </nav>
         <!-- /.sidebar-menu -->
@@ -162,17 +265,16 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Fixed Layout</h1>
+              <h1>Dashboard Sub Bidang</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Layout</a></li>
-                <li class="breadcrumb-item active">Fixed Layout</li>
+                
+                <li class="breadcrumb-item active">Home</li>
               </ol>
             </div>
           </div>
-          
+
         </div><!-- /.container-fluid -->
       </section>
 
@@ -181,32 +283,9 @@
 
         <div class="container-fluid">
           <div class="row">
-            <div class="col-12">
-              <!-- Default box -->
-              <div class="card">
-                <div class="card-header">
-                  <h3 class="card-title">Title</h3>
+            
 
-                  <div class="card-tools">
-                    <button type="button" class="btn btn-tool" data-card-widget="collapse" title="Collapse">
-                      <i class="fas fa-minus"></i>
-                    </button>
-                    <button type="button" class="btn btn-tool" data-card-widget="remove" title="Remove">
-                      <i class="fas fa-times"></i>
-                    </button>
-                  </div>
-                </div>
-                <div class="card-body">
-                  Start creating your amazing application!
-                </div>
-                <!-- /.card-body -->
-                <div class="card-footer">
-                  Footer
-                </div>
-                <!-- /.card-footer-->
-              </div>
-              <!-- /.card -->
-            </div>
+
           </div>
         </div>
       </section>
@@ -236,8 +315,11 @@
   <script src="<?php echo base_url('assets/') ?>plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url('assets/') ?>dist/js/adminlte.min.js"></script>
-  <!-- AdminLTE for demo purposes -->
-  <script src="<?php echo base_url('assets/') ?>dist/js/demo.js"></script>
+
+
+
+
+
 
 
 </body>

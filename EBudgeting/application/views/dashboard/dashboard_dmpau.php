@@ -85,7 +85,11 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-lightblue">
                 <h3 class="widget-user-username"><?php echo $this->session->userdata('nama_anggota'); ?></h3>
+<<<<<<< HEAD
                 <h5 class="widget-user-desc">Account - DMPAU/Admin</h5>
+=======
+                <h5 class="widget-user-desc">Account - DMPAU</h5>
+>>>>>>> 2fb663515b7258246827cc19a6a5898da6e057ff
               </div>
               <div class="widget-user-image">
                 <img class="img-circle elevation-2" src="<?php echo base_url('assets/'); ?>dist/img/user1-128x128.jpg" alt="User Avatar">
@@ -141,7 +145,7 @@
             <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
 
-            <li class="nav-item menu-open">
+            <li class="nav-item ">
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-tachometer-alt"></i>
                 <p>
@@ -212,7 +216,7 @@
 
             <!-- Rekapitulasi anggaran -->
             <?php if (in_array("rekapanggaran", $this->session->userdata('hakakses'))) { ?>
-              <li class="nav-item menu-open">
+              <li class="nav-item ">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>

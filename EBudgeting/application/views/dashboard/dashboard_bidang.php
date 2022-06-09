@@ -150,7 +150,7 @@
             <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
             <?php if (in_array("masterpos", $this->session->userdata('hakakses')) || in_array("mastersubpos", $this->session->userdata('hakakses')) || in_array("mastersubpos2", $this->session->userdata('hakakses'))) { ?>
-              <li class="nav-item menu-open">
+              <li class="nav-item ">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
@@ -211,7 +211,7 @@
 
             <!-- Rekapitulasi anggaran -->
             <?php if (in_array("rekapanggaran", $this->session->userdata('hakakses'))) { ?>
-              <li class="nav-item menu-open">
+              <li class="nav-item ">
                 <a href="#" class="nav-link">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>E-Budgeting | Sub Bidang</title>
+    <title>E-Budgeting | Role Sub Bidang</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
 
 </head>

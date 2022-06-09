@@ -2,12 +2,13 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>E-Budgeting | Tambah Jabatan</title>
-  <?php $this->load->view('dashboard/_part/head'); ?>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>E-Budgeting | Tambah jabatan</title>
+    <?php $this->load->view('dashboard/_part/head'); ?>
+
 </head>
+
 
 
 <body class="hold-transition skin-blue sidebar-mini">

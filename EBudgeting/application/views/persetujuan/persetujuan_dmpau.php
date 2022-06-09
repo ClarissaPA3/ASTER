@@ -2,8 +2,7 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>E-Budgeting | Persetujuan DMPAU</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
 

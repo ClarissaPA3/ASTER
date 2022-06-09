@@ -85,7 +85,7 @@
               <!-- Add the bg color to the header using any of the bg-* classes -->
               <div class="widget-user-header bg-lightblue">
                 <h3 class="widget-user-username"><?php echo $this->session->userdata('nama_anggota'); ?></h3>
-                <h5 class="widget-user-desc">Account - Sub Bidang</h5>
+                <h5 class="widget-user-desc">Account - DMPAU/Admin</h5>
               </div>
               <div class="widget-user-image">
                 <img class="img-circle elevation-2" src="<?php echo base_url('assets/'); ?>dist/img/user1-128x128.jpg" alt="User Avatar">
@@ -120,7 +120,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
       <!-- Brand Logo -->
-    
+
 
       <!-- Sidebar -->
       <div class="sidebar">
@@ -203,8 +203,7 @@
               <a href="<?php echo site_url("C_persetujuan_dmpau"); ?>" class="nav-link">
                 <i class="nav-icon fas fa-check"></i>
                 <p>
-                  Pengajuan DMPAU
-                  <span class="right badge badge-danger">New</span>
+                  Persetujuan DMPAU
                 </p>
               </a>
             </li>
@@ -245,7 +244,6 @@
                 <i class="nav-icon fas fa-laptop"></i>
                 <p>
                   Setting Pagu Anggaran
-                  <span class="right badge badge-danger">New</span>
                 </p>
               </a>
             </li>
@@ -259,7 +257,6 @@
                   <i class="nav-icon fas fa-th"></i>
                   <p>
                     Menu Transfer
-                    <span class="right badge badge-danger">New</span>
                   </p>
                 </a>
               </li>

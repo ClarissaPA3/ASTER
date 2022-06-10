@@ -150,7 +150,8 @@ class C_ajuananggaran extends CI_Controller
 
 	public function show_rekapitulasianggaran()
 	{
-		if ($this->session->userdata('hakakses') != 'rekapanggaran') {
+		if (!in_array('rekapanggaran',$this->session->userdata('hakakses'))) {
+			
 			
 			redirect(site_url('C_login'));
 		}
@@ -174,7 +175,7 @@ class C_ajuananggaran extends CI_Controller
 
 	public function show_rekapposanggaran()
 	{
-		if ($this->session->userdata('hakakses') != 'rekapanggaran') {
+		if (!in_array('rekapanggaran',$this->session->userdata('hakakses'))) {
 			
 			
 			redirect(site_url('C_login'));

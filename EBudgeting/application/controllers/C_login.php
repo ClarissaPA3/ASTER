@@ -93,10 +93,7 @@ class C_login extends CI_Controller
 		
 		
 		$pagu = $this->M_paguanggaran->updatepagu(date('Y-m-d'));
-		print_r($jabatan['tingkatan_user']);
 		
-		
-
 
 		if ($jabatan['tingkatan_user'] == "dmpau") {
 			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuandmpau($id_anggota);

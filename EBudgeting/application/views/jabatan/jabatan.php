@@ -15,12 +15,12 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-        <?php
-        if ($this->session->userdata('id_jabatan') == 1) {
+    <?php
+        if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
-        } else if ($this->session->userdata('id_jabatan') == 2) {
+        } else if ($this->session->userdata('jabatan') == 'dm') {
             $this->load->view('dashboard/sidebarnav/_headdm');
-        } else if ($this->session->userdata('id_jabatan') == 3) {
+        } else if ($this->session->userdata('jabatan') == 'dmpau') {
             $this->load->view('dashboard/sidebarnav/_headdmpau');
         }
 

@@ -21,30 +21,48 @@
         }
 
         ?>
+        <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
             <section class="content-header">
-                <h1>Rekap Anggaran</h1>
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1>Data Jabatan</h1>
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item">Home</li>
+                                <li class="breadcrumb-item">Ajuan Anggaran</li>
+                                <li class="breadcrumb-item">Update Anggaran</li>
+                                <li class="breadcrumb-item active">Draft Anggaran</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div><!-- /.container-fluid -->
             </section>
+
+
+            <!-- Main content -->
             <section class="content">
                 <div class="row">
-
                     <div class="col-md-12">
-                        <!-- Horizontal Form -->
-                        <div class="box box-info">
-                            <div class="box-header with-border">
-                                <a href="<?php echo $_SERVER['HTTP_REFERER'];?>" class="btn btn-info ">Input</a>
+                        <div class="card">
+                            <div class="card-header">
+
+                                <div class="col-md-2">
+                                <a href="<?php echo $_SERVER['HTTP_REFERER']; ?>" class="btn btn-info ">Input</a>
                                 <a href="<?php echo site_url('C_ajuananggaran/show_rekapanggaran/') . $id; ?>" class="btn btn-info active">Rekap</a>
 
 
-
-                                <div class="box-body">
-
-
-
-                                    <!-- mulai ini -->
+                                </div>
+                            </div>
+                            <!-- /.card-header -->
+                            <div class="card-body">
+                                <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-sm-12">
                                             <table class="table table-bordered text-center">
                                                 <thead>
                                                     <tr>
@@ -81,10 +99,10 @@
                                                             </td>
 
                                                             <td>
-                                                                <h4><?php 'Rp.' . number_format(floatval($key['nominal_pengajuan2']),2,',','.'); ?></h4>
+                                                                <h4><?php 'Rp.' . number_format(floatval($key['nominal_pengajuan2']), 2, ',', '.'); ?></h4>
                                                             </td>
                                                             <td>
-                                                                <h4><?php echo 'Rp.' . number_format(floatval($key['nominal_persetujuan2']),2,',','.'); ?></h4>
+                                                                <h4><?php echo 'Rp.' . number_format(floatval($key['nominal_persetujuan2']), 2, ',', '.'); ?></h4>
                                                             </td>
 
 
@@ -96,10 +114,10 @@
                                                 <tfoot class="bg-gray">
                                                     <td colspan="5"><b> Total Anggaran diajukan Minggu ke - <?= $ajuan['minggu2']; ?></b></td>
                                                     <td>
-                                                        <h4><?php echo "Rp. " . number_format($total['nominal_pengajuan2'],2,',','.'); ?></h4>
+                                                        <h4><?php echo "Rp. " . number_format($total['nominal_pengajuan2'], 2, ',', '.'); ?></h4>
                                                     </td>
                                                     <td>
-                                                        <h4><?php echo "Rp. " .  number_format($total['nominal_persetujuan2'], 2,',','.'); ?></h4>
+                                                        <h4><?php echo "Rp. " .  number_format($total['nominal_persetujuan2'], 2, ',', '.'); ?></h4>
                                                     </td>
                                                 </tfoot>
 
@@ -108,40 +126,36 @@
 
 
                                             </table>
-
                                         </div>
                                     </div>
 
-
                                 </div>
-                                <!-- /.box-body -->
-
-                                <!-- /.box-footer -->
-
                             </div>
-                            <!-- /.box-header -->
-                            <!-- form start -->
-
+                            <!-- /.card-body -->
                         </div>
-                        <!-- /.box -->
+
+
 
                     </div>
-
-
+                    <!-- /.col -->
                 </div>
-
-
+                <!-- /.row -->
             </section>
-
+            <!-- /.content -->
         </div>
-        <footer class="main-footer">
-            <div class="pull-right hidden-xs">
-                <b>Create by</b> Mahasiswa UNS 2020.
-            </div>
-            <strong>Copyright &copy; 2022 <a href="https://adminlte.io">PLN ASTER</a>.</strong> All rights
-            reserved.
-        </footer>
 
+
+
+
+
+
+
+
+
+
+
+
+        <?php $this->load->view('dashboard/_part/footer'); ?>
     </div>
 
 

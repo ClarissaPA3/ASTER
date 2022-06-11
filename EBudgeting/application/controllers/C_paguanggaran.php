@@ -10,15 +10,13 @@ class C_paguanggaran extends CI_Controller
         $this->load->model("M_paguanggaran");
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
-        
+
         // cek jabatan user login
         if ($this->session->userdata('jabatan') != 'dmpau') {
-			
-			
-			redirect(site_url('C_login'));
-		}
 
 
+            redirect(site_url('C_login'));
+        }
     }
 
     public function index()
@@ -32,12 +30,12 @@ class C_paguanggaran extends CI_Controller
 
 
         $this->form_validation->set_rules('nominal_pagu', 'Nominal Pagu', 'required|min_length[3]|max_length[64]');
-        
+
         $this->form_validation->set_rules('bulan', 'Bulan', 'required|min_length[3]|max_length[64]');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required|min_length[3]|max_length[64]');
         echo $this->form_validation->run();
         if ($this->form_validation->run()) {
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+
             $this->M_paguanggaran->save();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -46,19 +44,20 @@ class C_paguanggaran extends CI_Controller
 					</div>');
             redirect(site_url('C_paguanggaran'));
         } else {
-            $this->load->view("paguanggaran/addpagu");
+            $data['bulan'] = array("01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April", "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus", "09" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember");
+            $this->load->view("paguanggaran/addpagu", $data);
         }
     }
 
     public function edit($id = null)
     {
-        
+
         $this->form_validation->set_rules('nominal_pagu', 'Nominal Pagu', 'required|min_length[3]|max_length[64]');
-        $this->form_validation->set_rules('nominal_terpakai', 'Nominal Terpakai', 'required|min_length[1]|max_length[64]');
+
         $this->form_validation->set_rules('bulan', 'Bulan', 'required|min_length[3]|max_length[64]');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required|min_length[3]|max_length[64]');
 
-        if ( $this->form_validation->run()) {
+        if ($this->form_validation->run()) {
             $this->M_paguanggaran->update($id);
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
 			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -71,7 +70,7 @@ class C_paguanggaran extends CI_Controller
 
             $data["paguanggaran"] = $this->M_paguanggaran->getById($id);
             $data['id'] = $id;
-
+            $data['bulan'] = array("01" => "Januari", "02" => "Februari", "03" => "Maret", "04" => "April", "05" => "Mei", "06" => "Juni", "07" => "Juli", "08" => "Agustus", "09" => "September", "10" => "Oktober", "11" => "November", "12" => "Desember");
             $this->load->view("paguanggaran/updatepagu", $data);
         }
     }

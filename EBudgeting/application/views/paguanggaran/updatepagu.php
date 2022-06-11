@@ -12,16 +12,16 @@
 
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
-  <?php
-        if ($this->session->userdata('jabatan') == 'subbidang') {
-            $this->load->view('dashboard/sidebarnav/_headsubbidang');
-        } else if ($this->session->userdata('jabatan') == 'dm') {
-            $this->load->view('dashboard/sidebarnav/_headdm');
-        } else if ($this->session->userdata('jabatan') == 'dmpau') {
-            $this->load->view('dashboard/sidebarnav/_headdmpau');
-        }
+    <?php
+    if ($this->session->userdata('jabatan') == 'subbidang') {
+      $this->load->view('dashboard/sidebarnav/_headsubbidang');
+    } else if ($this->session->userdata('jabatan') == 'dm') {
+      $this->load->view('dashboard/sidebarnav/_headdm');
+    } else if ($this->session->userdata('jabatan') == 'dmpau') {
+      $this->load->view('dashboard/sidebarnav/_headdmpau');
+    }
 
-        ?>
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -64,20 +64,29 @@
                     <?php echo form_error('nominal_pagu'); ?>
                   </div>
                 </div>
+                <input type="hidden" class="form-control" id="nominal_terpakai" name="nominal_terpakai" placeholder="" value="<?php echo $key['nominal_terpakai']; ?>" required>
+               
                 <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Nominal Terpakai</label>
+                  
+
+                  <label for="bulan" class="col-sm-2 col-form-label">Bulan</label>
                   <div class="col-sm-5">
-                    <input type="text" class="form-control" id="nominal_terpakai" name="nominal_terpakai" placeholder="" value="<?php echo $key['nominal_terpakai']; ?>" required>
-                    <?php echo form_error('nominal_terpakai'); ?>
+                    <select id="bulan" name="bulan" class="form-control">
+                      <option selected disabled>===== Pilih Bulan =====</option>
+                      <?php
+                      foreach ($bulan as $bulan => $value) : ?>
+
+                        <option value='<?= $value; ?>' <?php if($key['bulan'] == $value) echo "selected";?>><?= $value; ?></option>
+                      <?php endforeach; ?>
+
+
+                    </select>
                   </div>
+
+
+
                 </div>
-                <div class="form-group row">
-                  <label class="col-sm-2 col-form-label">Bulan</label>
-                  <div class="col-sm-5">
-                    <input type="text" class="form-control" id="bulan" name="bulan" placeholder="" value="<?php echo $key['bulan']; ?>" required>
-                    <?php echo form_error('bulan'); ?>
-                  </div>
-                </div>
+
                 <div class="form-group row">
                   <label class="col-sm-2 col-form-label">Tahun</label>
                   <div class="col-sm-5">
@@ -90,7 +99,7 @@
               <!-- /.card-body -->
 
               <div class="card-footer">
-              <button type="submit" class="btn btn-info">Simpan</button>
+                <button type="submit" class="btn btn-info">Simpan</button>
               </div>
             </form>
           </div>
@@ -105,12 +114,12 @@
 
     <?php $this->load->view('dashboard/_part/footer'); ?>
 
-    
+
 
   </div>
 
   <?php $this->load->view('dashboard/_part/js'); ?>
- 
+
 </body>
 
 </html>

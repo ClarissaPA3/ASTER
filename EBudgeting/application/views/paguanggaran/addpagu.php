@@ -13,7 +13,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -53,20 +53,35 @@
                     <!-- form start -->
                     <form action="<?php echo site_url('C_paguanggaran/add'); ?>" method="post" enctype="multipart/form-data">
                         <div class="card-body">
-                            
+
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Nominal Pagu</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="nominal_pagu" name="nominal_pagu" placeholder="" required>
                                 </div>
                             </div>
-                          
+
                             <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Bulan</label>
+
+                                <label for="bulan" class="col-sm-2 col-form-label">Bulan</label>
                                 <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="bulan" name="bulan" placeholder="" required>
+                                    <select id="bulan" name="bulan" class="form-control">
+                                        <option selected disabled>===== Pilih Bulan =====</option>
+                                        <?php
+                                        foreach ($bulan as $key => $value) : ?>
+
+                                            <option value='<?= $value; ?>'><?= $value; ?></option>
+                                        <?php endforeach; ?>
+
+
+                                    </select>
                                 </div>
+
+
+
                             </div>
+
+                      
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Tahun</label>
                                 <div class="col-sm-5">
@@ -86,7 +101,7 @@
             </section>
 
             <!-- /.content-wrapper -->
-            
+
         </div>
 
         <?php $this->load->view('dashboard/_part/footer'); ?>

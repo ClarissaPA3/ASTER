@@ -48,8 +48,8 @@ INNER JOIN detail_pengajuananggaran ON pengajuan_anggaran.id_pengajuan=detail_pe
 INNER JOIN detail_pengajuananggaran ON pengajuan_anggaran.id_pengajuan=detail_pengajuananggaran.id_pengajuan WHERE pengajuan_anggaran.minggu2 = %s AND detail_pengajuananggaran.id_subpos = %s AND  pengajuan_anggaran.status2=6 AND pengajuan_anggaran.bulan2= '%s'", '4', $id, $arrbulan[$saatini]))->result_array();
         $total = $minggu1[0]['nominal'] + $minggu2[0]['nominal'] + $minggu3[0]['nominal'] + $minggu4[0]['nominal'];
 
-        print_r($minggu1);
-        return array('minggu1' => $minggu1[0], 'minggu2' => $minggu2[0], 'minggu3' => $minggu3[0], 'minggu4' => $minggu4[0], 'total' => $total);
+       
+        return array('minggu1' => $minggu1[0], 'minggu2' => $minggu2[0], 'minggu3' => $minggu3[0], 'minggu4' => $minggu4[0], 'total' => $total, 'bulan'=>$arrbulan[$saatini]);
     }
 
     public function show_rekapanggaran($id, $bulan = null)
@@ -89,8 +89,8 @@ INNER JOIN detail_pengajuananggaran ON pengajuan_anggaran.id_pengajuan=detail_pe
         $minggu4 = $this->db->query(sprintf("SELECT  SUM(detail_pengajuananggaran.nominal_pengajuan2) as nominal FROM pengajuan_anggaran
  INNER JOIN detail_pengajuananggaran ON pengajuan_anggaran.id_pengajuan=detail_pengajuananggaran.id_pengajuan WHERE pengajuan_anggaran.minggu2 = %s AND detail_pengajuananggaran.id_pos = %s AND  pengajuan_anggaran.status2=6 AND pengajuan_anggaran.bulan2= '%s'", '4', $id, $arrbulan[$saatini]))->result_array();
         $total = $minggu1[0]['nominal'] + $minggu2[0]['nominal'] + $minggu3[0]['nominal'] + $minggu4[0]['nominal'];
-        print_r($minggu1);
+        
 
-        return array('minggu1' => $minggu1[0], 'minggu2' => $minggu2[0], 'minggu3' => $minggu3[0], 'minggu4' => $minggu4[0], 'total' => $total);
+        return array('minggu1' => $minggu1[0], 'minggu2' => $minggu2[0], 'minggu3' => $minggu3[0], 'minggu4' => $minggu4[0], 'total' => $total,'bulan'=>$arrbulan[$saatini]);
     }
 }

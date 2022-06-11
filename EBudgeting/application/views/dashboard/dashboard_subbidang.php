@@ -21,6 +21,54 @@
   <!-- fontawesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
 
+  <style type="text/css">
+    /* Chart.js */
+    @keyframes chartjs-render-animation {
+      from {
+        opacity: .99
+      }
+
+      to {
+        opacity: 1
+      }
+    }
+
+    .chartjs-render-monitor {
+      animation: chartjs-render-animation 1ms
+    }
+
+    .chartjs-size-monitor,
+    .chartjs-size-monitor-expand,
+    .chartjs-size-monitor-shrink {
+      position: absolute;
+      direction: ltr;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      pointer-events: none;
+      visibility: hidden;
+      z-index: -1
+    }
+
+    .chartjs-size-monitor-expand>div {
+      position: absolute;
+      width: 1000000px;
+      height: 1000000px;
+      left: 0;
+      top: 0
+    }
+
+    .chartjs-size-monitor-shrink>div {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      left: 0;
+      top: 0
+    }
+  </style>
+
 </head>
 
 <body class="sidebar-mini control-sidebar-slide-open sidebar-mini-md sidebar-closed sidebar-collapse" style="height: auto;">
@@ -149,51 +197,51 @@
           <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu">
             <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
-             <?php if (in_array("masterpos", $this->session->userdata('hakakses')) || in_array("mastersubpos", $this->session->userdata('hakakses')) || in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
-            <li class="nav-item ">
-              <a href="#" class="nav-link">
-                <i class="nav-icon fas fa-tachometer-alt"></i>
-                <p>
-                  Data Master
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <?php
-                if (in_array("masterpos", $this->session->userdata('hakakses'))) {
-                  echo "<li class='nav-item'>
+            <?php if (in_array("masterpos", $this->session->userdata('hakakses')) || in_array("mastersubpos", $this->session->userdata('hakakses')) || in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
+              <li class="nav-item ">
+                <a href="#" class="nav-link">
+                  <i class="nav-icon fas fa-tachometer-alt"></i>
+                  <p>
+                    Data Master
+                    <i class="right fas fa-angle-left"></i>
+                  </p>
+                </a>
+                <ul class="nav nav-treeview">
+                  <?php
+                  if (in_array("masterpos", $this->session->userdata('hakakses'))) {
+                    echo "<li class='nav-item'>
                 <a href=" . site_url("C_masterpos_subpos/show_pos") . " class='nav-link'>
                   <i class='far fa-circle nav-icon'></i>
                   <p>Master Pos</p>
                 </a>
               </li>";
-                }
+                  }
 
 
-                ?>
-                <?php
-                if (in_array("mastersubpos", $this->session->userdata('hakakses'))) :
+                  ?>
+                  <?php
+                  if (in_array("mastersubpos", $this->session->userdata('hakakses'))) :
 
-                ?>
-                  <li class="nav-item">
-                    <a href="<?php echo site_url("C_masterpos_subpos/show_subpos"); ?>" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Master Sub Pos</p>
-                    </a>
-                  </li>
-                <?php endif; ?>
-                <?php
-                if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
+                  ?>
+                    <li class="nav-item">
+                      <a href="<?php echo site_url("C_masterpos_subpos/show_subpos"); ?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Master Sub Pos</p>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                  <?php
+                  if (in_array("mastersubpos2", $this->session->userdata('hakakses'))) : ?>
 
-                  <li class="nav-item">
-                    <a href="<?php echo site_url("C_masterpos_subpos/show_subpos2"); ?>" class="nav-link">
-                      <i class="far fa-circle nav-icon"></i>
-                      <p>Master Sub Pos Barang</p>
-                    </a>
-                  </li>
-                <?php endif; ?>
-              </ul>
-            </li>
+                    <li class="nav-item">
+                      <a href="<?php echo site_url("C_masterpos_subpos/show_subpos2"); ?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Master Sub Pos Barang</p>
+                      </a>
+                    </li>
+                  <?php endif; ?>
+                </ul>
+              </li>
             <?php endif; ?>
             <!-- Pengajuananggaran -->
             <li class="nav-item">
@@ -359,6 +407,84 @@
             </div>
             <!-- ./col -->
           </div>
+          <div class="row">
+            <div class="col-md-6">
+              <!-- AREA CHART -->
+              <div class="card card-primary">
+                <div class="card-header">
+                  <h3 class="card-title">Chart Total pengajuan tahun ini</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <div class="chartjs-size-monitor">
+                      <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                      </div>
+                      <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                      </div>
+                    </div>
+                    <canvas id="areaChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 316px;" width="347" height="275" class="chartjs-render-monitor"></canvas>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+
+
+
+
+            </div>
+            <!-- /.col (LEFT) -->
+            <div class="col-md-6">
+              <!-- LINE CHART -->
+              <div class="card card-info">
+                <div class="card-header">
+                  <h3 class="card-title">Chart Ajuan disetujui tahun ini</h3>
+
+                  <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                      <i class="fas fa-minus"></i>
+                    </button>
+                    <button type="button" class="btn btn-tool" data-card-widget="remove">
+                      <i class="fas fa-times"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <div class="chart">
+                    <div class="chartjs-size-monitor">
+                      <div class="chartjs-size-monitor-expand">
+                        <div class=""></div>
+                      </div>
+                      <div class="chartjs-size-monitor-shrink">
+                        <div class=""></div>
+                      </div>
+                    </div>
+                    <canvas id="lineChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%; display: block; width: 316px;" width="347" height="275" class="chartjs-render-monitor"></canvas>
+                  </div>
+                </div>
+                <!-- /.card-body -->
+              </div>
+              <!-- /.card -->
+
+
+
+
+
+            </div>
+            <!-- /.col (RIGHT) -->
+          </div>
         </div>
       </section>
       <!-- /.content -->
@@ -387,12 +513,104 @@
   <script src="<?php echo base_url('assets/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- overlayScrollbars -->
   <script src="<?php echo base_url('assets/') ?>plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+
+  <!-- ChartJS -->
+  <script src="<?php echo base_url('assets/') ?>plugins/chart.js/Chart.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url('assets/') ?>dist/js/adminlte.min.js"></script>
 
 
+  <!-- Page specific script -->
+  <script>
+    $(document).ready(function(){
 
+    });
+    $(function() {
+      /* ChartJS
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
 
+      //--------------
+      //- AREA CHART -
+      //--------------
+
+      // Get context with jQuery - using jQuery's .get() method.
+      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+
+      var areaChartData = {
+        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        datasets: [{
+            label: 'Digital Goods',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: [28, 48, 40, 19, 86, 27, 90]
+          },
+          {
+            label: 'Electronics',
+            backgroundColor: 'rgba(210, 214, 222, 1)',
+            borderColor: 'rgba(210, 214, 222, 1)',
+            pointRadius: false,
+            pointColor: 'rgba(210, 214, 222, 1)',
+            pointStrokeColor: '#c1c7d1',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(220,220,220,1)',
+            data: [65, 59, 80, 81, 56, 55, 40]
+          },
+        ]
+      }
+
+      var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          display: false
+        },
+        scales: {
+          xAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }],
+          yAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }]
+        }
+      }
+
+      // This will get the first returned node in the jQuery collection.
+      new Chart(areaChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+      })
+
+      //-------------
+      //- LINE CHART -
+      //--------------
+      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+      var lineChartOptions = $.extend(true, {}, areaChartOptions)
+      var lineChartData = $.extend(true, {}, areaChartData)
+      lineChartData.datasets[0].fill = false;
+      lineChartData.datasets[1].fill = false;
+      lineChartOptions.datasetFill = false
+
+      var lineChart = new Chart(lineChartCanvas, {
+        type: 'line',
+        data: lineChartData,
+        options: lineChartOptions
+      })
+
+      
+    })
+  </script>
 
 
 

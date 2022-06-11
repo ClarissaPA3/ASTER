@@ -170,7 +170,7 @@ class C_ajuananggaran extends CI_Controller
 
 
 		$this->load->view('rekapitulasi/rekap_anggaran.php', $data);
-		$this->load->view('dashboard/_part/footer');
+		
 	}
 
 	public function show_rekapposanggaran()
@@ -190,7 +190,8 @@ class C_ajuananggaran extends CI_Controller
 			$data['totalkeseluruhan'] += $hitungajuan[$i]['total'];
 		}
 		$data['hitungajuan'] = $hitungajuan;
+	
 		$this->load->view('rekapitulasi/rekap_pos.php', $data);
-		$this->load->view('dashboard/_part/footer');
+		
 	}
 }

@@ -6,13 +6,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Budgeting | Master Sub Pos</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
-
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -57,12 +57,7 @@
                                 <!-- /.card-header -->
                                 <div class="card-body">
                                     <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-6">
-
-                                            </div>
-                                            <div class="col-sm-12 col-md-6"></div>
-                                        </div>
+                                       
                                         <div class="row">
                                             <div class="col-sm-12">
                                                 <table id="example2" class="table table-bordered table-hover text-center">
@@ -70,7 +65,7 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Sub Pos</th>
-                                                            <th colspan="2">Aksi</th>
+                                                            <th>Aksi</th>
                                                         </tr>
 
                                                     </thead>
@@ -85,22 +80,17 @@
                                                             <tr>
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_subpos'] ?></td>
-                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                                <td> <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-danger" id="hapus">Hapus</a></td>
+                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                    <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                                                </td>
+
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-7">
-
-                                            </div>
-                                        </div>
+                                  
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -125,21 +115,33 @@
         </footer>
 
     </div>
-    <!-- Add the sidebar's background. This div must be placed
-       immediately after the control sidebar -->
-    <div class="control-sidebar-bg"></div>
+    
     </div>
     <!-- ./wrapper -->
 
+    
+
     <?php $this->load->view('dashboard/_part/js'); ?>
+
+
+
+
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#example2').DataTable();
+        });
+    </script>
+
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).on('click', '#hapus', function(event) {
             event.preventDefault();
-            
+
             const href = $(this).attr('href');
-        
+
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
 

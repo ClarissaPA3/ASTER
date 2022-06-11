@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>E-Budgeting | Data Pegawai</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -70,8 +71,8 @@
                                                         <th>Jabatan</th>
 
                                                         <th>Username</th>
-                                                        <th>Password</th>
-                                                        <th colspan="2">Aksi</th>
+                                                        
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
 
@@ -101,12 +102,12 @@
                                                             </td>
 
                                                             <td><?php echo $key->username; ?> </td>
-                                                            <td><?php echo md5($key->password); ?> </td>
+                                                            
                                                             <td>
-                                                                <a href="<?php echo site_url('C_user/update_user/') . $key->id_anggota; ?>" class="btn btn-block btn-primary">Edit</a>
-                                                                <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger" id="hapus">Hapus</a>
-
-                                                            </td>
+                                                                <a href="<?php echo site_url('C_user/update_user/') . $key->id_anggota; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                            <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                                                </td>
+                                                           
                                                         </tr>
                                                     <?php endforeach; ?>
 
@@ -138,6 +139,18 @@
     </div>
     <!-- ./wrapper -->
     <?php $this->load->view('dashboard/_part/js'); ?>
+
+
+
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#example1').DataTable();
+        });
+    </script>
+
+
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>

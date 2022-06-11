@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Budgeting | Master Sub Pos 2</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 </head>
 
 <body class="hold-transition skin-blue sidebar-mini">
@@ -67,7 +68,7 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Sub Pos Barang</th>
-                                                            <th colspan="2">Aksi</th>
+                                                            <th>Aksi</th>
                                                         </tr>
 
                                                     </thead>
@@ -82,9 +83,10 @@
                                                             <tr>
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_subpos2'] ?></td>
+                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                                                </td>
 
-                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/delete_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-danger" id="hapus">Hapus</a></td>
                                                             </tr>
                                                         <?php endforeach; ?>
 
@@ -96,14 +98,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-7">
-
-                                            </div>
-                                        </div>
+                                   
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -131,10 +126,24 @@
         </footer>
         <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
+     
     </div>
     <!-- ./wrapper -->
+    
+
+
+
+
     <?php $this->load->view('dashboard/_part/js'); ?>
+
+
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#example2').DataTable();
+        });
+    </script>
 
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>

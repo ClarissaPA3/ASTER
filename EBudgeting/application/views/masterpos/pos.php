@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Budgeting | Master Pos</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 
 </head>
 
@@ -69,7 +70,7 @@
                                                         <tr>
                                                             <th>No</th>
                                                             <th>Nama Pos</th>
-                                                            <th colspan="2">Aksi</th>
+                                                            <th>Aksi</th>
                                                         </tr>
 
                                                     </thead>
@@ -85,8 +86,11 @@
 
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_pos'] ?></td>
-                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                                <td> <a id="hapus" href="<?php echo site_url('C_masterpos_subpos/delete_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
+                                                                
+                                                                <td><a href="<?php echo site_url('C_masterpos_subpos/update_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                    <a id="hapus" href="<?php echo site_url('C_masterpos_subpos/delete_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-danger"><i class="fas fa-trash"></i></a>
+                                                                </td>
+
 
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -94,14 +98,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                        <div class="row">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-7">
-
-                                            </div>
-                                        </div>
+                                       
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -121,16 +118,25 @@
 
 
     <?php $this->load->view('dashboard/_part/js'); ?>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#example1').DataTable();
+        });
+    </script>
+
+
+
+
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).on('click', '#hapus', function(event) {
             event.preventDefault();
-            
+
             const href = $(this).attr('href');
-        
+
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
 
@@ -145,7 +151,7 @@
 
         })
     </script>
-   
+
 </body>
 
 </html>

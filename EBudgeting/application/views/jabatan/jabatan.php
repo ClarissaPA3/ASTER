@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Budgeting | Jabatan</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
-
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 
 </head>
 
@@ -70,7 +70,7 @@
                                                         <th>Tingkatan Jabatan</th>
                                                         <th>Hak Akses</th>
                                                         <th>Tingkatan User</th>
-                                                        <th colspan="2">Aksi</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
 
@@ -86,11 +86,10 @@
                                                             <td><a href="<?php echo site_url('C_input_jabatan/hakakses/') . $nama['id_jabatan']; ?>" class="btn btn-primary">Hak Akses</a></td>
 
                                                             <td><?php echo $nama['tingkatan_user'] ?></td>
-                                                            <td><a href="<?php echo site_url('C_input_jabatan/update_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                            <td> <a id="hapus" href="<?php echo site_url('C_input_jabatan/delete_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-danger">Hapus</a>
-                                                           
+                                                            <td><a href="<?php echo site_url('C_input_jabatan/update_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                                <a id="hapus" href="<?php echo site_url('C_input_jabatan/delete_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-danger"><i class="fas fa-trash"></i></a>
                                                             </td>
-
+                                                            
                                                         </tr>
                                                     <?php endforeach; ?>
 
@@ -117,6 +116,8 @@
             </section>
             <!-- /.content -->
         </div>
+
+
         <!-- /.content-wrapper -->
         <footer class="main-footer">
 
@@ -138,6 +139,8 @@
 
 
 
+
+
     <!-- ./wrapper -->
     <!-- jQuery -->
     <?php $this->load->view('dashboard/_part/js'); ?>
@@ -146,9 +149,9 @@
     <script>
         $(document).on('click', '#hapus', function(event) {
             event.preventDefault();
-            
+
             const href = $(this).attr('href');
-        
+
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
 
@@ -162,6 +165,15 @@
             });
 
         })
+    </script>
+
+
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example1').DataTable();
+        });
     </script>
 
 

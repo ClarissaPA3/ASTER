@@ -12,7 +12,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -36,6 +36,11 @@
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
                                 <li class="breadcrumb-item active">Master Sub Pos 2</li>
                             </ol>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php echo $this->session->flashdata('pesan'); ?>
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
@@ -84,7 +89,7 @@
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_subpos2'] ?></td>
                                                                 <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                                <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                                                    <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos2/') . $nama['id_subpos2']; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
                                                                 </td>
 
                                                             </tr>
@@ -98,7 +103,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                   
+
                                     </div>
                                 </div>
                                 <!-- /.card-body -->
@@ -126,10 +131,10 @@
         </footer>
         <!-- Add the sidebar's background. This div must be placed
        immediately after the control sidebar -->
-     
+
     </div>
     <!-- ./wrapper -->
-    
+
 
 
 
@@ -150,9 +155,9 @@
     <script>
         $(document).on('click', '#hapus', function(event) {
             event.preventDefault();
-            
+
             const href = $(this).attr('href');
-        
+
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
 

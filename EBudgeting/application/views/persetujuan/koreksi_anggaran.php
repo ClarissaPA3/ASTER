@@ -13,16 +13,16 @@
 
   <div class="wrapper">
 
-  <?php
-        if ($this->session->userdata('jabatan') == 'subbidang') {
-            $this->load->view('dashboard/sidebarnav/_headsubbidang');
-        } else if ($this->session->userdata('jabatan') == 'dm') {
-            $this->load->view('dashboard/sidebarnav/_headdm');
-        } else if ($this->session->userdata('jabatan') == 'dmpau') {
-            $this->load->view('dashboard/sidebarnav/_headdmpau');
-        }
+    <?php
+    if ($this->session->userdata('jabatan') == 'subbidang') {
+      $this->load->view('dashboard/sidebarnav/_headsubbidang');
+    } else if ($this->session->userdata('jabatan') == 'dm') {
+      $this->load->view('dashboard/sidebarnav/_headdm');
+    } else if ($this->session->userdata('jabatan') == 'dmpau') {
+      $this->load->view('dashboard/sidebarnav/_headdmpau');
+    }
 
-        ?>
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -37,6 +37,11 @@
                 <li class="breadcrumb-item">Home</li>
                 <li class="breadcrumb-item active">Koreksi Anggaran</li>
               </ol>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <?php echo $this->session->flashdata('pesan'); ?>
             </div>
           </div>
         </div><!-- /.container-fluid -->

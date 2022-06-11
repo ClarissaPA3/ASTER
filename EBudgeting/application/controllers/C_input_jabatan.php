@@ -27,12 +27,22 @@ class C_input_jabatan extends CI_Controller
         } else {
 
             $this->M_input_jabatan->add_jabatanM();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
+						Berhasil ditambahkan.
+					</div>');
             redirect(site_url('C_input_jabatan/show_jabatan'));
         }
     }
     public function delete_jabatan($id)
     {
         $this->M_input_jabatan->delete_jabatanM($id);
+        $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i> Data Dihapus!</h5>
+							Berhasil dihapus.
+						</div>');
         redirect(site_url('C_input_jabatan/show_jabatan'));
     }
     public function update_jabatan($id)
@@ -81,6 +91,11 @@ class C_input_jabatan extends CI_Controller
             print_r($this->input->post('hakakses'));
 
             $this->M_input_jabatan->hakakses();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Update Hak Akses!</h5>
+						Berhasil Mengubah Hak Akses.
+					</div>');
             redirect(site_url('C_input_jabatan/show_jabatan'));
         }
 

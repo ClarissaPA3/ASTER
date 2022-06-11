@@ -54,6 +54,11 @@
               </ol>
             </div>
           </div>
+          <div class="row">
+            <div class="col-md-12">
+              <?php echo $this->session->flashdata('pesan'); ?>
+            </div>
+          </div>
         </div><!-- /.container-fluid -->
       </section>
 
@@ -302,11 +307,11 @@
           showCancelButton: true
 
         }).then((result) => {
-        /* Read more about isConfirmed, isDenied below */
-        if (result.isConfirmed) {
-          window.location = "<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>";
-        }
-      });
+          /* Read more about isConfirmed, isDenied below */
+          if (result.isConfirmed) {
+            window.location = "<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>";
+          }
+        });
 
       })
 

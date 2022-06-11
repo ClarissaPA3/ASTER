@@ -208,7 +208,11 @@ class C_menutransfer extends CI_Controller
                 $this->session->set_flashdata('success', 'Sukses! email berhasil dikirim.');
             }
 
-            $this->session->set_flashdata('success', 'Berhasil disimpan');
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
+						Berhasil ditambahkan.
+					</div>');
             $this->M_menutransfer->save();
             redirect(site_url('C_menutransfer'));
         } else {
@@ -226,6 +230,11 @@ class C_menutransfer extends CI_Controller
 
         if ($validation->run()) {
             $transfers->update($id);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h5><i class="icon fas fa-check"></i> Update Data!</h5>
+			Berhasil diupdate.
+			</div>');
 
             redirect(site_url('C_menutransfer'));
         } else {
@@ -241,7 +250,11 @@ class C_menutransfer extends CI_Controller
 
         if (isset($id)) {
             $this->M_menutransfer->delete($id);
-
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            <h5><i class="icon fas fa-ban"></i> Data Dihapus!</h5>
+            Berhasil dihapus.
+        </div>');
             redirect(site_url('C_menutransfer'));
         } else {
             show_error('Invalid Action has been detected please back to previous page', 404, "Invalid Action Error 404");

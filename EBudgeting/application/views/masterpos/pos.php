@@ -40,6 +40,11 @@
                             </ol>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php echo $this->session->flashdata('pesan'); ?>
+                        </div>
+                    </div>
                 </div><!-- /.container-fluid -->
             </section>
 
@@ -86,7 +91,7 @@
 
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_pos'] ?></td>
-                                                                
+
                                                                 <td><a href="<?php echo site_url('C_masterpos_subpos/update_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                                                     <a id="hapus" href="<?php echo site_url('C_masterpos_subpos/delete_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-danger"><i class="fas fa-trash"></i></a>
                                                                 </td>
@@ -98,7 +103,7 @@
                                                 </table>
                                             </div>
                                         </div>
-                                       
+
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

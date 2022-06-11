@@ -42,12 +42,22 @@ class C_user extends CI_Controller
 		} else {
 
 			$this->M_user->add_user();
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
+						Berhasil ditambahkan.
+					</div>');
 			redirect(site_url('C_user/show_user'));
 		}
 	}
 	public function delete_user($id)
 	{
 		$this->M_user->delete_user($id);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i> Data Dihapus!</h5>
+							Berhasil dihapus.
+						</div>');
 		redirect(site_url('C_user/show_user'));
 	}
 	public function update_user($id = null)
@@ -80,6 +90,11 @@ class C_user extends CI_Controller
 		} else {
 			print_r("meong");
 			$this->M_user->update_user();
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h5><i class="icon fas fa-check"></i> Update Data!</h5>
+			Berhasil diupdate.
+			</div>');
 
 			redirect(site_url('C_user/show_user'));
 		}

@@ -21,6 +21,11 @@ class C_ajuananggaran extends CI_Controller
 			redirect(site_url('C_login'));
 		} 
 		$this->M_ajuananggaran->add_pengajuan();
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
+						Berhasil ditambahkan.
+					</div>');
 
 		redirect(site_url('C_ajuananggaran/show_datapengajuan'));
 	}
@@ -31,7 +36,11 @@ class C_ajuananggaran extends CI_Controller
 		} 
 		$this->M_detailajuan->delete_alldetailanggaranM($id);
 		$this->M_ajuananggaran->delete_pengajuan($id);
-
+		$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i> Data Dihapus!</h5>
+							Berhasil dihapus.
+						</div>');
 		redirect(site_url('C_ajuananggaran/show_datapengajuan'));
 	}
 	public function update_datapengajuan($id = null)
@@ -68,8 +77,13 @@ class C_ajuananggaran extends CI_Controller
 				$this->session->set_flashdata('pagu', $pengajuan);
 				redirect($_SERVER['HTTP_REFERER']);
 			} else {
-				print_r($this->input->post('tgl_pengajuan2'));
+				
 				$this->M_ajuananggaran->update_pengajuan();
+				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-check"></i> Update Data!</h5>
+				Berhasil diupdate.
+				</div>');
 				redirect(site_url('C_ajuananggaran/show_datapengajuan'));
 			}
 		}

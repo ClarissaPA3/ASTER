@@ -46,9 +46,9 @@ class M_paguanggaran extends CI_Model
         $data = array(
 
             'id_paguanggaran' => '',
-            'id_anggota' => '2',
+            'id_anggota' =>  $this->session->userdata('id_anggota'),
             'nominal_pagu' => $this->input->post('nominal_pagu'),
-            'nominal_terpakai' => $this->input->post('nominal_terpakai'),
+            'nominal_terpakai' =>'0',
             'bulan' => $this->input->post('bulan'),
             'tahun' => $this->input->post('tahun')
 

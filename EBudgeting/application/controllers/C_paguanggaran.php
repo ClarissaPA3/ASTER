@@ -32,13 +32,18 @@ class C_paguanggaran extends CI_Controller
 
 
         $this->form_validation->set_rules('nominal_pagu', 'Nominal Pagu', 'required|min_length[3]|max_length[64]');
-        $this->form_validation->set_rules('nominal_terpakai', 'Nominal Terpakai', 'required|min_length[1]|max_length[64]');
+        
         $this->form_validation->set_rules('bulan', 'Bulan', 'required|min_length[3]|max_length[64]');
         $this->form_validation->set_rules('tahun', 'Tahun', 'required|min_length[3]|max_length[64]');
         echo $this->form_validation->run();
         if ($this->form_validation->run()) {
             $this->session->set_flashdata('success', 'Berhasil disimpan');
             $this->M_paguanggaran->save();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
+						Berhasil ditambahkan.
+					</div>');
             redirect(site_url('C_paguanggaran'));
         } else {
             $this->load->view("paguanggaran/addpagu");
@@ -55,7 +60,11 @@ class C_paguanggaran extends CI_Controller
 
         if ( $this->form_validation->run()) {
             $this->M_paguanggaran->update($id);
-
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+			<h5><i class="icon fas fa-check"></i> Update Data!</h5>
+			Berhasil diupdate.
+			</div>');
             redirect(site_url('C_paguanggaran'));
         } else {
 
@@ -72,6 +81,11 @@ class C_paguanggaran extends CI_Controller
 
         if (isset($id)) {
             $this->M_paguanggaran->delete($id);
+            $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+							<h5><i class="icon fas fa-ban"></i> Data Dihapus!</h5>
+							Berhasil dihapus.
+						</div>');
 
             redirect(site_url('C_paguanggaran'));
         } else {

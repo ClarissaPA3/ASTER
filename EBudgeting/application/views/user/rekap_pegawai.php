@@ -40,7 +40,13 @@
                             </ol>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <?php echo $this->session->flashdata('pesan'); ?>
+                        </div>
+                    </div>
                 </div><!-- /.container-fluid -->
+                
             </section>
 
 

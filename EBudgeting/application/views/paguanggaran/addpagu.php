@@ -53,24 +53,14 @@
                     <!-- form start -->
                     <form action="<?php echo site_url('C_paguanggaran/add'); ?>" method="post" enctype="multipart/form-data">
                         <div class="card-body">
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">ID Anggota</label>
-                                <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="id_anggota" name="id_anggota" placeholder="" required>
-                                </div>
-                            </div>
+                            
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Nominal Pagu</label>
                                 <div class="col-sm-5">
                                     <input type="text" class="form-control" id="nominal_pagu" name="nominal_pagu" placeholder="" required>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="col-sm-2 col-form-label">Nominal Terpakai</label>
-                                <div class="col-sm-5">
-                                    <input type="text" class="form-control" id="nominal_terpakai" name="nominal_terpakai" placeholder="" required>
-                                </div>
-                            </div>
+                          
                             <div class="form-group row">
                                 <label class="col-sm-2 col-form-label">Bulan</label>
                                 <div class="col-sm-5">

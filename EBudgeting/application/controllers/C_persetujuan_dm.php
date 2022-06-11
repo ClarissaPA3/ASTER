@@ -72,6 +72,11 @@ class C_persetujuan_dm extends CI_Controller
             
             $this->M_ajuananggaran->update_pengajuanDM();
             $this->M_detailajuan->update_pengajuanDM();
+            $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
+						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+						<h5><i class="icon fas fa-check"></i> Update Data!</h5>
+						Berhasil diubah.
+					</div>');
             redirect(site_url('C_persetujuan_dm/show_pengajuandm'));
         }
     }

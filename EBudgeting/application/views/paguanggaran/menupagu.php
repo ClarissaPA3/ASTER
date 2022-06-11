@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>E-Budgeting | Pagu Anggaran</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
+    <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 
 </head>
 
@@ -13,7 +14,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -61,7 +62,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="example2" class="table table-bordered table-hover text-center">
-                                                <thead>
+                                            <thead>
                                                     <tr>
                                                         <th>No</th>
                                                         <th>ID Anggota</th>
@@ -69,7 +70,18 @@
                                                         <th>Nominal Terpakai</th>
                                                         <th>Bulan</th>
                                                         <th>Tahun</th>
-                                                        <th colspan="2">Aksi</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>    
+                                            <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>ID Anggota</th>
+                                                        <th>Nominal Pagu</th>
+                                                        <th>Nominal Terpakai</th>
+                                                        <th>Bulan</th>
+                                                        <th>Tahun</th>
+                                                        <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody class="table-striped">
@@ -95,6 +107,7 @@
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
+                                               
                                             </table>
                                         </div>
                                     </div>
@@ -113,20 +126,53 @@
             </section>
             <!-- /.content -->
         </div>
-        
+
         <?php $this->load->view('dashboard/_part/footer'); ?>
     </div>
     <!-- /.row (main row) -->
     <?php $this->load->view('dashboard/_part/js'); ?>
+
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            $('#example2').DataTable({
+                
+                initComplete: function() {
+                    this.api()
+                        .columns()
+                        .every(function() {
+                            var column = this;
+                            var select = $('<select><option value=""></option></select>')
+                                .appendTo( $("#example2 thead tr:eq(1) th").eq(column.index()).empty())
+                                
+                                .on('change', function() {
+                                    var val = $.fn.dataTable.util.escapeRegex($(this).val());
+
+                                    column.search(val ? '^' + val + '$' : '', true, false).draw();
+                                });
+
+                            column
+                                .data()
+                                .unique()
+                                .sort()
+                                .each(function(d, j) {
+                                    select.append('<option value="' + d + '">' + d + '</option>');
+                                });
+                        });
+                },
+            });
+        });
+    </script>
 
     <!-- SweetAlert 2 -->
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         $(document).on('click', '#hapus', function(event) {
             event.preventDefault();
-            
+
             const href = $(this).attr('href');
-        
+
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
 

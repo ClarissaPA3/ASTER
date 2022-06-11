@@ -28,16 +28,16 @@
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
-  <?php
-        if ($this->session->userdata('jabatan') == 'subbidang') {
-            $this->load->view('dashboard/sidebarnav/_headsubbidang');
-        } else if ($this->session->userdata('jabatan') == 'dm') {
-            $this->load->view('dashboard/sidebarnav/_headdm');
-        } else if ($this->session->userdata('jabatan') == 'dmpau') {
-            $this->load->view('dashboard/sidebarnav/_headdmpau');
-        }
+    <?php
+    if ($this->session->userdata('jabatan') == 'subbidang') {
+      $this->load->view('dashboard/sidebarnav/_headsubbidang');
+    } else if ($this->session->userdata('jabatan') == 'dm') {
+      $this->load->view('dashboard/sidebarnav/_headdm');
+    } else if ($this->session->userdata('jabatan') == 'dmpau') {
+      $this->load->view('dashboard/sidebarnav/_headdmpau');
+    }
 
-        ?>
+    ?>
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
@@ -82,9 +82,9 @@
 
                 <div class="col-md-2">
                   <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-                  + Tambah Ajuan
+                    + Tambah Ajuan
                   </button>
-                 
+
                 </div>
               </div>
               <!-- /.card-header -->
@@ -155,7 +155,8 @@
                                 <?php
                                 if ($pengajuan_anggaran->status2 < 2) {
                                 ?>
-                                  <a class="btn btn-danger" href="<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>"><i class="fas fa-trash"></i></a>
+
+                                  <a class="btn btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
 
                                 <?php
                                 }
@@ -285,74 +286,32 @@
   </div>
 
 
-  <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-  <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/fixedheader/3.2.3/js/dataTables.fixedHeader.min.js"></script>
-  <script>
-    $(document).ready(function() {
-      // Setup - add a text input to each footer cell
-      $('#example thead tr')
-        .clone(true)
-        .addClass('filters')
-        .appendTo('#example thead');
 
-      var table = $('#example').DataTable({
-        orderCellsTop: true,
-        fixedHeader: true,
-        initComplete: function() {
-          var api = this.api();
-
-          // For each column
-          api
-            .columns()
-            .eq(0)
-            .each(function(colIdx) {
-              // Set the header cell to contain the input element
-              var cell = $('.filters th').eq(
-                $(api.column(colIdx).header()).index()
-              );
-              var title = $(cell).text();
-              $(cell).html('<input type="text" placeholder="' + title + '" />');
-
-              // On every keypress in this input
-              $(
-                  'input',
-                  $('.filters th').eq($(api.column(colIdx).header()).index())
-                )
-                .off('keyup change')
-                .on('change', function(e) {
-                  // Get the search value
-                  $(this).attr('title', $(this).val());
-                  var regexr = '({search})'; //$(this).parents('th').find('select').val();
-
-                  var cursorPosition = this.selectionStart;
-                  // Search the column for that value
-                  api
-                    .column(colIdx)
-                    .search(
-                      this.value != '' ?
-                      regexr.replace('{search}', '(((' + this.value + ')))') :
-                      '',
-                      this.value != '',
-                      this.value == ''
-                    )
-                    .draw();
-                })
-                .on('keyup', function(e) {
-                  e.stopPropagation();
-
-                  $(this).trigger('change');
-                  $(this)
-                    .focus()[0]
-                    .setSelectionRange(cursorPosition, cursorPosition);
-                });
-            });
-        },
-      });
-    });
-  </script>
 
   <?php $this->load->view('dashboard/_part/js'); ?>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $(document).ready(function() {
+      $('#hapus').on('click', function() {
+
+        Swal.fire({
+          title: 'Apakah anda yakin untuk menghapusnya?',
+
+          icon: 'question',
+          confirmButtonText: 'OK!',
+          showCancelButton: true
+
+        }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+          window.location = "<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>";
+        }
+      });
+
+      })
+
+    });
+  </script>
 </body>
 
 </html>

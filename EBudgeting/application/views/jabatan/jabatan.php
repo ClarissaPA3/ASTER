@@ -15,7 +15,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -87,7 +87,9 @@
 
                                                             <td><?php echo $nama['tingkatan_user'] ?></td>
                                                             <td><a href="<?php echo site_url('C_input_jabatan/update_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                            <td> <a href="<?php echo site_url('C_input_jabatan/delete_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
+                                                            <td> <a id="hapus" href="<?php echo site_url('C_input_jabatan/delete_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-danger">Hapus</a>
+                                                           
+                                                            </td>
 
                                                         </tr>
                                                     <?php endforeach; ?>
@@ -139,6 +141,28 @@
     <!-- ./wrapper -->
     <!-- jQuery -->
     <?php $this->load->view('dashboard/_part/js'); ?>
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('click', '#hapus', function(event) {
+            event.preventDefault();
+            
+            const href = $(this).attr('href');
+        
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapusnya?',
+
+                icon: 'question',
+                confirmButtonText: 'OK!',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+
+        })
+    </script>
 
 
 

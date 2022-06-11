@@ -12,7 +12,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -104,7 +104,7 @@
                                                             <td><?php echo md5($key->password); ?> </td>
                                                             <td>
                                                                 <a href="<?php echo site_url('C_user/update_user/') . $key->id_anggota; ?>" class="btn btn-block btn-primary">Edit</a>
-                                                                <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger">Delete</a>
+                                                                <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger" id="hapus">Hapus</a>
 
                                                             </td>
                                                         </tr>
@@ -138,7 +138,28 @@
     </div>
     <!-- ./wrapper -->
     <?php $this->load->view('dashboard/_part/js'); ?>
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('click', '#hapus', function(event) {
+            event.preventDefault();
 
+            const href = $(this).attr('href');
+
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapusnya?',
+
+                icon: 'question',
+                confirmButtonText: 'OK!',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+
+        })
+    </script>
 </body>
 
 </html>

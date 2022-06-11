@@ -86,7 +86,7 @@
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_subpos'] ?></td>
                                                                 <td><a href="<?php echo site_url('C_masterpos_subpos/update_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                                <td> <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
+                                                                <td> <a href="<?php echo site_url('C_masterpos_subpos/delete_subpos/') . $nama['id_subpos']; ?>" class="btn btn-block btn-danger" id="hapus">Hapus</a></td>
                                                             </tr>
                                                         <?php endforeach; ?>
                                                     </tbody>
@@ -132,6 +132,28 @@
     <!-- ./wrapper -->
 
     <?php $this->load->view('dashboard/_part/js'); ?>
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('click', '#hapus', function(event) {
+            event.preventDefault();
+            
+            const href = $(this).attr('href');
+        
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapusnya?',
+
+                icon: 'question',
+                confirmButtonText: 'OK!',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+
+        })
+    </script>
 </body>
 
 </html>

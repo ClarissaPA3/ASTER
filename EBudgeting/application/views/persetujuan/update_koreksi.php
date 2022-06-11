@@ -61,6 +61,7 @@
 
                             <input type="hidden" name="id_pengajuan" value="<?php echo $ajuan['id_pengajuan']; ?>">
                             <input type="hidden" name="id_anggota" value="<?php echo $ajuan['id_anggota']; ?>">
+                            <input type="hidden" name="tgl_pengajuan2" value="<?php echo $ajuan['tgl_pengajuan2']; ?>">
                             <input type="hidden" name="status2" value="<?php echo $ajuan['status2']; ?>" id="status">
                             <div class="row">
                                 <div class="col-md-6">

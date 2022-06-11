@@ -12,7 +12,7 @@
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
 
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -51,7 +51,7 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    <h3 class="card-title">  <a href="<?php echo site_url('C_masterpos_subpos/add_pos'); ?>" class="btn btn-block btn-info"><i class="fa fa-fw fa-plus"></i> Tambah Pos</a></h3>
+                                    <h3 class="card-title"> <a href="<?php echo site_url('C_masterpos_subpos/add_pos'); ?>" class="btn btn-block btn-info"><i class="fa fa-fw fa-plus"></i> Tambah Pos</a></h3>
                                 </div>
                                 <!-- /.card-header -->
                                 <div class="card-body">
@@ -86,7 +86,7 @@
                                                                 <td><?php echo $id; ?></td>
                                                                 <td><?php echo $nama['nama_pos'] ?></td>
                                                                 <td><a href="<?php echo site_url('C_masterpos_subpos/update_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-primary">Edit</a></td>
-                                                                <td> <a href="<?php echo site_url('C_masterpos_subpos/delete_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
+                                                                <td> <a id="hapus" href="<?php echo site_url('C_masterpos_subpos/delete_pos/') . $nama['id_pos']; ?>" class="btn btn-block btn-danger">Hapus</a></td>
 
                                                             </tr>
                                                         <?php endforeach; ?>
@@ -118,10 +118,34 @@
         </div>
 
     </div>
-  
+
 
     <?php $this->load->view('dashboard/_part/js'); ?>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- SweetAlert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        $(document).on('click', '#hapus', function(event) {
+            event.preventDefault();
+            
+            const href = $(this).attr('href');
+        
+            Swal.fire({
+                title: 'Apakah anda yakin untuk menghapusnya?',
 
+                icon: 'question',
+                confirmButtonText: 'OK!',
+                showCancelButton: true
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = href;
+                }
+            });
+
+        })
+    </script>
+   
 </body>
 
 </html>

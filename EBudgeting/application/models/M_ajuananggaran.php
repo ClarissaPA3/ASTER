@@ -13,6 +13,24 @@ class M_ajuananggaran extends CI_Model
     // Sub bidang
     public function add_pengajuan()
     {
+        
+        if (date("d") > 14) {
+            date_default_timezone_set("Asia/Bangkok");
+            $tanggal = date('Y-m-d');
+          
+            
+            $tanggal =  date('Y-m-d', strtotime('+1 months',strtotime(date('Y-m-d',strtotime($tanggal)))));
+            $bulan = date('m', strtotime($tanggal));
+            $tahun = date('Y',strtotime($tanggal));
+        }
+        else {
+            date_default_timezone_set("Asia/Bangkok");
+            $tanggal = date('Y-m-d');
+        
+            $bulan = date('m', strtotime($tanggal));
+            $tahun = date('Y',strtotime($tanggal));
+        }
+        
 
         $data = array(
             'id_pengajuan' => '',
@@ -20,12 +38,13 @@ class M_ajuananggaran extends CI_Model
             'catatan_dm2' => '',
             'total_pengajuan2' => '',
             'minggu2' => $this->input->post('minggu2'),
-            'bulan2' => $this->input->post('bulan2'),
+            'bulan2' => $bulan,
             'catatan_dmpau2' => '',
             'status2' => '0',
             'tanggal_mulai2' => $this->input->post('tanggal_mulai2'),
             'tanggal_sampai2' => $this->input->post('tanggal_sampai2'),
-            'tgl_pengajuan2' => date("Y-m-d")
+            'tgl_pengajuan2' => $tanggal,
+            'tahun' => $tahun
         );
         $this->db->insert('pengajuan_anggaran', $data);
     }
@@ -78,7 +97,8 @@ class M_ajuananggaran extends CI_Model
             'status2' => $this->input->post('status2'),
             'tanggal_mulai2' => $this->input->post('tanggal_mulai2'),
             'tanggal_sampai2' => $this->input->post('tanggal_sampai2'),
-            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2')
+            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2'),
+            'tahun' =>  $this->input->post('tahun')
         );
 
         $this->db->update('pengajuan_anggaran', $data, array('id_pengajuan' => $id));
@@ -172,6 +192,7 @@ class M_ajuananggaran extends CI_Model
 
         $id = $this->input->post('id_pengajuan');
         $nominalpengajuan = $this->M_detailajuan->hitunganggaran($id)[0]['nominal_pengajuan2'];
+
         $data = array(
             'id_pengajuan' => $id,
             'id_anggota' => $this->input->post('id_anggota'),
@@ -183,7 +204,8 @@ class M_ajuananggaran extends CI_Model
             'status2' => $this->input->post('status2'),
             'tanggal_mulai2' => $this->input->post('tanggal_mulai2'),
             'tanggal_sampai2' => $this->input->post('tanggal_sampai2'),
-            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2')
+            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2'),
+            'tahun' =>  $this->input->post('tahun')
         );
 
 
@@ -206,7 +228,8 @@ class M_ajuananggaran extends CI_Model
             'status2' => $this->input->post('status2'),
             'tanggal_mulai2' => $this->input->post('tanggal_mulai2'),
             'tanggal_sampai2' => $this->input->post('tanggal_sampai2'),
-            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2')
+            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2'),
+            'tahun' =>  $this->input->post('tahun')
         );
 
 

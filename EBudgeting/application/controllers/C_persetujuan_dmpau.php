@@ -42,6 +42,7 @@ class C_persetujuan_dmpau extends CI_Controller
 
 
         );
+        $data['bulan'] = array('01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April', '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember');
 
 
 
@@ -49,10 +50,10 @@ class C_persetujuan_dmpau extends CI_Controller
 
 
 
-        $this->load->view('dashboard/_part/head');
+       
         $this->load->view('persetujuan/persetujuan_dmpau.php', $data);
 
-        $this->load->view('dashboard/_part/footer');
+  
     }
     public function reviewdmpau($id = null)
     {

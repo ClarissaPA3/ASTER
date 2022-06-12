@@ -96,7 +96,7 @@
 
                                                         <tr>
                                                             <td><?php echo $pengajuan[$i]['id_pengajuan']; ?></td>
-                                                            <td><?php echo $pengajuan[$i]['bulan2']; ?></td>
+                                                            <td><?php echo $bulan[intval($pengajuan[$i]['bulan2'])]; ?></td>
                                                             <td><?php echo $pengajuan[$i]['minggu2']; ?></td>
                                                             <td><?php echo $pengajuan[$i]['tanggal_mulai2']; ?></td>
                                                             <td><?php echo $pengajuan[$i]['tanggal_sampai2']; ?></td>

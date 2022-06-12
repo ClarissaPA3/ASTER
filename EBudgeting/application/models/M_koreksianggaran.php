@@ -26,7 +26,8 @@ class M_koreksianggaran extends CI_Model
             'status2' => $this->input->post('status2'),
             'tanggal_mulai2' => $this->input->post('tanggal_mulai2'),
             'tanggal_sampai2' => $this->input->post('tanggal_sampai2'),
-            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2')
+            'tgl_pengajuan2' => $this->input->post('tgl_pengajuan2'),
+            'tahun' =>  $this->input->post('tahun')
         );
 
         $this->db->update('pengajuan_anggaran', $data, array('id_pengajuan' => $id));

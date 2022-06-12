@@ -78,6 +78,9 @@
                             <input type="hidden" name="id_pengajuan" value="<?php echo $ajuan['id_pengajuan']; ?>">
                             <input type="hidden" name="id_anggota" value="<?php echo $ajuan['id_anggota']; ?>">
                             <input type="hidden" name="tgl_pengajuan2" value="<?php echo $ajuan['tgl_pengajuan2']; ?>">
+                            <!-- bulan -->
+                            <input type="hidden" name="bulan2" value="<?php echo $ajuan['bulan2']; ?>">
+                            <input type="hidden" name="tahun" value="<?php echo $ajuan['tahun']; ?>">
                             <?php
                             if ($ajuan['status2'] >= 2) {
                             ?>
@@ -87,10 +90,10 @@
                             ?>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="minggu2" class="col-sm-2 control-label">Minggu</label>
+                                    <div class="form-group row">
+                                        <label for="minggu2" class="col-sm-4 control-label">Minggu</label>
 
-                                        <div class="col-sm-10">
+                                        <div class="col-sm-8">
                                             <select name="minggu2" id="minggu2" class="form-control">
                                                 <option value="" selected disabled>=== Pilih Minggu ==</option>
                                                 <?php foreach ($minggu as $mingguu) : ?>
@@ -103,16 +106,16 @@
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <label for="tanggal_mulai2" class="col-sm-2 control-label">Tanggal Mulai</label>
-                                        <div class="col-sm-10">
+                                    <div class="form-group row">
+                                        <label for="tanggal_mulai2" class="col-md-4 control-label">Tanggal Mulai</label>
+                                        <div class="col-md-8">
                                             <input type="date" class="form-control" name="tanggal_mulai2" id="tanggal_mulai2" placeholder="tanggal mulai" value="<?php echo date('Y-m-d', strtotime($ajuan['tanggal_mulai2'])); ?>">
 
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
+                                <div class="col-md-6 d-flex flex-column-reverse">
+                                    <!-- <div class="form-group">
                                         <label for="bulan2" class="col-sm-2 control-label">Bulan</label>
                                         <div class="col-sm-10">
                                             <select name="bulan2" id="bulan2" class="form-control">
@@ -125,11 +128,11 @@
 
 
                                         </div>
-                                    </div>
+                                    </div> -->
 
-                                    <div class="form-group">
-                                        <label for="tanggal_sampai2" class="col-sm-2 control-label">Tanggal Sampai</label>
-                                        <div class="col-sm-10">
+                                    <div class="form-group row">
+                                        <label for="tanggal_sampai2" class="col-md-4 control-label">Tanggal Sampai</label>
+                                        <div class="col-md-8">
                                             <input type="date" class="form-control" name="tanggal_sampai2" id="tanggal_sampai2" placeholder="tanggal sampai" value="<?php echo date('Y-m-d', strtotime($ajuan['tanggal_sampai2'])); ?>">
 
                                         </div>

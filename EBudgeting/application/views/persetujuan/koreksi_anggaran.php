@@ -87,7 +87,8 @@
                                 <?php echo $pengajuan_anggaran->id_pengajuan ?>
                               </td>
                               <td>
-                                <?php echo $pengajuan_anggaran->bulan2 ?>
+                                <?php echo $bulan[$pengajuan_anggaran->bulan2]; ?>
+
                               </td>
                               <td>
                                 <?php echo $pengajuan_anggaran->tgl_pengajuan2 ?>
@@ -116,7 +117,7 @@
                                 ?>
                               </td>
                               <td width="250">
-                                <a href="<?php echo site_url('C_koreksi_anggaran/update_koreksi/') . $pengajuan_anggaran->id_pengajuan . '/' . $pengajuan_anggaran->status2; ?>" class="btn btn-small"><i class="fas fa-edit"></i> Detail anggaran</a>
+                                <a href="<?php echo site_url('C_koreksi_anggaran/update_koreksi/') . $pengajuan_anggaran->id_pengajuan . '/' . $pengajuan_anggaran->status2; ?>" class="btn btn-block btn-primary col-md-8"><i class="fas fa-edit"></i> Detail anggaran</a>
                               </td>
                             </tr>
                           <?php endforeach; ?>

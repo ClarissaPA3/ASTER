@@ -7,7 +7,7 @@ class C_persetujuan_dm extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        
+
         $this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
         $this->load->model('M_masterpos_subpos');
@@ -44,13 +44,9 @@ class C_persetujuan_dm extends CI_Controller
 
         );
 
-        
 
-
-      
-       
+        $data['bulan'] = array('01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April', '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember');
         $this->load->view('persetujuan/persetujuan_dm.php', $data);
-
     }
     public function reviewdm($id = null)
     {
@@ -66,10 +62,8 @@ class C_persetujuan_dm extends CI_Controller
             $data['bulan'] = array('01' => 'Januari', '02' => 'Februari', '03' => 'Maret', '04' => 'April', '05' => 'Mei', '06' => 'Juni', '07' => 'Juli', '08' => 'Agustus', '09' => 'September', '10' => 'Oktober', '11' => 'November', '12' => 'Desember');
             $data['minggu'] = array('1', '2', '3', '4');
             $this->load->view('persetujuan/review_dm', $data);
-
-
         } else {
-            
+
             $this->M_ajuananggaran->update_pengajuanDM();
             $this->M_detailajuan->update_pengajuanDM();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
@@ -80,7 +74,7 @@ class C_persetujuan_dm extends CI_Controller
             redirect(site_url('C_persetujuan_dm/show_pengajuandm'));
         }
     }
-    
+
     public function testing()
     {
         $data['pos'] = $this->M_masterpos_subpos->show_posM();

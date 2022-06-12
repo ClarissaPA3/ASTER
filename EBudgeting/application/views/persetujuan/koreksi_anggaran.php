@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>E-Budgeting | Koreksi Anggaran</title>
   <?php $this->load->view('dashboard/_part/head'); ?>
+  <?php $this->load->view('dashboard/_part/headdatatables'); ?>
 
 </head>
 
@@ -62,7 +63,7 @@
 
                   <div class="row">
                     <div class="col-sm-12">
-                      <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                      <table class="table table-hover" id="example" width="100%" cellspacing="0">
                         <thead>
                           <tr>
                             <th>ID Pengajuan</th>
@@ -162,6 +163,26 @@
 
 
   <?php $this->load->view('dashboard/_part/js'); ?>
+  <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+  <script>
+    $(document).ready(function() {
+      $('#example').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1],
+          },
+          {
+            targets: [1],
+            orderData: [1, 0],
+          },
+          {
+            targets: [4],
+            orderData: [4, 0],
+          },
+        ],
+      });
+    });
+  </script>
 </body>
 
 </html>

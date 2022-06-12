@@ -4,6 +4,7 @@
 <head>
   <title>E-Budgeting | Ajuan Anggaran</title>
   <?php $this->load->view("dashboard/_part/head"); ?>
+  <?php $this->load->view("dashboard/_part/headdatatables"); ?>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.css">
 
   <!-- Google Font -->
@@ -99,7 +100,7 @@
                   <div class="row">
                     <div class="col-sm-12">
 
-                      <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                      <table class="table table-hover" id="example" width="100%" cellspacing="0">
                         <thead>
                           <tr>
                             <th>ID Pengajuan</th>
@@ -110,7 +111,7 @@
                             <th>Tanggal Sampai </th>
                             <th>Total </th>
                             <th>Status </th>
-                            <th colspan="2">Aksi</th>
+                            <th>Aksi</th>
 
                           </tr>
                         </thead>
@@ -153,7 +154,6 @@
 
 
 
-                              <td class="small">
                               <td width="250">
 
                                 <a href="<?php echo site_url('C_ajuananggaran/update_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>" class="btn btn-primary"><i class="fa-solid fa-pen-to-square"></i> </a>
@@ -215,6 +215,8 @@
       reserved.
     </footer>
   </div>
+
+  
   <div class="modal fade" id="modal-default" style="display: none;" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -294,28 +296,48 @@
 
 
   <?php $this->load->view('dashboard/_part/js'); ?>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <!-- Datatables -->
+  <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
   <script>
     $(document).ready(function() {
-      $('#hapus').on('click', function() {
-
-        Swal.fire({
-          title: 'Apakah anda yakin untuk menghapusnya?',
-
-          icon: 'question',
-          confirmButtonText: 'OK!',
-          showCancelButton: true
-
-        }).then((result) => {
-          /* Read more about isConfirmed, isDenied below */
-          if (result.isConfirmed) {
-            window.location = "<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>";
-          }
-        });
-
-      })
-
+      $('#example').DataTable({
+        columnDefs: [{
+            targets: [0],
+            orderData: [0, 1],
+          },
+          {
+            targets: [1],
+            orderData: [1, 0],
+          },
+          {
+            targets: [4],
+            orderData: [4, 0],
+          },
+        ],
+      });
     });
+  </script>
+  <!-- SweetAlert 2 -->
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script>
+    $(document).on('click', '#hapus', function(event) {
+      event.preventDefault();
+
+      const href = $(this).attr('href');
+
+      Swal.fire({
+        title: 'Apakah anda yakin untuk menghapusnya?',
+
+        icon: 'question',
+        confirmButtonText: 'OK!',
+        showCancelButton: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          window.location.href = href;
+        }
+      });
+
+    })
   </script>
 </body>
 

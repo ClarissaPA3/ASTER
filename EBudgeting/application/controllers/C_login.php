@@ -89,6 +89,11 @@ class C_login extends CI_Controller
 		
 		
 		$id_anggota = $this->session->userdata('id_anggota');
+		
+		// Jika tidak ada session maka akan kembali ke login
+		if (!isset($id_anggota)) {
+			redirect(site_url('C_login'));
+		}
 
 		
 		

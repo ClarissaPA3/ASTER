@@ -400,7 +400,7 @@
             </div>
             <!-- ./col -->
           </div>
-           <div class="row">
+          <div class="row">
             <div class="col-md-6">
               <!-- AREA CHART -->
               <div class="card card-primary">
@@ -504,7 +504,7 @@
   <script src="<?php echo base_url('assets/') ?>plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
   <script src="<?php echo base_url('assets/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-  
+
   <!-- ChartJS -->
   <script src="<?php echo base_url('assets/') ?>plugins/chart.js/Chart.min.js"></script>
   <!-- overlayScrollbars -->
@@ -516,8 +516,159 @@
 
 
 
+  
+  <!-- Page specific script -->
+  <script>
+    function linechart(jsondata) {
+
+      //-------------
+      //- LINE CHART -
+      //--------------
+
+      var lineChartData = {
+        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+        datasets: [{
+            label: 'Total Ajuan Disetujui',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: jsondata
+          },
+
+        ]
+      }
+
+      var lineChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }],
+          yAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }]
+        }
+      }
+
+      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+      var lineChartOptions = $.extend(true, {}, lineChartOptions)
+      var lineChartData = $.extend(true, {}, lineChartData)
+      lineChartData.datasets[0].fill = false;
+ 
+      lineChartOptions.datasetFill = false
+
+
+
+      var lineChart = new Chart(lineChartCanvas, {
+        type: 'line',
+        data: lineChartData,
+        options: lineChartOptions
+      })
+
+
+
+
+    }
+
+    function areachart(datajson) {
+
+      /* ChartJS
+       * -------
+       * Here we will create a few charts using ChartJS
+       */
+
+      //--------------
+      //- AREA CHART -
+      //--------------
+
+      // Get context with jQuery - using jQuery's .get() method.
+      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
+
+      var areaChartData = {
+        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
+        datasets: [{
+            label: 'Total Ajuan Anggaran',
+            backgroundColor: 'rgba(60,141,188,0.9)',
+            borderColor: 'rgba(60,141,188,0.8)',
+            pointRadius: false,
+            pointColor: '#3b8bba',
+            pointStrokeColor: 'rgba(60,141,188,1)',
+            pointHighlightFill: '#fff',
+            pointHighlightStroke: 'rgba(60,141,188,1)',
+            data: datajson
+          },
+
+        ]
+      }
+
+      var areaChartOptions = {
+        maintainAspectRatio: false,
+        responsive: true,
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }],
+          yAxes: [{
+            gridLines: {
+              display: false,
+            }
+          }]
+        }
+      }
+
+      // This will get the first returned node in the jQuery collection.
+      new Chart(areaChartCanvas, {
+        type: 'line',
+        data: areaChartData,
+        options: areaChartOptions
+      })
+
+    }
+
+
+    // Melakukan pengambilan data disetujui
+    $.ajax({
+      type: "GET",
+      url: '<?php echo site_url('C_grafik/subbidangdisetujui') ?>',
+      datatype: "json",
+      success: function(data) {
+        result = data;
+        linechart(JSON.parse(data));
+      }
+    });
+
+
+    // Melakukan pengambilan data total
+    $.ajax({
+      type: "GET",
+      url: '<?php echo site_url('C_grafik/subbidanggrafik') ?>',
+      datatype: "json",
+      success: function(data) {
+        result = data;
+        areachart(JSON.parse(data));
+      }
+    });
+  </script>
+
 <!-- Page specific script -->
-<script>
+  <script>
     $.ajax({
       type: "GET",
       url: '<?php echo site_url('C_grafik/subbidangdisetujui') ?>',
@@ -534,7 +685,7 @@
       //- LINE CHART -
       //--------------
       var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-   
+
       var lineChartData = {
         labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [{
@@ -757,11 +908,6 @@
       })
 
     }
-
-
-
-
-    
   </script>
 
 

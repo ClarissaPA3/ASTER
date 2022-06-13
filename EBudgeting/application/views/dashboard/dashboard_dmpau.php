@@ -524,28 +524,18 @@
   <script src="<?php echo base_url('assets/') ?>plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
   <!-- AdminLTE App -->
   <script src="<?php echo base_url('assets/') ?>dist/js/adminlte.min.js"></script>
-   <!-- ChartJS -->
-   <script src="<?php echo base_url('assets/') ?>plugins/chart.js/Chart.min.js"></script>
+  <!-- ChartJS -->
+  <script src="<?php echo base_url('assets/') ?>plugins/chart.js/Chart.min.js"></script>
 
-<!-- Page specific script -->
-<script>
-    $.ajax({
-      type: "GET",
-      url: '<?php echo site_url('C_grafik/subbidangdisetujui') ?>',
-      datatype: "json",
-      success: function(data) {
-        result = data;
-        linechart(JSON.parse(data));
-      }
-    });
-
-    function linechart(datajson) {
+  
+  <!-- Page specific script -->
+  <script>
+    function linechart(jsondata) {
 
       //-------------
       //- LINE CHART -
       //--------------
-      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
-   
+
       var lineChartData = {
         labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
         datasets: [{
@@ -557,7 +547,7 @@
             pointStrokeColor: 'rgba(60,141,188,1)',
             pointHighlightFill: '#fff',
             pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: datajson
+            data: jsondata
           },
 
         ]
@@ -583,6 +573,14 @@
         }
       }
 
+      var lineChartCanvas = $('#lineChart').get(0).getContext('2d')
+      var lineChartOptions = $.extend(true, {}, lineChartOptions)
+      var lineChartData = $.extend(true, {}, lineChartData)
+      lineChartData.datasets[0].fill = false;
+ 
+      lineChartOptions.datasetFill = false
+
+
 
       var lineChart = new Chart(lineChartCanvas, {
         type: 'line',
@@ -591,45 +589,7 @@
       })
 
 
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
 
-      //--------------
-      //- AREA CHART -
-      //--------------
-
-      // Get context with jQuery - using jQuery's .get() method.
-      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
-      var areaChartData = {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-        datasets: [{
-            label: 'Total Ajuan Anggaran',
-            backgroundColor: 'rgba(60,141,188,0.9)',
-            borderColor: 'rgba(60,141,188,0.8)',
-            pointRadius: false,
-            pointColor: '#3b8bba',
-            pointStrokeColor: 'rgba(60,141,188,1)',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: datajson
-          },
-
-        ]
-      }
-
-      var areaChartOptions = {
-
-      }
-
-      // This will get the first returned node in the jQuery collection.
-      new Chart(areaChartCanvas, {
-        type: 'line',
-        data: areaChartData,
-        options: areaChartOptions
-      })
 
     }
 
@@ -694,11 +654,19 @@
     }
 
 
+    // Melakukan pengambilan data disetujui
+    $.ajax({
+      type: "GET",
+      url: '<?php echo site_url('C_grafik/subbidangdisetujui') ?>',
+      datatype: "json",
+      success: function(data) {
+        result = data;
+        linechart(JSON.parse(data));
+      }
+    });
 
 
-
-
-
+    // Melakukan pengambilan data total
     $.ajax({
       type: "GET",
       url: '<?php echo site_url('C_grafik/subbidanggrafik') ?>',
@@ -708,72 +676,8 @@
         areachart(JSON.parse(data));
       }
     });
-
-    function areachart(datajson) {
-
-      /* ChartJS
-       * -------
-       * Here we will create a few charts using ChartJS
-       */
-
-      //--------------
-      //- AREA CHART -
-      //--------------
-
-      // Get context with jQuery - using jQuery's .get() method.
-      var areaChartCanvas = $('#areaChart').get(0).getContext('2d')
-
-      var areaChartData = {
-        labels: ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'],
-        datasets: [{
-            label: 'Total Ajuan Anggaran',
-            backgroundColor: 'rgba(60,141,188,0.9)',
-            borderColor: 'rgba(60,141,188,0.8)',
-            pointRadius: false,
-            pointColor: '#3b8bba',
-            pointStrokeColor: 'rgba(60,141,188,1)',
-            pointHighlightFill: '#fff',
-            pointHighlightStroke: 'rgba(60,141,188,1)',
-            data: datajson
-          },
-
-        ]
-      }
-
-      var areaChartOptions = {
-        maintainAspectRatio: false,
-        responsive: true,
-        legend: {
-          display: true
-        },
-        scales: {
-          xAxes: [{
-            gridLines: {
-              display: false,
-            }
-          }],
-          yAxes: [{
-            gridLines: {
-              display: false,
-            }
-          }]
-        }
-      }
-
-      // This will get the first returned node in the jQuery collection.
-      new Chart(areaChartCanvas, {
-        type: 'line',
-        data: areaChartData,
-        options: areaChartOptions
-      })
-
-    }
-
-
-
-
-    
   </script>
+
 
 
 

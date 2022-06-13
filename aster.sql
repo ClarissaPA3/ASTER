@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2022 at 11:58 PM
+-- Generation Time: Jun 13, 2022 at 08:59 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.28
+-- PHP Version: 7.4.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -44,7 +44,17 @@ CREATE TABLE `detail_pengajuananggaran` (
 --
 
 INSERT INTO `detail_pengajuananggaran` (`id_detailpengajuan`, `id_subpos2`, `id_pengajuan`, `id_subpos`, `id_pos`, `nominal_pengajuan2`, `nominal_persetujuan2`, `deskripsi2`, `kegiatan2`) VALUES
-(25, 5, 49, 3, 6, '20000', '', 'meong', 'test');
+(25, 5, 49, 3, 6, '20000', '20000', 'meong', 'test'),
+(26, 6, 58, 2, 6, '454000', '300000', 'Perlengkapan rapat proyek minggu kedua', 'Pelaksanaan proyek'),
+(27, 5, 50, 2, 6, '345000', '345000', 'Perlengkapan rapat proyek minggu kedua', 'Pelaksanaan proyek'),
+(28, 6, 51, 3, 7, '234000', '234000', 'Perlengkapan rapat proyek minggu kedua', 'Rapat minggu ke satu'),
+(29, 5, 52, 3, 6, '700000', '700000', 'Pelaksanaan proyek', 'Pelaksanaan proyek'),
+(30, 4, 57, 2, 7, '120000', '120000', 'Perlengkapan rapat proyek minggu ke satu', 'Rapat minggu ke satu'),
+(31, 4, 56, 3, 7, '352000', '352000', 'Pelaksanaan proyek', 'Rapat minggu ke satu'),
+(32, 5, 53, 2, 7, '80000', '80000', 'Pelaksanaan proyek', 'Rapat minggu ke satu'),
+(33, 4, 54, 2, 6, '890000', '890000', 'Pelaksanaan proyek', 'Pelaksanaan proyek 1'),
+(34, 4, 54, 5, 6, '389000', '389000', 'Pelaksanaan proyek', 'Pelaksanaan proyek 2'),
+(35, 4, 55, 3, 6, '346000', '320000', 'Perlengkapan rapat proyek minggu ke satu', 'Pelaksanaan proyek 2');
 
 -- --------------------------------------------------------
 
@@ -91,7 +101,7 @@ INSERT INTO `pagu_anggaran` (`id_paguanggaran`, `id_anggota`, `nominal_pagu`, `n
 (3, 2, '150000000', '127000000', 'Mei', '2021'),
 (4, 2, '10000000', '8500000', 'April', '2022'),
 (5, 2, '50000000', '', 'Mei', '2022'),
-(6, 2, '25000000', '20000', 'Juni', '2022'),
+(6, 2, '25000000', '3930000', 'Juni', '2022'),
 (7, 2, '45000000', '43000000', 'Juli', '2022'),
 (8, 2, '75000000', '71000000', 'Agustus', '2022'),
 (9, 2, '240000000', '238000000', 'Januari', '2021'),
@@ -158,8 +168,15 @@ CREATE TABLE `pengajuan_anggaran` (
 
 INSERT INTO `pengajuan_anggaran` (`id_pengajuan`, `id_anggota`, `catatan_dm2`, `total_pengajuan2`, `minggu2`, `bulan2`, `catatan_dmpau2`, `status2`, `tanggal_mulai2`, `tanggal_sampai2`, `tgl_pengajuan2`, `tahun`) VALUES
 (49, 1, '', '20000', '2', '06', '', 3, '2022-06-22 00:00:00', '2022-06-14 00:00:00', '2022-06-13 00:00:00', '2022'),
-(50, 1, '', '', '2', '01', '', 1, '2022-06-14 00:00:00', '2022-06-21 00:00:00', '2022-06-13 00:00:00', '2022'),
-(51, 1, '', '', '2', '06', '', 1, '2022-06-22 00:00:00', '2022-06-22 00:00:00', '2022-06-13 00:00:00', '2022');
+(50, 1, '', '345000', '2', '01', '', 3, '2022-06-14 00:00:00', '2022-06-21 00:00:00', '2022-06-13 00:00:00', '2022'),
+(51, 1, '', '234000', '2', '06', '', 3, '2022-06-22 00:00:00', '2022-06-22 00:00:00', '2022-06-13 00:00:00', '2022'),
+(52, 1, '', '700000', '2', '06', '', 2, '2022-05-08 00:00:00', '2022-05-15 00:00:00', '2022-06-13 00:00:00', '2022'),
+(53, 1, '', '80000', '1', '06', 'Laporan penggunaan', 6, '2022-05-01 00:00:00', '2022-05-07 00:00:00', '2022-06-13 00:00:00', '2022'),
+(54, 1, '', '1279000', '3', '06', '', 2, '2022-06-26 00:00:00', '2022-06-30 00:00:00', '2022-06-13 00:00:00', '2022'),
+(55, 1, 'Pengurangan dana', '346000', '1', '06', '', 5, '2022-07-02 00:00:00', '2022-07-03 00:00:00', '2022-06-13 00:00:00', '2022'),
+(56, 1, '', '352000', '3', '06', '', 3, '2022-06-13 00:00:00', '2022-06-19 00:00:00', '2022-06-13 00:00:00', '2022'),
+(57, 1, '', '120000', '2', '06', '', 3, '2022-04-10 00:00:00', '2022-04-17 00:00:00', '2022-06-13 00:00:00', '2022'),
+(58, 1, 'Pengurangan dana', '454000', '2', '06', 'Pengurangan dana', 6, '2022-04-18 00:00:00', '2022-04-24 00:00:00', '2022-06-13 00:00:00', '2022');
 
 -- --------------------------------------------------------
 
@@ -178,7 +195,9 @@ CREATE TABLE `pos` (
 
 INSERT INTO `pos` (`id_pos`, `nama_pos`) VALUES
 (6, 'Operasi A'),
-(7, 'Pegawai');
+(7, 'Pegawai'),
+(20, 'Pemeliharaan Fasilitas Umum'),
+(21, 'Maintenance Bulanan');
 
 -- --------------------------------------------------------
 
@@ -199,7 +218,8 @@ INSERT INTO `sub_pos` (`id_subpos`, `nama_subpos`) VALUES
 (2, 'Material '),
 (3, 'Jasa Borongan'),
 (5, 'Material Bangunan'),
-(7, 'test');
+(8, 'Perlengkapan Lapangan'),
+(9, 'Maintenance Set');
 
 -- --------------------------------------------------------
 
@@ -219,7 +239,9 @@ CREATE TABLE `sub_pos2` (
 INSERT INTO `sub_pos2` (`id_subpos2`, `nama_subpos2`) VALUES
 (4, 'Perkakas dan Perlengkapan'),
 (5, 'Alat Tulis Kantor '),
-(6, 'Asesor');
+(6, 'Asesor'),
+(8, 'Baju Lapangan'),
+(9, 'Transport 1');
 
 -- --------------------------------------------------------
 
@@ -350,7 +372,7 @@ ALTER TABLE `transfer`
 -- AUTO_INCREMENT for table `detail_pengajuananggaran`
 --
 ALTER TABLE `detail_pengajuananggaran`
-  MODIFY `id_detailpengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_detailpengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -374,25 +396,25 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `pengajuan_anggaran`
 --
 ALTER TABLE `pengajuan_anggaran`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
 
 --
 -- AUTO_INCREMENT for table `pos`
 --
 ALTER TABLE `pos`
-  MODIFY `id_pos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id_pos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `sub_pos`
 --
 ALTER TABLE `sub_pos`
-  MODIFY `id_subpos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_subpos` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `sub_pos2`
 --
 ALTER TABLE `sub_pos2`
-  MODIFY `id_subpos2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id_subpos2` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `transfer`

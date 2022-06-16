@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 13, 2022 at 08:59 AM
+-- Generation Time: Jun 17, 2022 at 12:10 AM
 -- Server version: 10.4.24-MariaDB
--- PHP Version: 7.4.29
+-- PHP Version: 7.4.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -66,17 +66,19 @@ CREATE TABLE `jabatan` (
   `id_jabatan` int(11) NOT NULL,
   `nama_jabatan` varchar(255) NOT NULL,
   `tingkatan_user` varchar(255) NOT NULL,
-  `hakakses` varchar(80) NOT NULL
+  `hakakses` varchar(80) NOT NULL,
+  `sub_jabatan` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `jabatan`
 --
 
-INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `tingkatan_user`, `hakakses`) VALUES
-(1, 'Sub Bidang', 'subbidang', ''),
-(2, 'Kepala Bidang', 'dm', 'rekapanggaran , menutransfer'),
-(3, 'Admin Keuangan', 'dmpau', 'masterpos , mastersubpos , mastersubpos2 , rekapanggaran , menutransfer');
+INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `tingkatan_user`, `hakakses`, `sub_jabatan`) VALUES
+(1, 'Sub Kegiatan Masyarakat', 'dmpau', '', 'A, B, C, D, E'),
+(2, 'Kepala Bidang', 'dm', 'rekapanggaran , menutransfer', 'Z, X, M, L'),
+(3, 'Admin Keuangan', 'dmpau', 'masterpos , mastersubpos , mastersubpos2 , rekapanggaran , menutransfer', ''),
+(9, 'test', 'subbidang', '', '');
 
 -- --------------------------------------------------------
 
@@ -378,7 +380,7 @@ ALTER TABLE `detail_pengajuananggaran`
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_jabatan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `pagu_anggaran`

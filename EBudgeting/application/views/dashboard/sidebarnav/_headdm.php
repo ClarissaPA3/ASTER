@@ -35,13 +35,6 @@
           <div class="dropdown-divider"></div>
         <?php endforeach; ?>
 
-        <?php foreach ($this->session->userdata('dmpau')  as $iddm) : ?>
-          <a href="#" class="dropdown-item">
-            <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DMPAU!'; ?>
-          </a>
-          <div class="dropdown-divider"></div>
-        <?php endforeach; ?>
-
 
         <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
           <a href="#" class="dropdown-item">

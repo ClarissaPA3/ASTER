@@ -111,12 +111,6 @@
               <div class="dropdown-divider"></div>
             <?php endforeach; ?>
 
-            <?php foreach ($this->session->userdata('dmpau')  as $iddm) : ?>
-              <a href="#" class="dropdown-item">
-                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DMPAU!'; ?>
-              </a>
-              <div class="dropdown-divider"></div>
-            <?php endforeach; ?>
 
 
             <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
@@ -405,7 +399,7 @@
               <!-- AREA CHART -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Chart Total pengajuan tahun ini</h3>
+                  <h3 class="card-title">Chart Total pengajuan anggaran tahun <?php  echo date('Y');?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -443,7 +437,7 @@
               <!-- LINE CHART -->
               <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Chart Ajuan disetujui tahun ini</h3>
+                  <h3 class="card-title">Chart Ajuan disetujui tahun <?php  echo date('Y');?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

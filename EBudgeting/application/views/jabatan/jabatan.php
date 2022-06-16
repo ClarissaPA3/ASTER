@@ -87,14 +87,29 @@
                                                     ?>
                                                         <tr>
                                                             <td><?php echo $id; ?></td>
-                                                            <td><?php echo $nama['nama_jabatan'] ?></td>
+                                                            <td>
+                                                                <?php echo $nama['nama_jabatan'] ?>
+                                                                <?php if ($nama['sub_jabatan'] != '') : ?>
+                                                                    <p>Sub : </p>
+                                                                    <ul class="list-group list-group-flush">
+                                                                        <?php foreach (explode(', ', $nama['sub_jabatan']) as $key => $value) : ?>
+
+                                                                            <li class="list-group-item"><?php echo $value ?></li>
+
+
+                                                                        <?php endforeach; ?>
+                                                                    </ul>
+                                                                <?php endif ?>
+
+
+                                                            </td>
                                                             <td><a href="<?php echo site_url('C_input_jabatan/hakakses/') . $nama['id_jabatan']; ?>" class="btn btn-primary">Hak Akses</a></td>
 
                                                             <td><?php echo $nama['tingkatan_user'] ?></td>
                                                             <td><a href="<?php echo site_url('C_input_jabatan/update_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
                                                                 <a id="hapus" href="<?php echo site_url('C_input_jabatan/delete_jabatan/') . $nama['id_jabatan']; ?>" class="btn btn-block btn-danger"><i class="fas fa-trash"></i></a>
                                                             </td>
-                                                            
+
                                                         </tr>
                                                     <?php endforeach; ?>
 

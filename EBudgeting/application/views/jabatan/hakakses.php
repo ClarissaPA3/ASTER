@@ -82,6 +82,8 @@
                                 <div class="form-group">
                                     <input type="hidden" name="hakakses" value="<?php echo $jabatan['hakakses']; ?>">
                                     <input type="hidden" name="id_jabatan" value="<?php echo $jabatan['id_jabatan']; ?>">
+                                    <input type="hidden" name="sub_jabatan" value="<?php echo $jabatan['sub_jabatan']; ?>">
+                                    
 
                                     <!-- checkbox -->
 

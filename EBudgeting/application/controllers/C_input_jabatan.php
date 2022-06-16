@@ -23,8 +23,12 @@ class C_input_jabatan extends CI_Controller
                 'dmpau' => 'DMPAU'
 
             );
+            $data['subjabatan'] = $this->M_input_jabatan->subjabatan();
+            
             $this->load->view('jabatan/addjabatan', $data);
         } else {
+            
+            
 
             $this->M_input_jabatan->add_jabatanM();
             $this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
@@ -59,6 +63,7 @@ class C_input_jabatan extends CI_Controller
                 'dmpau' => 'DMPAU'
 
             );
+            $data['subjabatan'] = $this->M_input_jabatan->subjabatan();
 
 
             $this->load->view('jabatan/updatejabatan', $data);
@@ -72,6 +77,7 @@ class C_input_jabatan extends CI_Controller
     {
 
         $data['jabatan'] = $this->M_input_jabatan->show_jabatanM();
+        $data['subjabatan'] = $this->M_input_jabatan->subjabatan();
 
         $this->load->view('jabatan/jabatan', $data);
     }

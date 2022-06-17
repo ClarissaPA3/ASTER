@@ -66,24 +66,52 @@ class M_input_jabatan extends CI_Model
         return explode(' , ', $query->result_array()[0]['hakakses']);
     }
 
-    public function subjabatan()
+    public function subjabatan($id = null)
     {
-        $arr = array();
-        $query = $this->db->query("SELECT `sub_jabatan` FROM `jabatan` WHERE `sub_jabatan` != ''");
-
-        foreach ($query->result_array() as $key) :
-            foreach ($key as $a) {
-
-                foreach (explode(', ', $a) as $k) {
-
-                    $arr[] = $k;
-                    
+        if (!isset($id)) {
+            $arr = array();
+            $query = $this->db->query("SELECT `sub_jabatan` FROM `jabatan` WHERE `sub_jabatan` != '' AND `tingkatan_user` = 'dm'");
+    
+            foreach ($query->result_array() as $key) :
+                foreach ($key as $a) {
+    
+                    foreach (explode(', ', $a) as $k) {
+    
+                        $arr[] = $k;
+                        
+                    }
                 }
-            }
+    
+    
+    
+            endforeach;
+            
+        }
+        else {
+            $arr = array();
+            $this->db->select('sub_jabatan');
+            $this->db->from('jabatan');
+            $this->db->where('id_jabatan', $id);
 
+            $query = $this->db->get();
+         
+    
+            foreach ($query->result_array() as $key) :
+                foreach ($key as $a) {
+    
+                    foreach (explode(', ', $a) as $k) {
+    
+                        $arr[] = $k;
+                        
+                    }
+                }
+    
+    
+    
+            endforeach;
 
-
-        endforeach;
+        }
+      
 
         return $arr;
     }

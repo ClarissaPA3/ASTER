@@ -88,10 +88,14 @@ class C_login extends CI_Controller
 		$this->session->set_userdata('jabatan', $jabatan['tingkatan_user']);
 		
 		
+		
+		$id_jabatan = $this->session->userdata('id_jabatan');
 		$id_anggota = $this->session->userdata('id_anggota');
 		
+	
+
 		// Jika tidak ada session maka akan kembali ke login
-		if (!isset($id_anggota)) {
+		if (!isset($id_jabatan)) {
 			redirect(site_url('C_login'));
 		}
 
@@ -101,7 +105,7 @@ class C_login extends CI_Controller
 		
 
 		if ($jabatan['tingkatan_user'] == "dmpau") {
-			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuandmpau($id_anggota);
+			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuandmpau($id_jabatan, $id_anggota);
 
 			$datanotifikasi = array(
 				'totalnotifikasi' => $pengajuan['totalnotifikasi'],
@@ -116,7 +120,7 @@ class C_login extends CI_Controller
 			
 			$this->load->view('dashboard/dashboard_dmpau', $data);
 		} elseif ($jabatan['tingkatan_user'] == "dm") {
-			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuandm($id_anggota);
+			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuandm($id_jabatan, $id_anggota);
 
 			$datanotifikasi = array(
 				'totalnotifikasi' => $pengajuan['totalnotifikasi'],
@@ -133,7 +137,8 @@ class C_login extends CI_Controller
 
 			$this->load->view('dashboard/dashboard_bidang.php', $data);
 		} elseif ($jabatan['tingkatan_user'] == "subbidang") {
-			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuansub($id_anggota);
+			$pengajuan = $this->M_ajuananggaran->showbyid_pengajuansub($id_jabatan, $id_anggota);
+			
 
 			$datanotifikasi = array(
 				'totalnotifikasi' => $pengajuan['totalnotifikasi'],

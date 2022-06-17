@@ -8,29 +8,28 @@ class M_ajuananggaran extends CI_Model
         parent::__construct();
         $this->load->model('M_detailajuan');
         $this->load->model('M_paguanggaran');
-
+        $this->load->model('M_input_jabatan', 'jabatan');
     }
     // Sub bidang
     public function add_pengajuan()
     {
-        
+
         if (date("d") > 14) {
             date_default_timezone_set("Asia/Bangkok");
             $tanggal = date('Y-m-d');
-          
-            
-            $tanggal =  date('Y-m-d', strtotime('+1 months',strtotime(date('Y-m-d',strtotime($tanggal)))));
+
+
+            $tanggal =  date('Y-m-d', strtotime('+1 months', strtotime(date('Y-m-d', strtotime($tanggal)))));
             $bulan = date('m', strtotime($tanggal));
-            $tahun = date('Y',strtotime($tanggal));
-        }
-        else {
+            $tahun = date('Y', strtotime($tanggal));
+        } else {
             date_default_timezone_set("Asia/Bangkok");
             $tanggal = date('Y-m-d');
-        
+
             $bulan = date('m', strtotime($tanggal));
-            $tahun = date('Y',strtotime($tanggal));
+            $tahun = date('Y', strtotime($tanggal));
         }
-        
+
 
         $data = array(
             'id_pengajuan' => '',
@@ -72,8 +71,6 @@ class M_ajuananggaran extends CI_Model
         $this->db->or_where('status2', '6');
         $query = $this->db->get()->result();
         return $query;
-   
-
     }
 
     public function update_pengajuan()
@@ -83,9 +80,9 @@ class M_ajuananggaran extends CI_Model
 
         $id = $this->input->post('id_pengajuan');
         $nominalpengajuan = $this->M_detailajuan->hitunganggaran($id)[0]['nominal_pengajuan2'];
-        
 
-        
+
+
         $data = array(
             'id_pengajuan' => $id,
             'id_anggota' => $this->input->post('id_anggota'),
@@ -102,78 +99,314 @@ class M_ajuananggaran extends CI_Model
         );
 
         $this->db->update('pengajuan_anggaran', $data, array('id_pengajuan' => $id));
-
-       
     }
-    public function showbyid_pengajuansub($id)
+    public function showbyid_pengajuansub($id, $id_anggota)
     {
-        
-        
-        $totalanggaran = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id))->num_rows();
-        
-        $anggarandisetujui = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE status2='3' AND id_anggota=%s",$id))->num_rows();
-        $revisi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s",$id))->num_rows();
-    
-       
-        $dm = $this->db->get_where('pengajuan_anggaran', array('id_anggota' => $id, 'status2' => '2'));
-        $dmpau = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id, 'status2' => '3'));
-        $koreksi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s",$id));
+        // Cari nama sub jabatan dari subbidang ke dm
+        $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id), 1)->result_array();
+
+        // Mencari DM yang memiliki sub tersebut
+        $this->db->select('*');
+        $this->db->from('jabatan');
+        $this->db->like('sub_jabatan', $namajabatan[0]['nama_jabatan'], 'both');
+        $subjabatan = $this->db->get()->result_array();
+
+        // Memecah sub jabatan DM
+        $pecahsubjabatan = $this->jabatan->subjabatan($subjabatan[0]['id_jabatan']);
+
+
+        // Mencari id jabatan yang termasuk pada sub jabatan
+        $subbidang = array();
+        foreach ($pecahsubjabatan as $key) {
+
+            $this->db->select('id_jabatan');
+            $this->db->from('jabatan');
+            $this->db->where('nama_jabatan', $key);
+            foreach ($this->db->get()->result_array() as $k) {
+                $subbidang[] = $k;
+            }
+        }
+
+
+
+        // Mencari id pegawai berdasarkan pencarian id jabatan
+        $idsubbidang = array();
+        foreach ($subbidang as $key) {
+
+            $this->db->select('id_anggota');
+            $this->db->from('pegawai');
+            $this->db->where('id_jabatan', $key['id_jabatan']);
+            foreach ($this->db->get()->result_array() as $j) {
+
+                $idsubbidang[] = $j;
+            }
+        }
+
+
+
+
+
+        // Mencari ajuan yang memiliki id anggota yang telah tertulis dan menghitung total ajuan
+        $totalanggaran = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalajuan');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2>', '0');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+
+
+                $totalanggaran += $j['totalajuan'];
+            }
+        }
+
+
+        // Menghitung ajuan yang disetujui
+        $anggarandisetujui = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalsetuju');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2', '3');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+                print_r($j);
+
+
+                $anggarandisetujui += $j['totalsetuju'];
+            }
+        }
+
+
+        // Menghitung ajuan yang memerlukan koreksi
+        $revisi = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalrevisi');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2', '5');
+            $this->db->where('status2', '6');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+
+
+
+                $revisi += $j['totalrevisi'];
+            }
+        }
+
+
+
+
+
+        // Notifikasi DM
+        $dm = $this->db->get_where('pengajuan_anggaran', array('id_anggota' => $id_anggota, 'status2' => '2'));
+
+        // Notifikasi DMPAU
+        $dmpau = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id_anggota, 'status2' => '3'));
+
+        // NotifikasiKoreksi
+        $koreksi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s", $id_anggota));
+        // Total notifikasi
         $totalnotifikasi = $dm->num_rows() + $dmpau->num_rows() + $revisi;
-        
 
-        return  array('totalnotifikasi' => $totalnotifikasi, 'dm' => $dm->result_array(), 'dmpau' => $dmpau->result_array(), 'totalanggaran' => $totalanggaran, 'totalrevisi' => $revisi, 'totaldisetujui' => $anggarandisetujui, 'koreksi' => $koreksi->result_array());
-    }
-    
-    public function showbyid_pengajuandm($id)
-    {
-        
-        
-          
-        $totalanggaran = $this->db->get_where('pengajuan_anggaran',array('status2>' => '1'))->num_rows();
-        $anggarandisetujui = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE status2='3'")->num_rows();
-        $revisi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6'")->num_rows();
-    
-       
-        // Notifikasi
-        $sub = $this->db->get_where('pengajuan_anggaran', array('status2' => '1'));
-        
-        $koreksi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '7'");
-        $totalnotifikasi = $sub->num_rows()  + $koreksi->num_rows();
-        
+        return  array('totalnotifikasi' => $totalnotifikasi, 'dm' => $dm->result_array(), 'dmpau' => $dmpau->result_array(), 'koreksi' => $koreksi->result_array(), 'totalanggaran' => $totalanggaran, 'totaldisetujui' => $anggarandisetujui, 'totalrevisi' => $revisi);
 
-        return  array('totalnotifikasi' => $totalnotifikasi,'sub' => $sub->result_array(), 'totalanggaran' => $totalanggaran, 'totalrevisi' => $revisi, 'totaldisetujui' => $anggarandisetujui, 'koreksi' => $koreksi->result_array());
+
+
+
+
+        // $totalanggaran = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id))->num_rows();
+
+        // $anggarandisetujui = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE status2='3' AND id_anggota=%s",$id))->num_rows();
+        // $revisi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s",$id))->num_rows();
+
+
+        // $dm = $this->db->get_where('pengajuan_anggaran', array('id_anggota' => $id, 'status2' => '2'));
+        // $dmpau = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id, 'status2' => '3'));
+        // $koreksi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s",$id));
+        // $totalnotifikasi = $dm->num_rows() + $dmpau->num_rows() + $revisi;
+
+
+        // return  array('totalnotifikasi' => $totalnotifikasi, 'dm' => $dm->result_array(), 'dmpau' => $dmpau->result_array(), 'totalanggaran' => $totalanggaran, 'totalrevisi' => $revisi, 'totaldisetujui' => $anggarandisetujui, 'koreksi' => $koreksi->result_array());
     }
 
-    public function showbyid_pengajuandmpau($id)
+    public function showbyid_pengajuandm($id, $id_anggota)
     {
-        
-        
-        $totalanggaran = $this->db->get_where('pengajuan_anggaran',array('status2>' => '1'))->num_rows();
+        // Memecah sub jabatan DM
+        $pecahsubjabatan = $this->jabatan->subjabatan($id);
+
+
+        // Mencari id jabatan yang termasuk pada sub jabatan
+        $subbidang = array();
+        foreach ($pecahsubjabatan as $key) {
+
+            $this->db->select('id_jabatan');
+            $this->db->from('jabatan');
+            $this->db->where('nama_jabatan', $key);
+            foreach ($this->db->get()->result_array() as $k) {
+                $subbidang[] = $k;
+            }
+        }
+
+
+
+        // Mencari id pegawai berdasarkan pencarian id jabatan
+        $idsubbidang = array();
+        foreach ($subbidang as $key) {
+
+            $this->db->select('id_anggota');
+            $this->db->from('pegawai');
+            $this->db->where('id_jabatan', $key['id_jabatan']);
+            foreach ($this->db->get()->result_array() as $j) {
+
+                $idsubbidang[] = $j;
+            }
+        }
+
+
+
+
+
+        // Mencari ajuan yang memiliki id anggota yang telah tertulis dan menghitung total ajuan
+        $totalanggaran = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalajuan');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2>', '0');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+
+
+                $totalanggaran += $j['totalajuan'];
+            }
+        }
+
+
+        // Menghitung ajuan yang disetujui
+        $anggarandisetujui = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalsetuju');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2', '3');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+                print_r($j);
+
+
+                $anggarandisetujui += $j['totalsetuju'];
+            }
+        }
+
+
+        // Menghitung ajuan yang memerlukan koreksi
+        $revisi = 0;
+        $bulan = date('m');
+        foreach ($idsubbidang as $key) {
+
+
+            $this->db->select('count(id_anggota) as totalrevisi');
+            $this->db->from('pengajuan_anggaran');
+            $this->db->where('id_anggota', $key['id_anggota']);
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2', '5');
+            $this->db->where('status2', '6');
+
+
+            foreach ($this->db->get()->result_array() as $j) {
+
+
+
+                $revisi += $j['totalrevisi'];
+            }
+        }
+
+            // Notifikasi Sub bidang
+            $sub = $this->db->get_where('pengajuan_anggaran', array('status2' => '1'));
+
+            // Notifikasi DMPAU
+            $dmpau = $this->db->get_where('pengajuan_anggaran', array('id_anggota ' => $id_anggota, 'status2' => '3'));
+    
+            // Notifikasi Koreksi
+            $koreksi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s", $id_anggota));
+            // Total notifikasi
+            $totalnotifikasi = $sub->num_rows()  + $koreksi->num_rows();
+
+
+
+        // $totalanggaran = $this->db->get_where('pengajuan_anggaran', array('status2>' => '1'))->num_rows();
+        // $anggarandisetujui = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE status2='3'")->num_rows();
+        // $revisi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6'")->num_rows();
+
+
+        // // Notifikasi
+        // $sub = $this->db->get_where('pengajuan_anggaran', array('status2' => '1'));
+
+        // $koreksi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '7'");
+        // $totalnotifikasi = $sub->num_rows()  + $koreksi->num_rows();
+
+
+        return  array('totalnotifikasi' => $totalnotifikasi, 'sub' => $sub->result_array(), 'totalanggaran' => $totalanggaran, 'totalrevisi' => $revisi, 'totaldisetujui' => $anggarandisetujui, 'koreksi' => $koreksi->result_array());
+    }
+
+    public function showbyid_pengajuandmpau($id = null, $id_anggota = null)
+    {
+
+
+        $totalanggaran = $this->db->get_where('pengajuan_anggaran', array('status2>' => '1'))->num_rows();
         $anggarandisetujui = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE status2='3'")->num_rows();
         $revisi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6'")->num_rows();
-    
-       
+
+
         // Notifikasi
         $dm = $this->db->get_where('pengajuan_anggaran', array('status2' => '2'));
-        
+
         $koreksi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '8'");
         $totalnotifikasi = $dm->num_rows()  + $koreksi->num_rows();
-        
+
 
         return  array('totalnotifikasi' => $totalnotifikasi, 'dm' => $dm->result_array(), 'totalanggaran' => $totalanggaran, 'totalrevisi' => $revisi, 'totaldisetujui' => $anggarandisetujui, 'koreksi' => $koreksi->result_array());
     }
-    
+
 
 
     public function show_pengajuan_sub()
     {
         $this->db->select('*');
 
-		$this->db->from('pengajuan_anggaran');
-		$this->db->where('status2 >=','1');
+        $this->db->from('pengajuan_anggaran');
+        $this->db->where('status2 >=', '1');
 
         $query = $this->db->get();
-		
+
         return $query->result_array();
     }
     // New persetujuan DMPAU
@@ -182,7 +415,7 @@ class M_ajuananggaran extends CI_Model
         $this->db->select('*');
         $this->db->from('pengajuan_anggaran');
         $this->db->where('status2 >=', '2');
-      
+
         $query = $this->db->get();
         return $query->result_array();
     }
@@ -213,7 +446,7 @@ class M_ajuananggaran extends CI_Model
     }
     public function update_pengajuanDMPAU()
     {
-        
+
 
         $id = $this->input->post('id_pengajuan');
         $nominalpengajuan = $this->M_detailajuan->hitunganggaran($id)[0]['nominal_pengajuan2'];

@@ -169,19 +169,19 @@
 
         }
         if (value == "dmpau") {
-          $("#subjabatan").show();
+          $("#subjabatan").hide();
 
-          $("#sub_jabatan")
-            .focus(function() {
-              $("#info").show();
-
-
-            })
-            .focusout(function() {
-              $("#info").hide();
+          // $("#sub_jabatan")
+          //   .focus(function() {
+          //     $("#info").show();
 
 
-            });
+          //   })
+          //   .focusout(function() {
+          //     $("#info").hide();
+
+
+          //   });
 
           $("#subbidang").attr('disabled', 'disabled');
           $("#jabatanbawah").hide();

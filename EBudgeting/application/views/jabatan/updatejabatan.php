@@ -71,7 +71,7 @@
                   <?php
                   foreach ($subjabatan as $key => $value) : ?>
 
-                    <option  <?php if($jabatan['nama_jabatan'] == $value) echo "selected"; ?>  value='<?= $value; ?>'><?= $value; ?></option>
+                    <option <?php if ($jabatan['nama_jabatan'] == $value) echo "selected"; ?> value='<?= $value; ?>'><?= $value; ?></option>
                   <?php endforeach; ?>
 
 
@@ -141,10 +141,12 @@
 
 
       if (value == "dm") {
-        $("#sub_jabatan").removeAttr('disabled');
+
 
         $("#subjabatan").show();
+        $("#sub_jabatan").removeAttr('disabled');
         $("#sub_jabatan")
+
           .focus(function() {
             $("#info").show();
 
@@ -157,15 +159,11 @@
           });
 
 
-          
-          $("#subbidang").attr('disabled', 'disabled');
-          $("#jabatanbawah").hide();
+        $("#subbidang").attr('disabled', 'disabled');
+        $("#jabatanbawah").hide();
 
-          $("#jabatan").removeAttr('disabled');
-          $("#jabatanatas").show();
-
-
-
+        $("#jabatan").removeAttr('disabled');
+        $("#jabatanatas").show();
 
 
 
@@ -175,27 +173,27 @@
 
       }
       if (value == "dmpau") {
-        $("#subjabatan").show();
-        $("#sub_jabatan").removeAttr('disabled');
+        $("#subjabatan").hide();
+        // $("#sub_jabatan").removeAttr('disabled');
 
-        $("#sub_jabatan")
-          .focus(function() {
-            $("#info").show();
-
-
-          })
-          .focusout(function() {
-            $("#info").hide();
+        // $("#sub_jabatan")
+        //   .focus(function() {
+        //     $("#info").show();
 
 
-          });
+        //   })
+        //   .focusout(function() {
+        //     $("#info").hide();
 
-          
-          $("#subbidang").attr('disabled', 'disabled');
-          $("#jabatanbawah").hide();
 
-          $("#jabatan").removeAttr('disabled');
-          $("#jabatanatas").show();
+        //   });
+
+
+        $("#subbidang").attr('disabled', 'disabled');
+        $("#jabatanbawah").hide();
+
+        $("#jabatan").removeAttr('disabled');
+        $("#jabatanatas").show();
 
       }
       if (value == "subbidang") {
@@ -205,10 +203,10 @@
 
 
         $("#jabatan").attr('disabled', 'disabled');
-          $("#jabatanatas").hide();
+        $("#jabatanatas").hide();
 
-          $("#subbidang").removeAttr('disabled');
-          $("#jabatanbawah").show();
+        $("#subbidang").removeAttr('disabled');
+        $("#jabatanbawah").show();
 
       }
 
@@ -234,7 +232,7 @@
 
             });
 
-            
+
           $("#subbidang").attr('disabled', 'disabled');
           $("#jabatanbawah").hide();
 
@@ -249,21 +247,21 @@
 
         }
         if (value == "dmpau") {
-          $("#subjabatan").show();
-          $("#sub_jabatan").removeAttr('disabled');
+          $("#subjabatan").hide();
+          // $("#sub_jabatan").removeAttr('disabled');
 
-          $("#sub_jabatan")
-            .focus(function() {
-              $("#info").show();
-
-
-            })
-            .focusout(function() {
-              $("#info").hide();
+          // $("#sub_jabatan")
+          //   .focus(function() {
+          //     $("#info").show();
 
 
-            });
-            
+          //   })
+          //   .focusout(function() {
+          //     $("#info").hide();
+
+
+          //   });
+
           $("#subbidang").attr('disabled', 'disabled');
           $("#jabatanbawah").hide();
 
@@ -275,7 +273,7 @@
 
           $("#sub_jabatan").attr('disabled', 'disabled');
           $("#subjabatan").hide();
-          
+
 
 
           $("#jabatan").attr('disabled', 'disabled');

@@ -24,6 +24,16 @@ class C_grafik extends CI_Controller
         $id_anggota = $this->session->userdata('id_anggota');
         echo json_encode($this->grafik->subbidangajuandisetujui(date('Y-m-d'), $id_anggota));
     }
+    public function dmgrafik()
+    {
+        $id_anggota = $this->session->userdata('id_anggota');
+        echo json_encode($this->grafik->dmtotalajuan(date('Y-m-d'), $id_anggota));
+    }
+    public function dmdisetujui()
+    {
+        $id_anggota = $this->session->userdata('id_anggota');
+        echo json_encode($this->grafik->dmdisetujui(date('Y-m-d'), $id_anggota));
+    }
    
    
 }

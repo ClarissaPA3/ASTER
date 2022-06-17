@@ -37,21 +37,20 @@ class M_chartgrafik extends CI_Model
     public function querytotalajuandisetujui($bulan, $tahun, $status = null, $id_anggota = null)
     {
         $this->db->select('count(id_anggota) as totalajuan');
-            $this->db->from('pengajuan_anggaran');
-            $this->db->where('id_anggota', $id_anggota);
-            $this->db->where('bulan2', $bulan);
-            $this->db->where('status2', '3');
-            $this->db->where('tahun', $tahun);
+        $this->db->from('pengajuan_anggaran');
+        $this->db->where('id_anggota', $id_anggota);
+        $this->db->where('bulan2', $bulan);
+        $this->db->where('status2', '3');
+        $this->db->where('tahun', $tahun);
 
-            $query = $this->db->get()->result_array()[0]['totalajuan'];
+        $query = $this->db->get()->result_array()[0]['totalajuan'];
 
 
-            return $query;
-
+        return $query;
     }
     public function subbidangajuandisetujui($date, $id_anggota)
     {
-        
+
         // Cari nama sub jabatan dari subbidang ke dm
         $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id_anggota), 1)->result_array();
 
@@ -119,27 +118,24 @@ class M_chartgrafik extends CI_Model
 
 
         foreach ($idsubbidang as $key) {
-           
+
             $januari += $this->querytotalajuandisetujui('01', $tahun, '', $key['id_anggota']);
 
-            $februari += $this->querytotalajuandisetujui('02', $tahun, '',$key['id_anggota']);
-            $maret += $this->querytotalajuandisetujui('03', $tahun, '',$key['id_anggota']);
-            $april += $this->querytotalajuandisetujui('04', $tahun, '',$key['id_anggota']);
-            $mei += $this->querytotalajuandisetujui('05', $tahun, '',$key['id_anggota']);
-            $juni += $this->querytotalajuandisetujui('06', $tahun, '',$key['id_anggota']);
+            $februari += $this->querytotalajuandisetujui('02', $tahun, '', $key['id_anggota']);
+            $maret += $this->querytotalajuandisetujui('03', $tahun, '', $key['id_anggota']);
+            $april += $this->querytotalajuandisetujui('04', $tahun, '', $key['id_anggota']);
+            $mei += $this->querytotalajuandisetujui('05', $tahun, '', $key['id_anggota']);
+            $juni += $this->querytotalajuandisetujui('06', $tahun, '', $key['id_anggota']);
 
 
-            $juli += $this->querytotalajuandisetujui('07', $tahun, '',$key['id_anggota']);
-            $agustus += $this->querytotalajuandisetujui('08', $tahun, '',$key['id_anggota']);
-            $september += $this->querytotalajuandisetujui('09', $tahun, '',$key['id_anggota']);
-            $oktober += $this->querytotalajuandisetujui('10', $tahun, '',$key['id_anggota']);
-            $november += $this->querytotalajuandisetujui('11', $tahun, '',$key['id_anggota']);
-            $desember += $this->querytotalajuandisetujui('12', $tahun, '',$key['id_anggota']);
-
-
-          
+            $juli += $this->querytotalajuandisetujui('07', $tahun, '', $key['id_anggota']);
+            $agustus += $this->querytotalajuandisetujui('08', $tahun, '', $key['id_anggota']);
+            $september += $this->querytotalajuandisetujui('09', $tahun, '', $key['id_anggota']);
+            $oktober += $this->querytotalajuandisetujui('10', $tahun, '', $key['id_anggota']);
+            $november += $this->querytotalajuandisetujui('11', $tahun, '', $key['id_anggota']);
+            $desember += $this->querytotalajuandisetujui('12', $tahun, '', $key['id_anggota']);
         }
-        
+
 
 
 
@@ -147,15 +143,6 @@ class M_chartgrafik extends CI_Model
 
 
         return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
-
-
-
-
-
-
-
-
-
     }
     public function subbidangtotalajuan($date, $id_anggota = null)
     {
@@ -228,27 +215,24 @@ class M_chartgrafik extends CI_Model
 
 
         foreach ($idsubbidang as $key) {
-           
+
             $januari += $this->querytotalajuan('01', $tahun, '', $key['id_anggota']);
 
-            $februari += $this->querytotalajuan('02', $tahun, '',$key['id_anggota']);
-            $maret += $this->querytotalajuan('03', $tahun, '',$key['id_anggota']);
-            $april += $this->querytotalajuan('04', $tahun, '',$key['id_anggota']);
-            $mei += $this->querytotalajuan('05', $tahun, '',$key['id_anggota']);
-            $juni += $this->querytotalajuan('06', $tahun, '',$key['id_anggota']);
+            $februari += $this->querytotalajuan('02', $tahun, '', $key['id_anggota']);
+            $maret += $this->querytotalajuan('03', $tahun, '', $key['id_anggota']);
+            $april += $this->querytotalajuan('04', $tahun, '', $key['id_anggota']);
+            $mei += $this->querytotalajuan('05', $tahun, '', $key['id_anggota']);
+            $juni += $this->querytotalajuan('06', $tahun, '', $key['id_anggota']);
 
 
-            $juli += $this->querytotalajuan('07', $tahun, '',$key['id_anggota']);
-            $agustus += $this->querytotalajuan('08', $tahun, '',$key['id_anggota']);
-            $september += $this->querytotalajuan('09', $tahun, '',$key['id_anggota']);
-            $oktober += $this->querytotalajuan('10', $tahun, '',$key['id_anggota']);
-            $november += $this->querytotalajuan('11', $tahun, '',$key['id_anggota']);
-            $desember += $this->querytotalajuan('12', $tahun, '',$key['id_anggota']);
-
-
-          
+            $juli += $this->querytotalajuan('07', $tahun, '', $key['id_anggota']);
+            $agustus += $this->querytotalajuan('08', $tahun, '', $key['id_anggota']);
+            $september += $this->querytotalajuan('09', $tahun, '', $key['id_anggota']);
+            $oktober += $this->querytotalajuan('10', $tahun, '', $key['id_anggota']);
+            $november += $this->querytotalajuan('11', $tahun, '', $key['id_anggota']);
+            $desember += $this->querytotalajuan('12', $tahun, '', $key['id_anggota']);
         }
-        
+
 
 
 
@@ -447,10 +431,181 @@ class M_chartgrafik extends CI_Model
 
     }
 
-    public function dm()
+    public function dmtotalajuan($date, $id_anggota = null)
     {
+        // Memecah sub jabatan DM
+        $pecahsubjabatan = $this->jabatan->subjabatan($id_anggota);
+
+
+        // Mencari id jabatan yang termasuk pada sub jabatan
+        $subbidang = array();
+        foreach ($pecahsubjabatan as $key) {
+
+            $this->db->select('id_jabatan');
+            $this->db->from('jabatan');
+            $this->db->where('nama_jabatan', $key);
+            foreach ($this->db->get()->result_array() as $k) {
+                $subbidang[] = $k;
+            }
+        }
+
+
+
+        // Mencari id pegawai berdasarkan pencarian id jabatan
+        $idsubbidang = array();
+        foreach ($subbidang as $key) {
+
+            $this->db->select('id_anggota');
+            $this->db->from('pegawai');
+            $this->db->where('id_jabatan', $key['id_jabatan']);
+            foreach ($this->db->get()->result_array() as $j) {
+
+                $idsubbidang[] = $j;
+            }
+        }
+
+
+
+
+
+        // Mencari ajuan yang memiliki id anggota yang telah tertulis dan menghitung total ajuan
+        $januari = 0;
+        $februari = 0;
+        $maret = 0;
+        $april = 0;
+        $mei = 0;
+        $juni = 0;
+        $juli = 0;
+        $agustus = 0;
+        $september = 0;
+        $oktober = 0;
+        $november = 0;
+        $desember = 0;
+
+
+
+
+
+        $tahun = date('Y', strtotime($date));
+
+
+
+        foreach ($idsubbidang as $key) {
+
+            $januari += $this->querytotalajuan('01', $tahun, '', $key['id_anggota']);
+
+            $februari += $this->querytotalajuan('02', $tahun, '', $key['id_anggota']);
+            $maret += $this->querytotalajuan('03', $tahun, '', $key['id_anggota']);
+            $april += $this->querytotalajuan('04', $tahun, '', $key['id_anggota']);
+            $mei += $this->querytotalajuan('05', $tahun, '', $key['id_anggota']);
+            $juni += $this->querytotalajuan('06', $tahun, '', $key['id_anggota']);
+
+
+            $juli += $this->querytotalajuan('07', $tahun, '', $key['id_anggota']);
+            $agustus += $this->querytotalajuan('08', $tahun, '', $key['id_anggota']);
+            $september += $this->querytotalajuan('09', $tahun, '', $key['id_anggota']);
+            $oktober += $this->querytotalajuan('10', $tahun, '', $key['id_anggota']);
+            $november += $this->querytotalajuan('11', $tahun, '', $key['id_anggota']);
+            $desember += $this->querytotalajuan('12', $tahun, '', $key['id_anggota']);
+        }
+
+
+
+
+
+
+
+        return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
     }
-    public function dmpau()
+    public function dmdisetujui($date, $id_anggota = null)
+    {
+        // Memecah sub jabatan DM
+        $pecahsubjabatan = $this->jabatan->subjabatan($id_anggota);
+
+        // Mencari id jabatan yang termasuk pada sub jabatan
+        $subbidang = array();
+        foreach ($pecahsubjabatan as $key) {
+
+            $this->db->select('id_jabatan');
+            $this->db->from('jabatan');
+            $this->db->where('nama_jabatan', $key);
+            foreach ($this->db->get()->result_array() as $k) {
+                $subbidang[] = $k;
+            }
+        }
+
+
+
+        // Mencari id pegawai berdasarkan pencarian id jabatan
+        $idsubbidang = array();
+        foreach ($subbidang as $key) {
+
+            $this->db->select('id_anggota');
+            $this->db->from('pegawai');
+            $this->db->where('id_jabatan', $key['id_jabatan']);
+            foreach ($this->db->get()->result_array() as $j) {
+
+                $idsubbidang[] = $j;
+            }
+        }
+
+
+
+
+
+        // Mencari ajuan yang memiliki id anggota yang telah tertulis dan menghitung total ajuan
+        $januari = 0;
+        $februari = 0;
+        $maret = 0;
+        $april = 0;
+        $mei = 0;
+        $juni = 0;
+        $juli = 0;
+        $agustus = 0;
+        $september = 0;
+        $oktober = 0;
+        $november = 0;
+        $desember = 0;
+
+
+
+
+
+        $tahun = date('Y', strtotime($date));
+
+
+
+        foreach ($idsubbidang as $key) {
+
+            $januari += $this->querytotalajuandisetujui('01', $tahun, '', $key['id_anggota']);
+
+            $februari += $this->querytotalajuandisetujui('02', $tahun, '', $key['id_anggota']);
+            $maret += $this->querytotalajuandisetujui('03', $tahun, '', $key['id_anggota']);
+            $april += $this->querytotalajuandisetujui('04', $tahun, '', $key['id_anggota']);
+            $mei += $this->querytotalajuandisetujui('05', $tahun, '', $key['id_anggota']);
+            $juni += $this->querytotalajuandisetujui('06', $tahun, '', $key['id_anggota']);
+
+
+            $juli += $this->querytotalajuandisetujui('07', $tahun, '', $key['id_anggota']);
+            $agustus += $this->querytotalajuandisetujui('08', $tahun, '', $key['id_anggota']);
+            $september += $this->querytotalajuandisetujui('09', $tahun, '', $key['id_anggota']);
+            $oktober += $this->querytotalajuandisetujui('10', $tahun, '', $key['id_anggota']);
+            $november += $this->querytotalajuandisetujui('11', $tahun, '', $key['id_anggota']);
+            $desember += $this->querytotalajuandisetujui('12', $tahun, '', $key['id_anggota']);
+        }
+
+
+
+
+
+
+
+        return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+    }
+
+
+
+    public function dmpautotalajuan()
     {
     }
 }

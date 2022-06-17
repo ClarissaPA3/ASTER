@@ -48,12 +48,12 @@ class M_chartgrafik extends CI_Model
 
         return $query;
     }
-    public function subbidangajuandisetujui($date, $id_anggota)
+    public function subbidangajuandisetujui($date, $id_jabatan)
     {
 
         // Cari nama sub jabatan dari subbidang ke dm
-        $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id_anggota), 1)->result_array();
-
+        $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id_jabatan), 1)->result_array();
+        
         // Mencari DM yang memiliki sub tersebut
         $this->db->select('*');
         $this->db->from('jabatan');
@@ -144,12 +144,12 @@ class M_chartgrafik extends CI_Model
 
         return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
     }
-    public function subbidangtotalajuan($date, $id_anggota = null)
+    public function subbidangtotalajuan($date, $id_jabatan = null)
     {
 
 
         // Cari nama sub jabatan dari subbidang ke dm
-        $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id_anggota), 1)->result_array();
+        $namajabatan = $this->db->get_where('jabatan', array('id_jabatan' => $id_jabatan), 1)->result_array();
 
         // Mencari DM yang memiliki sub tersebut
         $this->db->select('*');
@@ -431,10 +431,10 @@ class M_chartgrafik extends CI_Model
 
     }
 
-    public function dmtotalajuan($date, $id_anggota = null)
+    public function dmtotalajuan($date, $id_jabatan = null)
     {
         // Memecah sub jabatan DM
-        $pecahsubjabatan = $this->jabatan->subjabatan($id_anggota);
+        $pecahsubjabatan = $this->jabatan->subjabatan($id_jabatan);
 
 
         // Mencari id jabatan yang termasuk pada sub jabatan
@@ -516,11 +516,21 @@ class M_chartgrafik extends CI_Model
 
 
         return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+
+
+
+
+
+
+
+        return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
     }
-    public function dmdisetujui($date, $id_anggota = null)
+    public function dmdisetujui($date, $id_jabatan = null)
     {
+   
         // Memecah sub jabatan DM
-        $pecahsubjabatan = $this->jabatan->subjabatan($id_anggota);
+        $pecahsubjabatan = $this->jabatan->subjabatan($id_jabatan);
+
 
         // Mencari id jabatan yang termasuk pada sub jabatan
         $subbidang = array();
@@ -601,6 +611,7 @@ class M_chartgrafik extends CI_Model
 
 
         return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+
     }
 
 

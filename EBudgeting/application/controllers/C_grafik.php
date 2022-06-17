@@ -15,24 +15,24 @@ class C_grafik extends CI_Controller
 
     public function subbidanggrafik()
     {
-        $id_anggota = $this->session->userdata('id_anggota');
+        $id_jabatan = $this->session->userdata('id_jabatan');
         
-        echo json_encode($this->grafik->subbidangtotalajuan(date('Y-m-d'), $id_anggota));
+        echo json_encode($this->grafik->subbidangtotalajuan(date('Y-m-d'), $id_jabatan));
     }
     public function subbidangdisetujui()
     {
-        $id_anggota = $this->session->userdata('id_anggota');
-        echo json_encode($this->grafik->subbidangajuandisetujui(date('Y-m-d'), $id_anggota));
+        $id_jabatan = $this->session->userdata('id_jabatan');
+        echo json_encode($this->grafik->subbidangajuandisetujui(date('Y-m-d'), $id_jabatan));
     }
     public function dmgrafik()
     {
-        $id_anggota = $this->session->userdata('id_anggota');
-        echo json_encode($this->grafik->dmtotalajuan(date('Y-m-d'), $id_anggota));
+        $id_jabatan = $this->session->userdata('id_jabatan');
+        echo json_encode($this->grafik->dmtotalajuan(date('Y-m-d'), $id_jabatan));
     }
     public function dmdisetujui()
     {
-        $id_anggota = $this->session->userdata('id_anggota');
-        echo json_encode($this->grafik->dmdisetujui(date('Y-m-d'), $id_anggota));
+        $id_jabatan = $this->session->userdata('id_jabatan');
+        echo json_encode($this->grafik->dmdisetujui(date('Y-m-d'), $id_jabatan));
     }
    
    

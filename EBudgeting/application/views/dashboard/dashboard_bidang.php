@@ -640,7 +640,7 @@
     // Melakukan pengambilan data disetujui
     $.ajax({
       type: "GET",
-      url: '<?php echo site_url('C_grafik/dmgrafik') ?>',
+      url: '<?php echo site_url('C_grafik/dmdisetujui') ?>',
       datatype: "json",
       success: function(data) {
         result = data;
@@ -652,7 +652,7 @@
     // Melakukan pengambilan data total
     $.ajax({
       type: "GET",
-      url: '<?php echo site_url('C_grafik/dmdisetujui') ?>',
+      url: '<?php echo site_url('C_grafik/dmgrafik') ?>',
       datatype: "json",
       success: function(data) {
         result = data;

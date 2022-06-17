@@ -11,14 +11,20 @@ class M_chartgrafik extends CI_Model
     public function querytotalajuan($bulan, $tahun, $status = null, $id_anggota = null)
     {
 
-        if ($status == 'setujudm') {
-            $query = sprintf("SELECT COUNT(id_pengajuan) as total FROM `pengajuan_anggaran` WHERE bulan2 = '%s' and tahun='%s' and status2=2", $bulan, $tahun);
-            return $this->db->query($query)->result_array();
-            # code...
-        }
-        if ($status == 'setujudmpau') {
-            $query = sprintf("SELECT COUNT(id_pengajuan) as total FROM `pengajuan_anggaran` WHERE bulan2 = '%s' and tahun='%s' and status2=3", $bulan, $tahun);
-            return $this->db->query($query)->result_array();
+        
+        if ($status == 'dmpau') {
+            
+           
+            $this->db->select('count(id_anggota) as totalajuan');
+            $this->db->from('pengajuan_anggaran');
+            
+            $this->db->where('bulan2', $bulan);
+            $this->db->where('status2>', '0');
+            $this->db->where('tahun', $tahun);
+            $query = $this->db->get()->result_array()[0]['totalajuan'];
+            return $query;
+           
+            // return $query;
             # code...
         } else {
             $this->db->select('count(id_anggota) as totalajuan');
@@ -36,6 +42,7 @@ class M_chartgrafik extends CI_Model
     }
     public function querytotalajuandisetujui($bulan, $tahun, $status = null, $id_anggota = null)
     {
+        
         $this->db->select('count(id_anggota) as totalajuan');
         $this->db->from('pengajuan_anggaran');
         $this->db->where('id_anggota', $id_anggota);
@@ -616,7 +623,72 @@ class M_chartgrafik extends CI_Model
 
 
 
-    public function dmpautotalajuan()
+    public function dmpautotalajuan($date)
     {
+        
+        
+        $tahun = date('Y', strtotime($date));
+
+
+        $januari = $this->querytotalajuan('01', $tahun,'dmpau');
+
+        $februari = $this->querytotalajuan('02', $tahun, 'dmpau');
+        $maret = $this->querytotalajuan('03', $tahun, 'dmpau');
+        $april = $this->querytotalajuan('04', $tahun, 'dmpau');
+        $mei = $this->querytotalajuan('05', $tahun, 'dmpau');
+        $juni = $this->querytotalajuan('06', $tahun, 'dmpau');
+        
+
+        $juli = $this->querytotalajuan('07', $tahun, 'dmpau');
+        
+        $agustus = $this->querytotalajuan('08' , $tahun, 'dmpau');
+      
+        $september = $this->querytotalajuan('09', $tahun, 'dmpau');
+        $oktober = $this->querytotalajuan('10', $tahun, 'dmpau');
+        $november = $this->querytotalajuan('11', $tahun, 'dmpau');
+        $desember = $this->querytotalajuan('12', $tahun, 'dmpau');
+        // return array( $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+        
+        return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+
+    }
+    public function dmpaudisetujui($date)
+    {
+        $tahun = date('Y', strtotime($date));
+
+
+        $januari = $this->querytotalajuan('01', $tahun,'dmpau');
+
+        $februari = $this->querytotalkeseluruhandisetujui('02', $tahun, 'dmpau');
+        $maret = $this->querytotalkeseluruhandisetujui('03', $tahun, 'dmpau');
+        $april = $this->querytotalkeseluruhandisetujui('04', $tahun, 'dmpau');
+        $mei = $this->querytotalkeseluruhandisetujui('05', $tahun, 'dmpau');
+        $juni = $this->querytotalkeseluruhandisetujui('06', $tahun, 'dmpau');
+        
+
+        $juli = $this->querytotalkeseluruhandisetujui('07', $tahun, 'dmpau');
+        
+        $agustus = $this->querytotalkeseluruhandisetujui('08' , $tahun, 'dmpau');
+      
+        $september = $this->querytotalkeseluruhandisetujui('09', $tahun, 'dmpau');
+        $oktober = $this->querytotalkeseluruhandisetujui('10', $tahun, 'dmpau');
+        $november = $this->querytotalkeseluruhandisetujui('11', $tahun, 'dmpau');
+        $desember = $this->querytotalkeseluruhandisetujui('12', $tahun, 'dmpau');
+        // return array( $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+        
+        return array($januari, $februari, $maret, $april, $mei, $juni, $juli, $agustus, $september, $oktober, $november, $desember);
+        
+    }
+    public function querytotalkeseluruhandisetujui($bulan, $tahun)
+    {
+        $this->db->select('count(id_anggota) as totalajuan');
+        $this->db->from('pengajuan_anggaran');
+        
+        $this->db->where('bulan2', $bulan);
+        $this->db->where('status2', '3');
+        $this->db->where('tahun', $tahun);
+        $query = $this->db->get()->result_array()[0]['totalajuan'];
+        return $query;
+
     }
 }

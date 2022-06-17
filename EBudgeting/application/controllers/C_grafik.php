@@ -34,6 +34,17 @@ class C_grafik extends CI_Controller
         $id_jabatan = $this->session->userdata('id_jabatan');
         echo json_encode($this->grafik->dmdisetujui(date('Y-m-d'), $id_jabatan));
     }
+    public function dmpautotal()
+    {
+        
+        echo json_encode($this->grafik->dmpautotalajuan(date('Y-m-d')));
+
+    }
+    public function dmpaudisetujui()
+    {
+        echo json_encode($this->grafik->dmpaudisetujui(date('Y-m-d')));
+        
+    }
    
    
 }

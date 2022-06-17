@@ -16,12 +16,13 @@ class M_ajuananggaran extends CI_Model
 
         if (date("d") > 14) {
             date_default_timezone_set("Asia/Bangkok");
+            
             $tanggal = date('Y-m-d');
 
 
-            $tanggal =  date('Y-m-d', strtotime('+1 months', strtotime(date('Y-m-d', strtotime($tanggal)))));
-            $bulan = date('m', strtotime($tanggal));
-            $tahun = date('Y', strtotime($tanggal));
+            $tglpengajuan =  date('Y-m-d', strtotime('+1 months', strtotime(date('Y-m-d', strtotime($tanggal)))));
+            $bulan = date('m', strtotime($tglpengajuan));
+            $tahun = date('Y', strtotime($tglpengajuan));
         } else {
             date_default_timezone_set("Asia/Bangkok");
             $tanggal = date('Y-m-d');

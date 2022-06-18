@@ -201,7 +201,7 @@ class M_ajuananggaran extends CI_Model
             $this->db->where('id_anggota', $key['id_anggota']);
             $this->db->where('bulan2', $bulan);
             $this->db->where('status2', '5');
-            $this->db->where('status2', '6');
+            $this->db->or_where('status2', '6');
 
 
             foreach ($this->db->get()->result_array() as $j) {

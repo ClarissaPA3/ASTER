@@ -202,6 +202,7 @@ class C_ajuananggaran extends CI_Controller
 			$bulan = $this->input->get('bln');
 			$hitungajuan[$i] = $this->M_rekapanggaran->show_rekapposanggaran($subpos[$i]['id_subpos'], $bulan);
 			$data['totalkeseluruhan'] += $hitungajuan[$i]['total'];
+			
 		}
 		$data['hitungajuan'] = $hitungajuan;
 	

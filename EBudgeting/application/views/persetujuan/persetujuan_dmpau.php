@@ -5,13 +5,14 @@
 
     <title>E-Budgeting | Persetujuan DMPAU</title>
     <?php $this->load->view('dashboard/_part/head'); ?>
+    <?php $this->load->view("dashboard/_part/headdatatables"); ?>
 
 </head>
 
 
 <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-    <?php
+        <?php
         if ($this->session->userdata('jabatan') == 'subbidang') {
             $this->load->view('dashboard/sidebarnav/_headsubbidang');
         } else if ($this->session->userdata('jabatan') == 'dm') {
@@ -51,40 +52,40 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="card">
-                            <div class="card-header">
 
-                                <div class="col-md-2">
-                                <select name="bln">
-                                <option selected="selected">Bulan</option>
-                                <?php
-                                $bulan = array("Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember");
-                                $jlh_bln = count($bulan);
-                                for ($c = 0; $c < $jlh_bln; $c += 1) {
-                                    echo "<option value=$bulan[$c]> $bulan[$c] </option>";
-                                }
-                                ?>
-                            </select>
-                                </div>
-                            </div>
                             <!-- /.card-header -->
                             <div class="card-body">
                                 <div id="example1_wrapper" class="dataTables_wrapper dt-bootstrap4">
 
                                     <div class="row">
                                         <div class="col-sm-12">
-                                            <table id="example2" class="table table-bordered table-hover text-center">
+                                            <table id="tabeldmpau" class="table table-bordered table-hover text-center">
                                                 <thead>
                                                     <tr>
-                                                        <th rowspan="2">ID Pengajuan</th>
-                                                        <th rowspan="2">Bulan</th>
-                                                        <th rowspan="2">Minggu Ke</th>
-                                                        <th rowspan="2">Tanggal Mulai</th>
-                                                        <th rowspan="2">Tanggal Sampai</th>
-                                                        <th rowspan="2">Item</th>
-                                                        <th rowspan="2">Status</th>
-                                                        <th rowspan="2">Catatan</th>
+                                                        <th>ID Pengajuan</th>
+                                                        <th>Bulan</th>
+                                                        <th>Minggu Ke</th>
+                                                        <th>Tahun</th>
+                                                        <th>Tanggal Mulai</th>
+                                                        <th>Tanggal Sampai</th>
+                                                        <th>Item</th>
+                                                        <th>Status</th>
+                                                        <th>Catatan</th>
                                                         <th>Aksi</th>
                                                     </tr>
+                                                    <tr>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+
                                                 </thead>
                                                 <tbody class="table-striped">
 
@@ -96,8 +97,9 @@
 
                                                         <tr>
                                                             <td><?php echo $pengajuan[$i]['id_pengajuan']; ?></td>
-                                                            <td><?php echo $bulan[intval($pengajuan[$i]['bulan2'])]; ?></td>
+                                                            <td><?php echo $bulan[$pengajuan[$i]['bulan2']]; ?></td>
                                                             <td><?php echo $pengajuan[$i]['minggu2']; ?></td>
+                                                            <td><?php echo $pengajuan[$i]['tahun']; ?></td>
                                                             <td><?php echo $pengajuan[$i]['tanggal_mulai2']; ?></td>
                                                             <td><?php echo $pengajuan[$i]['tanggal_sampai2']; ?></td>
 
@@ -150,7 +152,75 @@
 
 
 
-<?php $this->load->view('dashboard/_part/js'); ?>
+    <?php $this->load->view('dashboard/_part/js'); ?>
+    <!-- Datatables -->
+    <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+    <script>
+        $(document).ready(function() {
+            var table = $('#tabeldmpau').DataTable({
+                orderCellsTop: true,
+                initComplete: function() {
+                    this.api().columns([1, 2, 3, 6]).every(function() {
+                        var column = this;
+
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+
+
+                                );
+
+
+
+                                column
+
+                                    .search(val ? '^' + val + '$' : '', true, false)
+
+
+                                    .draw();
+                            });
+                        console.log(column.data())
+                        column.data().unique().sort().each(function(d) {
+                            select.append('<option value="' + d + '">' + d + '</option>')
+                        });
+                    });
+                    this.api().column([7]).every(function() {
+                        var column = this;
+                        var select = $('<select class="form-control"><option value=""></option></select>')
+                            .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
+                            .on('change', function() {
+                                var val = $.fn.dataTable.util.escapeRegex(
+                                    $(this).val()
+
+
+                                );
+
+
+
+                                column
+
+                                    .search(val ? '^' + val + '$' : '', true, false)
+
+
+                                    .draw();
+                            });
+
+                        column.data().unique().sort().each(function(d) {
+                            var parser = new DOMParser();
+                            var doc = parser.parseFromString(d, 'text/html');
+                            var text = doc.querySelector('span').textContent;
+
+                            select.append('<option value="' + text + '">' + text + '</option>')
+                        });
+
+                    });
+
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

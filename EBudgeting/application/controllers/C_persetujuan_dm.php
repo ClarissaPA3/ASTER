@@ -22,6 +22,9 @@ class C_persetujuan_dm extends CI_Controller
     }
     public function show_pengajuandm()
     {
+        if ($this->session->userdata('jabatan') != "dm") {
+            redirect(site_url('C_login'));
+        }
         $data['pengajuan'] = $this->M_ajuananggaran->show_pengajuan_sub();
         foreach ($data['pengajuan'] as $k) {
 
@@ -50,6 +53,9 @@ class C_persetujuan_dm extends CI_Controller
     }
     public function reviewdm($id = null)
     {
+        if ($this->session->userdata('jabatan') != "dm") {
+            redirect(site_url('C_login'));
+        }
         $this->form_validation->set_rules('id_pengajuan', 'Id pengajuan', 'required');
 
         if ($this->form_validation->run() == FALSE) {

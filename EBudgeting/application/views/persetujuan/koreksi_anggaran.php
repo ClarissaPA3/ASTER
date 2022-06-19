@@ -67,14 +67,28 @@
                         <thead>
                           <tr>
                             <th>ID Pengajuan</th>
+                            <th>Minggu Ke</th>
                             <th>Bulan</th>
+                            <th>Tahun</th>
                             <th>Pengajuan</th>
                             <th>Tanggal Mulai </th>
                             <th>Tanggal Sampai </th>
                             <th>Total </th>
-
                             <th>Status </th>
                             <th>Aksi</th>
+
+                          </tr>
+                          <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
 
                           </tr>
                         </thead>
@@ -83,11 +97,16 @@
                           <?php foreach ($pengajuan_anggaran as $pengajuan_anggaran) : ?>
 
                             <tr>
-                              <td width="150">
+                            <td>
                                 <?php echo $pengajuan_anggaran->id_pengajuan ?>
                               </td>
                               <td>
+                                <?php echo $pengajuan_anggaran->minggu2 ?>
+                              </td>
+                              <td>
                                 <?php echo $bulan[$pengajuan_anggaran->bulan2]; ?>
+                              </td>
+                              <td> <?php echo $pengajuan_anggaran->tahun ?>
 
                               </td>
                               <td>
@@ -167,20 +186,68 @@
   <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
   <script>
     $(document).ready(function() {
-      $('#example').DataTable({
-        columnDefs: [{
-            targets: [0],
-            orderData: [0, 1],
-          },
-          {
-            targets: [1],
-            orderData: [1, 0],
-          },
-          {
-            targets: [4],
-            orderData: [4, 0],
-          },
-        ],
+      var table = $('#example').DataTable({
+        orderCellsTop: true,
+        initComplete: function() {
+          this.api().columns([1, 2,3]).every(function() {
+            var column = this;
+
+            var select = $('<select class="form-control"><option value=""></option></select>')
+              .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+
+
+                );
+
+
+
+                column
+
+                  .search(val ? '^' + val + '$' : '', true, false)
+
+
+                  .draw();
+              });
+          
+            column.data().unique().sort().each(function(d) {
+              select.append('<option value="' + d + '">' + d + '</option>')
+            });
+          });
+          this.api().column([8]).every(function() {
+            var column = this;
+            var select = $('<select class="form-control"><option value=""></option></select>')
+              .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))
+              .on('change', function() {
+                var val = $.fn.dataTable.util.escapeRegex(
+                  $(this).val()
+
+
+                );
+
+
+
+                column
+
+                  .search(val ? '^' + val + '$' : '', true, false)
+
+
+                  .draw();
+              });
+              console.log(column.data());
+
+            column.data().unique().sort().each(function(d) {
+              var parser = new DOMParser();
+              var doc = parser.parseFromString(d, 'text/html');
+              var text = doc.querySelector('p').textContent;
+
+              select.append('<option value="' + text + '">' + text + '</option>')
+            });
+
+          });
+
+        }
       });
     });
   </script>

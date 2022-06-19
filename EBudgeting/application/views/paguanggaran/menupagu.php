@@ -67,7 +67,7 @@
                                     <div class="row">
                                         <div class="col-sm-12">
                                             <table id="example2" class="table table-bordered table-hover text-center">
-                                            <thead>
+                                                <thead>
                                                     <tr>
                                                         <th>No</th>
                                                         <th>ID Anggota</th>
@@ -77,18 +77,17 @@
                                                         <th>Tahun</th>
                                                         <th>Aksi</th>
                                                     </tr>
-                                                </thead>    
-                                            <thead>
                                                     <tr>
-                                                        <th>No</th>
-                                                        <th>ID Anggota</th>
-                                                        <th>Nominal Pagu</th>
-                                                        <th>Nominal Terpakai</th>
-                                                        <th>Bulan</th>
-                                                        <th>Tahun</th>
-                                                        <th>Aksi</th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
                                                     </tr>
                                                 </thead>
+
                                                 <tbody class="table-striped">
 
                                                     <?php
@@ -112,7 +111,7 @@
                                                         </tr>
                                                     <?php endforeach; ?>
                                                 </tbody>
-                                               
+
                                             </table>
                                         </div>
                                     </div>
@@ -142,15 +141,17 @@
     <script>
         $(document).ready(function() {
             $('#example2').DataTable({
-                
+                orderCellsTop: true,
+
                 initComplete: function() {
                     this.api()
-                        .columns()
+                        .columns([1, 4, 5])
                         .every(function() {
                             var column = this;
-                            var select = $('<select><option value=""></option></select>')
-                                .appendTo( $("#example2 thead tr:eq(1) th").eq(column.index()).empty())
-                                
+                            
+                            var select = $('<select class="form-control"><option value=""></option></select>')
+                                .appendTo($("#example2 thead tr:eq(1) th").eq(column.index()).empty())
+
                                 .on('change', function() {
                                     var val = $.fn.dataTable.util.escapeRegex($(this).val());
 

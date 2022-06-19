@@ -20,6 +20,11 @@ class C_persetujuan_dmpau extends CI_Controller
     }
     public function show_pengajuandmpau()
     {
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
+
+
         $data['pengajuan'] = $this->M_ajuananggaran->show_persetujuanDMPAU();
 
         foreach ($data['pengajuan'] as $k) {
@@ -57,6 +62,9 @@ class C_persetujuan_dmpau extends CI_Controller
     }
     public function reviewdmpau($id = null)
     {
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
         $this->form_validation->set_rules('id_pengajuan', 'Id pengajuan', 'required');
 
         if ($this->form_validation->run() == FALSE) {

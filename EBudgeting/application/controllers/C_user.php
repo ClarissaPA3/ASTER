@@ -16,6 +16,11 @@ class C_user extends CI_Controller
 
 	public function add_user()
 	{
+		// Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
+
 		$this->form_validation->set_rules('nama_anggota', 'Nama Pegawai', 'required|regex_match[/^[a-zA-Z ]*$/]|max_length[80]', array('max_length' => 'Batas input maksimal 80 karakter', 'regex_match' => '{field} tidak boleh mengandung simbol dan angka'));
 		$this->form_validation->set_rules('tgl_lahir', 'Tanggal lahir', 'required');
 		$this->form_validation->set_rules('alamat', 'Alamat', 'required|regex_match[/^[a-zA-Z0-9\.\, ]*$/]', array('regex_match' => '{field} tidak boleh mengandung simbol kecuali , dan .'));
@@ -52,6 +57,11 @@ class C_user extends CI_Controller
 	}
 	public function delete_user($id)
 	{
+		// Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
+
 		$this->M_user->delete_user($id);
 		$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -62,6 +72,10 @@ class C_user extends CI_Controller
 	}
 	public function update_user($id = null)
 	{
+		// Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
 
 		$this->form_validation->set_rules('nama_anggota', 'Nama Pegawai', 'required|regex_match[/^[a-zA-Z ]*$/]|max_length[80]', array('max_length' => 'Batas input maksimal 80 karakter', 'regex_match' => '{field} tidak boleh mengandung simbol dan angka'));
 		$this->form_validation->set_rules('tgl_lahir', 'Tanggal lahir', 'required');
@@ -101,6 +115,12 @@ class C_user extends CI_Controller
 	}
 	public function show_user()
 	{
+		// Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
+
+
 		$data['pegawai'] = $this->M_user->show_user();
 		$data['status'] = array(
 			'1' => 'Sub Bidang',

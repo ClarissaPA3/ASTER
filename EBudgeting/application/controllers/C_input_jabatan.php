@@ -14,6 +14,9 @@ class C_input_jabatan extends CI_Controller
     }
     public function add_jabatan()
     {
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
         $this->form_validation->set_rules('nama', 'Nama Jabatan', 'required|alpha_numeric_spaces|max_length[64]');
         $this->form_validation->set_rules('tingkat', 'Tingkat Jabatan', 'required|alpha_numeric_spaces|max_length[64]');
         if ($this->form_validation->run() == FALSE) {
@@ -41,6 +44,9 @@ class C_input_jabatan extends CI_Controller
     }
     public function delete_jabatan($id)
     {
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
         $this->M_input_jabatan->delete_jabatanM($id);
         $this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
 							<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -51,6 +57,13 @@ class C_input_jabatan extends CI_Controller
     }
     public function update_jabatan($id)
     {
+
+        // Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
+
+
         $this->form_validation->set_rules('nama', 'Nama Jabatan', 'required|alpha_numeric_spaces|max_length[64]');
         $this->form_validation->set_rules('tingkat', 'Tingkat Jabatan', 'required|alpha_numeric_spaces|max_length[64]');
 
@@ -75,6 +88,10 @@ class C_input_jabatan extends CI_Controller
     }
     public function show_jabatan()
     {
+        // Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
 
         $data['jabatan'] = $this->M_input_jabatan->show_jabatanM();
         $data['subjabatan'] = $this->M_input_jabatan->subjabatan();
@@ -84,6 +101,10 @@ class C_input_jabatan extends CI_Controller
 
     public function hakakses($id = null)
     {
+        // Check akses dmpau
+        if ($this->session->userdata('jabatan') != "dmpau") {
+            redirect(site_url('C_login'));
+        }
 
         $this->form_validation->set_rules('nama', 'Nama Jabatan', 'required|alpha_numeric_spaces|max_length[64]');
         $this->form_validation->set_rules('tingkat', 'Tingkat Jabatan', 'required|alpha_numeric_spaces|max_length[64]');

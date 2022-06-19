@@ -319,7 +319,7 @@
       var table = $('#example').DataTable({
         orderCellsTop: true,
         initComplete: function() {
-          this.api().columns([1, 2]).every(function() {
+          this.api().columns([1, 2, 3]).every(function() {
             var column = this;
 
             var select = $('<select class="form-control"><option value=""></option></select>')

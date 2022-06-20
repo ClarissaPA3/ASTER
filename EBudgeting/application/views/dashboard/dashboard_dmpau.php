@@ -351,7 +351,7 @@
                 <div class="inner">
                   <h3><?php echo $pengajuan['totalanggaran'] == 0 ? '0' : $pengajuan['totalanggaran']; ?></h3>
 
-                  <p>Total Ajuan Anggaran</p>
+                  <p>Total Ajuan Anggaran bulan ini</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-shopping-cart"></i>
@@ -366,7 +366,7 @@
                 <div class="inner">
                   <h3><?php echo $pengajuan['totaldisetujui'] == 0 ? '0' : $pengajuan['totaldisetujui']; ?></h3>
 
-                  <p>Pengajuan Disetujui</p>
+                  <p>Pengajuan Disetujui bulan ini</p>
                 </div>
                 <div class="icon">
                   <i class="ion ion-stats-bars"></i>
@@ -381,7 +381,7 @@
                 <div class="inner">
                   <h3><?php echo $pengajuan['totalrevisi'] == 0 ? '0' : $pengajuan['totalrevisi']; ?></h3>
 
-                  <p>Koreksi</p>
+                  <p>Koreksi bulan ini</p>
                 </div>
                 <div class="icon">
                   <i class="fas fa-user-plus"></i>

@@ -345,7 +345,7 @@
               select.append('<option value="' + d + '">' + d + '</option>')
             });
           });
-          this.api().column([7]).every(function() {
+          this.api().column([8]).every(function() {
             var column = this;
             var select = $('<select class="form-control"><option value=""></option></select>')
               .appendTo($('thead tr:eq(1) th:eq(' + this.index() + ')'))

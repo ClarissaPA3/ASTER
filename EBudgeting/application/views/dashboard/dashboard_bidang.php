@@ -399,7 +399,7 @@
               <!-- AREA CHART -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Chart Total pengajuan anggaran tahun <?php echo date('Y'); ?></h3>
+                  <h3 class="card-title"> Total pengajuan anggaran tahun <?php  echo date('Y');?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -437,7 +437,7 @@
               <!-- LINE CHART -->
               <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Chart Ajuan disetujui tahun <?php echo date('Y'); ?></h3>
+                  <h3 class="card-title">Total ajuan disetujui tahun <?php  echo date('Y');?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">

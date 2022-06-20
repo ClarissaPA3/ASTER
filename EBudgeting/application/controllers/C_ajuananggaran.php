@@ -71,21 +71,22 @@ class C_ajuananggaran extends CI_Controller
 			$pagu = $this->M_paguanggaran->checkPagu(date('Y-m-d'));
 			$id = $this->input->post('id_pengajuan');
 			$nominalpengajuan = $this->M_detailajuan->hitunganggaran($id)[0]['nominal_pengajuan2'];
-			if (($nominalpengajuan + $pagu[0]['nominal_terpakai'] > $pagu[0]['nominal_pagu'])) {
-				// Mengecheck apakah nominalpengajuan lebih besar dari pagu
-				$pengajuan = $nominalpengajuan + $pagu[0]['nominal_terpakai'] - $pagu[0]['nominal_pagu'];
-				$this->session->set_flashdata('pagu', $pengajuan);
-				redirect($_SERVER['HTTP_REFERER']);
-			} else {
-				
-				$this->M_ajuananggaran->update_pengajuan();
+			$this->M_ajuananggaran->update_pengajuan();
 				$this->session->set_flashdata('pesan', '<div class="alert alert-success alert-dismissible">
 				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 				<h5><i class="icon fas fa-check"></i> Update Data!</h5>
 				Berhasil diupdate.
 				</div>');
 				redirect(site_url('C_ajuananggaran/show_datapengajuan'));
-			}
+			// if (($nominalpengajuan + $pagu[0]['nominal_terpakai'] > $pagu[0]['nominal_pagu'])) {
+			// 	// Mengecheck apakah nominalpengajuan lebih besar dari pagu
+			// 	$pengajuan = $nominalpengajuan + $pagu[0]['nominal_terpakai'] - $pagu[0]['nominal_pagu'];
+			// 	$this->session->set_flashdata('pagu', $pengajuan);
+			// 	redirect($_SERVER['HTTP_REFERER']);
+			// } else {
+				
+				
+			// }
 		}
 	}
 

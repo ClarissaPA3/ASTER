@@ -178,7 +178,7 @@
                                 if ($pengajuan_anggaran->status2 < 2) {
                                 ?>
 
-                                  <a class="btn btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                  <a href="<?php echo site_url('C_ajuananggaran/delete_datapengajuan/') . $pengajuan_anggaran->id_pengajuan; ?>" class="btn btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
 
                                 <?php
                                 }

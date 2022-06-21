@@ -142,8 +142,8 @@
                               <td>
                                 <?php echo $bulan[$pengajuan_anggaran->bulan2]; ?>
                               </td>
-                              <td>   <?php echo $pengajuan_anggaran->tahun ?>
-                                
+                              <td> <?php echo $pengajuan_anggaran->tahun ?>
+
                               </td>
                               <td>
                                 <?php echo $pengajuan_anggaran->tgl_pengajuan2 ?>
@@ -380,8 +380,8 @@
       });
     });
   </script>
-  
-  
+
+
   <!-- SweetAlert 2 -->
   <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script>

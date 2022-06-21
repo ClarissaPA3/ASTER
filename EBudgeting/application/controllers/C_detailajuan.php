@@ -32,6 +32,11 @@ class C_detailajuan extends CI_Controller
 			// Mengecheck apakah nominalpengajuan lebih besar dari pagu
 			$pengajuan = $nominalpengajuan+$pagu[0]['nominal_terpakai'] - $pagu[0]['nominal_pagu'];
 			$this->session->set_flashdata('pagu', $pengajuan);
+			$this->session->set_flashdata('pesan', '<div class="alert alert-danger alert-dismissible">
+				<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+				<h5><i class="icon fas fa-ban"></i> Perhatian!</h5> 
+				Pengajuan lebih besar dari pagu anggaran, mohon untuk mengurangi nominal pengajuan lebih kecil!
+			</div>');
 			redirect($_SERVER['HTTP_REFERER']);
 		}
 		else {

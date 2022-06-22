@@ -69,20 +69,7 @@
         <div class="row">
 
           <div class="col-md-12">
-            <div class="card">
-
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-md-6">
-                    <a href="<?php echo site_url('SearchController2/'); ?>" class="btn btn-block btn-info"></i> Filter Minggu</a>
-
-                  </div>
-                  <div class="col-md-6">
-                    <a href="<?php echo site_url('SearchController/'); ?>" class="btn btn-block btn-info"></i> Filter Bulan</a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          
             <div class="card">
               <div class="card-header">
 

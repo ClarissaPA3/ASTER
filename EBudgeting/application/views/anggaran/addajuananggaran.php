@@ -195,7 +195,7 @@
                                                                 <td> <input type="text" name="deskripsi" id="deskripsi" placeholder="deskripsi" class="form-control">
                                                                     <?php echo form_error('deskripsi'); ?></td>
                                                                 <!-- Tambah detail -->
-                                                                <td><button type="submit" class="btn btn-primary"><i class="fa fa-fw fa-plus"></i></button></td>
+                                                                <?php echo $ajuan['status2'] < 3 ? "<td><button type='submit' class='btn btn-primary'><i class='fa fa-fw fa-plus'></i></button></td>" : '';?>
 
                                                             </tr>
 
@@ -220,7 +220,7 @@
                                                                         <h4><?php echo $key['deskripsi2']; ?></h4>
                                                                     </td>
                                                                     <!-- Tombol Hapus -->
-                                                                    <td><a class="btn btn-danger" href="<?php echo site_url('C_detailajuan/delete_detailanggaran/') . $key['id_detailpengajuan']; ?>"><i class="fa fa-fw fa-trash"></i></a></td>
+                                                                   <?php echo $ajuan['status2'] < 3 ? " <td><a class='btn btn-danger' href=". site_url('C_detailajuan/delete_detailanggaran/') . $key['id_detailpengajuan']."><i class='fa fa-fw fa-trash'></i></a></td>" : '';?>
 
                                                                 </tr>
                                                             <?php endforeach; ?>
@@ -254,13 +254,14 @@
                                             ?>
 
                                             <?php
-                                            if ($ajuan['status2'] >= 2) {
+                                            if ($ajuan['status2'] >= 2 && $ajuan['status2'] < 3) {
                                             ?>
+                                            
                                                 <a onclick="FormSubmit()" class="btn btn-info"><i class="fas fa-fw fa-check"></i> Ajukan</a>
                                             <?php
-                                            } else {
+                                            } if($ajuan['status2'] == 1) {
                                             ?>
-                                                <a onclick="Coba()" class="btn btn-info"><i class="fa fa-fw fa-check"></i> Ajukan</a>
+                                                <a onclick="Coba()" class="btn btn-info"><i class="fas fa-fw fa-check"></i> Ajukan</a>
                                             <?php
 
                                             }

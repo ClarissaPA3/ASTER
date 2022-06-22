@@ -121,20 +121,19 @@
                               <td>
                                 <?php echo $pengajuan_anggaran->total_pengajuan2 ?>
                               </td>
-                              <td>
 
+                              <td>
                                 <?php
-                                if ($pengajuan_anggaran->status2 == 5) {
-                                ?>
-                                  <span class="btn btn-danger"><i class="fa fa-fw fa-warning"></i> Permohonan Koreksi oleh DM</span>
-                                <?php
-                                } else if ($pengajuan_anggaran->status2 == 6) {
-                                ?>
-                                  <p class="btn btn-danger"><i class="fa fa-fw fa-warning"></i> Permohonoan Koreksi oleh DMPAU</p>
-                                <?php
+                                $array = array_intersect(array($pengajuan_anggaran->status2), array_flip($status));
+
+
+                                if (!empty($array)) {
+
+                                  echo $status[$array[0]];
                                 }
                                 ?>
                               </td>
+                             
                               <td width="250">
                                 <a href="<?php echo site_url('C_koreksi_anggaran/update_koreksi/') . $pengajuan_anggaran->id_pengajuan . '/' . $pengajuan_anggaran->status2; ?>" class="btn btn-block btn-primary col-md-8"><i class="fas fa-edit"></i> Detail anggaran</a>
                               </td>
@@ -240,7 +239,7 @@
             column.data().unique().sort().each(function(d) {
               var parser = new DOMParser();
               var doc = parser.parseFromString(d, 'text/html');
-              var text = doc.querySelector('p').textContent;
+              var text = doc.querySelector('span').textContent;
 
               select.append('<option value="' + text + '">' + text + '</option>')
             });

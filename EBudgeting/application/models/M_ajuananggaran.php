@@ -70,6 +70,8 @@ class M_ajuananggaran extends CI_Model
         $this->db->where('id_anggota',  $this->session->userdata('id_anggota'));
         $this->db->where('status2', '5');
         $this->db->or_where('status2', '6');
+        $this->db->or_where('status2', '7');
+        $this->db->or_where('status2', '8');
         $query = $this->db->get()->result();
         return $query;
     }
@@ -182,8 +184,7 @@ class M_ajuananggaran extends CI_Model
 
 
             foreach ($this->db->get()->result_array() as $j) {
-                print_r($j);
-
+               
 
                 $anggarandisetujui += $j['totalsetuju'];
             }

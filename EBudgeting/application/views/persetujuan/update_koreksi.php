@@ -249,7 +249,7 @@
                                 <div class="card-footer bg-gray" id="box-footer">
                                     <div class="pull-right">
                                         <?php
-                                        if ($ajuan['status2'] == 5) {
+                                        if ($ajuan['status2'] == 5 || $ajuan['status2'] == 7) {
                                         ?>
 
 
@@ -257,7 +257,7 @@
 
                                         <?php
                                         }
-                                        if ($ajuan['status2'] == 6) {
+                                        if ($ajuan['status2'] == 6 || $ajuan['status2'] == 8) {
                                         ?>
 
                                             <button id="kirimDMPAU" class="btn btn-primary">Ajukan Ke DMPAU</button>

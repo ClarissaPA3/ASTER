@@ -320,7 +320,7 @@ class M_ajuananggaran extends CI_Model
 
 
             foreach ($this->db->get()->result_array() as $j) {
-                print_r($j);
+                
 
 
                 $anggarandisetujui += $j['totalsetuju'];

@@ -11,6 +11,7 @@ class C_user extends CI_Controller
 		$this->load->helper(array('form', 'url'));
 		$this->load->model('M_input_jabatan');
 		$this->load->helper('security');
+		$this->load->model('M_input_jabatan');
 	}
 
 
@@ -122,11 +123,18 @@ class C_user extends CI_Controller
 
 
 		$data['pegawai'] = $this->M_user->show_user();
-		$data['status'] = array(
-			'1' => 'Sub Bidang',
-			'2' => 'Bidang',
-			'3' => 'DMPAU'
-		);
+		$jabatan = array();
+		$datajabatan = $this->M_input_jabatan->show_jabatanM();
+	
+		foreach ($datajabatan as $key) {
+			
+			$jabatan[$key['id_jabatan']] = $key['tingkatan_user'];
+				
+			
+		}
+
+		$data['status'] = $jabatan;
+	
 		$this->load->view('user/rekap_pegawai.php', $data);
 	}
 }

@@ -46,7 +46,7 @@
                         </div>
                     </div>
                 </div><!-- /.container-fluid -->
-                
+
             </section>
 
 
@@ -77,7 +77,7 @@
                                                         <th>Jabatan</th>
 
                                                         <th>Username</th>
-                                                        
+
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -97,23 +97,19 @@
 
                                                             <td>
                                                                 <?php
-                                                                $array = array_intersect(array($key->id_jabatan), array_flip($status));
+                                                                echo $status[$key->id_jabatan];
 
 
-                                                                if (!empty($array)) {
-
-                                                                    echo $status[$array[0]];
-                                                                }
                                                                 ?>
                                                             </td>
 
                                                             <td><?php echo $key->username; ?> </td>
-                                                            
+
                                                             <td>
                                                                 <a href="<?php echo site_url('C_user/update_user/') . $key->id_anggota; ?>" class="btn btn-block btn-primary"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                            <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
-                                                                </td>
-                                                           
+                                                                <a href="<?php echo site_url('C_user/delete_user/') . $key->id_anggota; ?>" class="btn btn-block btn-danger" id="hapus"><i class="fas fa-trash"></i></a>
+                                                            </td>
+
                                                         </tr>
                                                     <?php endforeach; ?>
 

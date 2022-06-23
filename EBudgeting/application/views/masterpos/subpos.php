@@ -149,7 +149,7 @@
 
             Swal.fire({
                 title: 'Apakah anda yakin untuk menghapusnya?',
-
+                text: 'Data yang berkaitan dengan data ini akan dihapus',
                 icon: 'question',
                 confirmButtonText: 'OK!',
                 showCancelButton: true

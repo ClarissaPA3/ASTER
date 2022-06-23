@@ -26,6 +26,7 @@ class C_ajuananggaran extends CI_Controller
 						<h5><i class="icon fas fa-check"></i> Tambah Data!</h5>
 						Berhasil ditambahkan.
 					</div>');
+		
 
 		redirect(site_url('C_ajuananggaran/show_datapengajuan'));
 	}

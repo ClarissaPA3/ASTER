@@ -13,6 +13,15 @@ class M_masterpos_subpos extends CI_Model
     }
     public function delete_posM($id)
     {
+        $ajuan = $this->db->get_where('detail_pengajuananggaran', array('id_pos' => $id))->result_array();
+        foreach ($ajuan as $k) {
+            $this->db->delete('detail_pengajuananggaran', array('id_pengajuan' => $k['id_pengajuan']));
+        }
+        foreach ($ajuan as $k) {
+            $this->db->delete('pengajuan_anggaran', array('id_pengajuan' => $id));
+        }
+       
+       
         $this->db->delete('pos', array('id_pos' => $id));
     }
     public function update_posM()
@@ -48,6 +57,13 @@ class M_masterpos_subpos extends CI_Model
     }
     public function delete_subposM($id)
     {
+        $ajuan = $this->db->get_where('detail_pengajuananggaran', array('id_subpos' => $id))->result_array();
+        foreach ($ajuan as $k) {
+            $this->db->delete('detail_pengajuananggaran', array('id_pengajuan' => $k['id_pengajuan']));
+        }
+        foreach ($ajuan as $k) {
+            $this->db->delete('pengajuan_anggaran', array('id_pengajuan' => $id));
+        }
         $this->db->delete('sub_pos', array('id_subpos' => $id));
     }
     public function update_subposM()
@@ -83,6 +99,14 @@ class M_masterpos_subpos extends CI_Model
     }
     public function delete_subpos2M($id)
     {
+        
+        $ajuan = $this->db->get_where('detail_pengajuananggaran', array('id_subpos2' => $id))->result_array();
+        foreach ($ajuan as $k) {
+            $this->db->delete('detail_pengajuananggaran', array('id_pengajuan' => $k['id_pengajuan']));
+        }
+        foreach ($ajuan as $k) {
+            $this->db->delete('pengajuan_anggaran', array('id_pengajuan' => $id));
+        }
         $this->db->delete('sub_pos2', array('id_subpos2' => $id));
     }
     public function update_subpos2M()

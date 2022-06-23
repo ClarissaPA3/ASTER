@@ -3,6 +3,13 @@
 class M_input_jabatan extends CI_Model
 
 {
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('M_user');
+       
+        
+    }
     public function add_jabatanM()
     {
         $data = array(
@@ -14,8 +21,12 @@ class M_input_jabatan extends CI_Model
         $this->db->insert('jabatan', $data);
     }
     public function delete_jabatanM($id)
-    {
+    {   $a = $this->db->get_where('pegawai', array('id_jabatan' => $id))->result_array();
+        foreach ($a as $k) {
+           $this->M_user->delete_user($k['id_anggota']);
+        }
         $this->db->delete('jabatan', array('id_jabatan' => $id));
+
     }
     public function update_jabatanM()
     {

@@ -20,6 +20,14 @@ class M_user extends CI_Model
     }
     public function delete_user($id)
     { 
+        $this->db->delete('pagu_anggaran', array('id_anggota' => $id));
+        
+        $this->db->delete('transfer', array('id_anggota' => $id));
+        $ajuan = $this->db->get_where('pengajuan_anggaran', array('id_anggota' => $id))->result_array();
+        foreach ($ajuan as $k) {
+            $this->db->delete('detail_pengajuananggaran', array('id_pengajuan' => $k['id_pengajuan']));
+        }
+        $this->db->delete('pengajuan_anggaran', array('id_anggota' => $id));
         $this->db->delete('pegawai', array('id_anggota' => $id));
 
     }

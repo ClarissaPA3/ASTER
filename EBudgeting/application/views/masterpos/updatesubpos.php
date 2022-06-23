@@ -13,16 +13,16 @@
 <body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
 
-  <?php
-        if ($this->session->userdata('jabatan') == 'subbidang') {
-            $this->load->view('dashboard/sidebarnav/_headsubbidang');
-        } else if ($this->session->userdata('jabatan') == 'dm') {
-            $this->load->view('dashboard/sidebarnav/_headdm');
-        } else if ($this->session->userdata('jabatan') == 'dmpau') {
-            $this->load->view('dashboard/sidebarnav/_headdmpau');
-        }
+    <?php
+    if ($this->session->userdata('jabatan') == 'subbidang') {
+      $this->load->view('dashboard/sidebarnav/_headsubbidang');
+    } else if ($this->session->userdata('jabatan') == 'dm') {
+      $this->load->view('dashboard/sidebarnav/_headdm');
+    } else if ($this->session->userdata('jabatan') == 'dmpau') {
+      $this->load->view('dashboard/sidebarnav/_headdmpau');
+    }
 
-        ?>
+    ?>
 
 
 
@@ -30,8 +30,22 @@
     <div class="content-wrapper">
       <!-- Content Header (Page header) -->
       <section class="content-header">
-        <h1>Update Sub Pos</h1>
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Update Sub Pos</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item">Home</li>
+                <li class="breadcrumb-item">Master Sub Pos</li>
+                <li class="breadcrumb-item active">Update Sub Pos</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
       </section>
+      <!-- Main content -->
       <!-- Main content -->
       <section class="content">
 

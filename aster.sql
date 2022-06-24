@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2022 at 12:10 AM
+-- Generation Time: Jun 24, 2022 at 05:20 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 7.4.28
 
@@ -54,7 +54,9 @@ INSERT INTO `detail_pengajuananggaran` (`id_detailpengajuan`, `id_subpos2`, `id_
 (32, 5, 53, 2, 7, '80000', '80000', 'Pelaksanaan proyek', 'Rapat minggu ke satu'),
 (33, 4, 54, 2, 6, '890000', '890000', 'Pelaksanaan proyek', 'Pelaksanaan proyek 1'),
 (34, 4, 54, 5, 6, '389000', '389000', 'Pelaksanaan proyek', 'Pelaksanaan proyek 2'),
-(35, 4, 55, 3, 6, '346000', '320000', 'Perlengkapan rapat proyek minggu ke satu', 'Pelaksanaan proyek 2');
+(35, 4, 55, 3, 6, '346000', '320000', 'Perlengkapan rapat proyek minggu ke satu', 'Pelaksanaan proyek 2'),
+(36, 5, 59, 3, 20, '2000', '', 'test', 'test'),
+(37, 5, 60, 3, 7, '200000', '', 'test', 'test');
 
 -- --------------------------------------------------------
 
@@ -75,10 +77,25 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`id_jabatan`, `nama_jabatan`, `tingkatan_user`, `hakakses`, `sub_jabatan`) VALUES
-(1, 'Sub Kegiatan Masyarakat', 'dmpau', '', 'A, B, C, D, E'),
-(2, 'Kepala Bidang', 'dm', 'rekapanggaran , menutransfer', 'Z, X, M, L'),
+(1, 'Sub Kelautan', 'subbidang', '', ''),
+(2, 'Kepala Bidang', 'dm', 'rekapanggaran , menutransfer', 'Sub Kelautan, Sub Lingkungan'),
 (3, 'Admin Keuangan', 'dmpau', 'masterpos , mastersubpos , mastersubpos2 , rekapanggaran , menutransfer', ''),
 (9, 'test', 'subbidang', '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `notifikasi`
+--
+
+CREATE TABLE `notifikasi` (
+  `id_notifikasi` int(11) NOT NULL,
+  `id_anggota` int(11) NOT NULL,
+  `jenis_notifikasi` varchar(255) NOT NULL,
+  `id_pengajuan` int(11) NOT NULL,
+  `tipe_notifikasi` varchar(255) NOT NULL,
+  `sudah_dibaca` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -173,12 +190,15 @@ INSERT INTO `pengajuan_anggaran` (`id_pengajuan`, `id_anggota`, `catatan_dm2`, `
 (50, 1, '', '345000', '2', '01', '', 3, '2022-06-14 00:00:00', '2022-06-21 00:00:00', '2022-06-13 00:00:00', '2022'),
 (51, 1, '', '234000', '2', '06', '', 3, '2022-06-22 00:00:00', '2022-06-22 00:00:00', '2022-06-13 00:00:00', '2022'),
 (52, 1, '', '700000', '2', '06', '', 2, '2022-05-08 00:00:00', '2022-05-15 00:00:00', '2022-06-13 00:00:00', '2022'),
-(53, 1, '', '80000', '1', '06', 'Laporan penggunaan', 6, '2022-05-01 00:00:00', '2022-05-07 00:00:00', '2022-06-13 00:00:00', '2022'),
+(53, 1, '', '80000', '1', '06', 'Laporan penggunaan', 5, '2022-05-01 00:00:00', '2022-05-07 00:00:00', '2022-06-13 00:00:00', '2022'),
 (54, 1, '', '1279000', '3', '06', '', 2, '2022-06-26 00:00:00', '2022-06-30 00:00:00', '2022-06-13 00:00:00', '2022'),
 (55, 1, 'Pengurangan dana', '346000', '1', '06', '', 5, '2022-07-02 00:00:00', '2022-07-03 00:00:00', '2022-06-13 00:00:00', '2022'),
 (56, 1, '', '352000', '3', '06', '', 3, '2022-06-13 00:00:00', '2022-06-19 00:00:00', '2022-06-13 00:00:00', '2022'),
 (57, 1, '', '120000', '2', '06', '', 3, '2022-04-10 00:00:00', '2022-04-17 00:00:00', '2022-06-13 00:00:00', '2022'),
-(58, 1, 'Pengurangan dana', '454000', '2', '06', 'Pengurangan dana', 6, '2022-04-18 00:00:00', '2022-04-24 00:00:00', '2022-06-13 00:00:00', '2022');
+(58, 1, 'Pengurangan dana', '454000', '2', '06', 'Pengurangan dana', 6, '2022-04-18 00:00:00', '2022-04-24 00:00:00', '2022-06-13 00:00:00', '2022'),
+(59, 1, '', '2000', '3', '07', '', 1, '2022-06-22 00:00:00', '2022-06-27 00:00:00', '2022-06-24 00:00:00', '2022'),
+(60, 1, '', '200000', '2', '07', '', 1, '2022-06-02 00:00:00', '2022-06-22 00:00:00', '2022-06-24 00:00:00', '2022'),
+(61, 1, '', '', '2', '07', '', 0, '2022-06-02 00:00:00', '2022-06-22 00:00:00', '2022-06-24 00:00:00', '2022');
 
 -- --------------------------------------------------------
 
@@ -321,6 +341,14 @@ ALTER TABLE `jabatan`
   ADD PRIMARY KEY (`id_jabatan`);
 
 --
+-- Indexes for table `notifikasi`
+--
+ALTER TABLE `notifikasi`
+  ADD PRIMARY KEY (`id_notifikasi`),
+  ADD KEY `id_anggota` (`id_anggota`,`id_pengajuan`),
+  ADD KEY `id_pengajuan` (`id_pengajuan`);
+
+--
 -- Indexes for table `pagu_anggaran`
 --
 ALTER TABLE `pagu_anggaran`
@@ -374,7 +402,7 @@ ALTER TABLE `transfer`
 -- AUTO_INCREMENT for table `detail_pengajuananggaran`
 --
 ALTER TABLE `detail_pengajuananggaran`
-  MODIFY `id_detailpengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id_detailpengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT for table `jabatan`
@@ -398,7 +426,7 @@ ALTER TABLE `pegawai`
 -- AUTO_INCREMENT for table `pengajuan_anggaran`
 --
 ALTER TABLE `pengajuan_anggaran`
-  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=59;
+  MODIFY `id_pengajuan` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `pos`

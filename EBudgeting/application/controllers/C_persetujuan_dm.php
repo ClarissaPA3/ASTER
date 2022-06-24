@@ -13,6 +13,7 @@ class C_persetujuan_dm extends CI_Controller
         $this->load->model('M_masterpos_subpos');
         $this->load->model('M_detailajuan');
         $this->load->model('M_ajuananggaran');
+        $this->load->model('M_notifikasi', 'notifikasi');
     }
     public function index()
     {

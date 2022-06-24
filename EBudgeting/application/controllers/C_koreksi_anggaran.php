@@ -12,6 +12,7 @@ class C_koreksi_anggaran extends CI_Controller
 		$this->load->model('M_masterpos_subpos');
 		$this->load->model('M_detailajuan');
 		$this->load->model('M_koreksianggaran');
+		$this->load->model('M_notifikasi', 'notifikasi');
 	}
 
     

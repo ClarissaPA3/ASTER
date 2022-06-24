@@ -248,7 +248,7 @@
                                             <?php
                                             if ($ajuan['status2'] < 2) {
                                             ?>
-                                                <a onclick="FormSubmit()" class="btn btn-default"><i class="fa-solid fa-book"></i> Draft</a>
+                                                <a onclick="Draft()" class="btn btn-default"><i class="fa-solid fa-book"></i> Draft</a>
                                             <?php
                                             }
                                             ?>
@@ -259,7 +259,7 @@
                                             
                                                 <a onclick="FormSubmit()" class="btn btn-info"><i class="fas fa-fw fa-check"></i> Ajukan</a>
                                             <?php
-                                            } if($ajuan['status2'] == 1) {
+                                            } if($ajuan['status2'] <= 1) {
                                             ?>
                                                 <a onclick="Coba()" class="btn btn-info"><i class="fas fa-fw fa-check"></i> Ajukan</a>
                                             <?php

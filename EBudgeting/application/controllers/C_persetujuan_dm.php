@@ -69,6 +69,7 @@ class C_persetujuan_dm extends CI_Controller
             $data['minggu'] = array('1', '2', '3', '4');
             $this->load->view('persetujuan/review_dm', $data);
         } else {
+            $this->notifikasi->add_notifikasi('dm', $this->input->post('status2'));
 
             $this->M_ajuananggaran->update_pengajuanDM();
             $this->M_detailajuan->update_pengajuanDM();

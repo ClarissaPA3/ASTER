@@ -97,7 +97,7 @@
                           <?php foreach ($pengajuan_anggaran as $pengajuan_anggaran) : ?>
 
                             <tr>
-                            <td>
+                              <td>
                                 <?php echo $pengajuan_anggaran->id_pengajuan ?>
                               </td>
                               <td>
@@ -133,7 +133,7 @@
                                 }
                                 ?>
                               </td>
-                             
+
                               <td width="250">
                                 <a href="<?php echo site_url('C_koreksi_anggaran/update_koreksi/') . $pengajuan_anggaran->id_pengajuan . '/' . $pengajuan_anggaran->status2; ?>" class="btn btn-block btn-primary col-md-8"><i class="fas fa-edit"></i> Detail anggaran</a>
                               </td>
@@ -188,7 +188,7 @@
       var table = $('#example').DataTable({
         orderCellsTop: true,
         initComplete: function() {
-          this.api().columns([1, 2,3]).every(function() {
+          this.api().columns([1, 2, 3]).every(function() {
             var column = this;
 
             var select = $('<select class="form-control"><option value=""></option></select>')
@@ -209,7 +209,7 @@
 
                   .draw();
               });
-          
+
             column.data().unique().sort().each(function(d) {
               select.append('<option value="' + d + '">' + d + '</option>')
             });
@@ -234,7 +234,7 @@
 
                   .draw();
               });
-              console.log(column.data());
+            console.log(column.data());
 
             column.data().unique().sort().each(function(d) {
               var parser = new DOMParser();
@@ -243,6 +243,21 @@
 
               select.append('<option value="' + text + '">' + text + '</option>')
             });
+
+          });
+
+
+          this.api().column([0]).every(function() {
+            var column = this;
+            var url = '<?php echo $this->input->get('id'); ?>';
+            column.search(url).draw();
+
+
+
+
+
+
+
 
           });
 

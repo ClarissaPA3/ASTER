@@ -217,6 +217,12 @@
 
                     });
 
+                    this.api().column([0]).every(function() {
+                        var column = this;
+                        var url = '<?php echo $this->input->get('id'); ?>';
+                        column.search(url).draw();
+                    });
+
                 }
             });
         });

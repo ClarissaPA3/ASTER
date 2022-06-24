@@ -105,18 +105,30 @@
             <span class="dropdown-item dropdown-header">Anda memiliki <?php echo  $this->session->userdata('totalnotifikasi'); ?> notifikasi</span>
             <div class="dropdown-divider"></div>
             <?php foreach ($this->session->userdata('dm') as $iddm) : ?>
-              <a href="#" class="dropdown-item">
-                <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?>
+              <a href="<?php echo site_url('C_persetujuan_dmpau/show_pengajuandmpau?id=') . $iddm['id_pengajuan']; ?>" class="dropdown-item  row">
+                <p class="col-md-10"> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?></p>
+
+                <a href="<?php echo site_url('C_login/hapus_notifikasi/') . $iddm['id_pengajuan']; ?>" class="btn btn-block btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+
+
               </a>
+
               <div class="dropdown-divider"></div>
             <?php endforeach; ?>
 
 
 
             <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
-              <a href="#" class="dropdown-item">
-                <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?>
+              <a href="<?php echo site_url('C_persetujuan_dmpau/show_pengajuandmpau?id=') . $iddm['id_pengajuan']; ?>" class="dropdown-item  row">
+                <p class="col-md-10"> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?></p>
+
+                <a href="<?php echo site_url('C_login/hapus_notifikasi/') . $iddm['id_pengajuan']; ?>" class="btn btn-block btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
+
+
+
               </a>
+
             <?php endforeach; ?>
           </div>
         </li>
@@ -164,6 +176,7 @@
       </ul>
     </nav>
     <!-- /.navbar -->
+
 
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -421,7 +434,7 @@
               <!-- AREA CHART -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title"> Total pengajuan anggaran tahun <?php  echo date('Y');?></h3>
+                  <h3 class="card-title"> Total pengajuan anggaran tahun <?php echo date('Y'); ?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -459,7 +472,7 @@
               <!-- LINE CHART -->
               <div class="card card-info">
                 <div class="card-header">
-                  <h3 class="card-title">Total ajuan disetujui tahun <?php  echo date('Y');?></h3>
+                  <h3 class="card-title">Total ajuan disetujui tahun <?php echo date('Y'); ?></h3>
 
                   <div class="card-tools">
                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -527,7 +540,7 @@
   <!-- ChartJS -->
   <script src="<?php echo base_url('assets/') ?>plugins/chart.js/Chart.min.js"></script>
 
-  
+
   <!-- Page specific script -->
   <script>
     function linechart(jsondata) {
@@ -577,7 +590,7 @@
       var lineChartOptions = $.extend(true, {}, lineChartOptions)
       var lineChartData = $.extend(true, {}, lineChartData)
       lineChartData.datasets[0].fill = false;
- 
+
       lineChartOptions.datasetFill = false
 
 

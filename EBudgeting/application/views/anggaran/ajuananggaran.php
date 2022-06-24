@@ -69,7 +69,7 @@
         <div class="row">
 
           <div class="col-md-12">
-          
+
             <div class="card">
               <div class="card-header">
 
@@ -301,6 +301,7 @@
 
   <?php $this->load->view('dashboard/_part/js'); ?>
   <?php $this->load->view('dashboard/_part/jsdatatables'); ?>
+ 
   <script>
     $(document).ready(function() {
       var table = $('#example').DataTable({
@@ -332,6 +333,7 @@
               select.append('<option value="' + d + '">' + d + '</option>')
             });
           });
+
           this.api().column([8]).every(function() {
             var column = this;
             var select = $('<select class="form-control"><option value=""></option></select>')
@@ -363,9 +365,27 @@
 
           });
 
+
+
+          this.api().column([0]).every(function() {
+            var column = this;
+            var url = '<?php echo $this->input->get('id');?>';
+            column.search(url).draw();
+
+
+
+
+
+
+
+
+          });
+
+
         }
       });
     });
+   
   </script>
 
 

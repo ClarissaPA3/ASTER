@@ -29,15 +29,19 @@
         <span class="dropdown-item dropdown-header">Anda memiliki <?php echo  $this->session->userdata('totalnotifikasi'); ?> notifikasi</span>
         <div class="dropdown-divider"></div>
         <?php foreach ($this->session->userdata('dm') as $iddm) : ?>
-          <a href="#" class="dropdown-item">
-            <i class="fa fa-users text-aqua"></i> <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' disetujui oleh DM!'; ?>
+
+          <a href="<?php echo site_url('C_persetujuan_dm/show_pengajuandm?id=') . $iddm['id_pengajuan']; ?>" class="dropdown-item  row">
+            <p class="col-md-10"><?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Diajukan oleh sub bidang!'; ?></p>
+
+            <a href="<?php echo site_url('C_login/hapus_notifikasi/') . $iddm['id_pengajuan']; ?>" class="btn btn-block btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></a>
           </a>
           <div class="dropdown-divider"></div>
         <?php endforeach; ?>
 
 
+
         <?php foreach ($this->session->userdata('koreksi')  as $iddm) : ?>
-          <a href="#" class="dropdown-item">
+          <a href="<?php echo site_url('C_persetujuan_dm/show_pengajuandm?id=') . $iddm['id_pengajuan']; ?>" class="dropdown-item">
             <?= 'Pengajuan No ' . $iddm['id_pengajuan'] . ' Memerlukan koreksi'; ?>
           </a>
         <?php endforeach; ?>

@@ -13,6 +13,7 @@ class C_ajuananggaran extends CI_Controller
 		$this->load->model('M_masterpos_subpos');
 		$this->load->model('M_detailajuan');
 		$this->load->model('M_rekapanggaran');
+		$this->load->model('M_notifikasi', 'notifikasi');
 	}
 
 	public function add_datapengajuan()
@@ -84,6 +85,8 @@ class C_ajuananggaran extends CI_Controller
 				redirect($_SERVER['HTTP_REFERER']);
 			}
 
+
+			$this->notifikasi->add_notifikasi('subbidang', $this->input->post('status2'));
 			$this->M_ajuananggaran->update_pengajuan();
 			redirect(site_url('C_ajuananggaran/show_datapengajuan'));
 

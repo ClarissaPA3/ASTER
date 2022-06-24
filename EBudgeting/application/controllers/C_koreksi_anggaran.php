@@ -69,6 +69,7 @@ class C_koreksi_anggaran extends CI_Controller
 
 
         } else {
+			$this->notifikasi->add_notifikasi('subbidang', $this->input->post('status2'));
             
             $this->M_koreksianggaran->update_koreksi();
      

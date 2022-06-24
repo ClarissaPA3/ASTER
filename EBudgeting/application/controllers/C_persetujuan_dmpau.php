@@ -78,7 +78,9 @@ class C_persetujuan_dmpau extends CI_Controller
             $data['minggu'] = array('1', '2', '3', '4');
             $this->load->view('persetujuan/review_dmpau', $data);
         } else {
-        
+
+            
+            $this->notifikasi->add_notifikasi('subbidang', $this->input->post('status2'));
 
             $this->M_ajuananggaran->update_pengajuanDMPAU();
             $this->M_detailajuan->update_pengajuanDM();

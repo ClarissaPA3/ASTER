@@ -11,6 +11,7 @@ class C_login extends CI_Controller
 		$this->load->library('session');
 		$this->load->model('M_ajuananggaran');
 		$this->load->model('M_paguanggaran');
+		$this->load->model('M_notifikasi','notifikasi');
 		$this->load->model('M_input_jabatan','jabatan');
 
 	}
@@ -169,5 +170,12 @@ class C_login extends CI_Controller
 
 		$this->session->sess_destroy();
 		redirect(base_url("C_login"));
+	}
+	public function hapus_notifikasi($id)
+	{
+		$this->notifikasi->hapus_notifikasi($id);
+		
+		redirect(site_url('C_login'));
+
 	}
 }

@@ -105,7 +105,7 @@
                                                         <th></th>
                                                         <th></th>
                                                     </tr>
-                                                    
+
                                                 </thead>
 
 
@@ -197,7 +197,7 @@
             var table = $('#tabeldm').DataTable({
                 orderCellsTop: true,
                 initComplete: function() {
-                    this.api().columns([1, 2,3 ]).every(function() {
+                    this.api().columns([1, 2, 3]).every(function() {
                         var column = this;
 
                         var select = $('<select class="form-control"><option value=""></option></select>')
@@ -251,6 +251,20 @@
 
                             select.append('<option value="' + text + '">' + text + '</option>')
                         });
+
+                    });
+
+                    this.api().column([0]).every(function() {
+                        var column = this;
+                        var url = '<?php echo $this->input->get('id'); ?>';
+                        column.search(url).draw();
+
+
+
+
+
+
+
 
                     });
 

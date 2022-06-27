@@ -29,7 +29,7 @@ class M_notifikasi extends CI_Model
         }else {
             $notification = $query->result_array()[0];
 
-            $this->update_notifikasi($notification['id_notifikasi'], $jenis_notifikasi,$status);
+            $this->update_notifikasi($notification['id_anggota'], $notification['id_notifikasi'], $jenis_notifikasi,$status);
         }
     }
     public function hapus_notifikasi($id)
@@ -38,14 +38,14 @@ class M_notifikasi extends CI_Model
         $this->db->delete('notifikasi', array('id_pengajuan' => $id));
     
     }
-    public function update_notifikasi($id, $jenis_notifikasi,$status)
+    public function update_notifikasi($id_anggota ,$id, $jenis_notifikasi,$status)
     {
    
 
      
         $data = array(
             'id_notifikasi' => $id,
-            'id_anggota' => $this->session->userdata('id_anggota'),
+            'id_anggota' => $id_anggota,
             'jenis_notifikasi' => $jenis_notifikasi,
             'id_pengajuan' => $this->input->post('id_pengajuan'),
             'tipe_notifikasi' => $status,

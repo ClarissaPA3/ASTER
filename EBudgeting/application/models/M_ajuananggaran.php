@@ -227,9 +227,14 @@ class M_ajuananggaran extends CI_Model
         // NotifikasiKoreksi
         $this->db->select('*');
         $this->db->from('notifikasi');
-        $this->db->where("`tipe_notifikasi` between '5' and '6'");
+        $this->db->where("`tipe_notifikasi` BETWEEN '4' and '7'");
         $this->db->where('id_anggota', $id_anggota);
-        $koreksi = $this->db->get();
+
+
+       
+        $koreksi = $this->db->query(sprintf("SELECT * FROM `notifikasi` WHERE `id_anggota`= '%s' AND `tipe_notifikasi` BETWEEN '5' AND '6'",$id_anggota));
+    
+
         // $koreksi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6' AND id_anggota=%s", $id_anggota));
 
         // Total notifikasi
@@ -300,6 +305,7 @@ class M_ajuananggaran extends CI_Model
         // Mencari ajuan yang memiliki id anggota yang telah tertulis dan menghitung total ajuan
         $totalanggaran = 0;
         $bulan = date('m');
+        $tahun = date('Y');
         foreach ($idsubbidang as $key) {
 
 
@@ -308,6 +314,7 @@ class M_ajuananggaran extends CI_Model
             $this->db->where('id_anggota', $key['id_anggota']);
             $this->db->where('bulan2', $bulan);
             $this->db->where('status2>', '0');
+            $this->db->where('tahun', $tahun);
 
 
             foreach ($this->db->get()->result_array() as $j) {
@@ -321,6 +328,7 @@ class M_ajuananggaran extends CI_Model
         // Menghitung ajuan yang disetujui
         $anggarandisetujui = 0;
         $bulan = date('m');
+        $tahun = date('Y');
         foreach ($idsubbidang as $key) {
 
 
@@ -329,6 +337,7 @@ class M_ajuananggaran extends CI_Model
             $this->db->where('id_anggota', $key['id_anggota']);
             $this->db->where('bulan2', $bulan);
             $this->db->where('status2', '3');
+            $this->db->where('tahun', $tahun);
 
 
             foreach ($this->db->get()->result_array() as $j) {
@@ -343,6 +352,9 @@ class M_ajuananggaran extends CI_Model
         // Menghitung ajuan yang memerlukan koreksi
         $revisi = 0;
         $bulan = date('m');
+        
+    
+       
         foreach ($idsubbidang as $key) {
 
 
@@ -351,6 +363,7 @@ class M_ajuananggaran extends CI_Model
             $this->db->where('id_anggota', $key['id_anggota']);
             $this->db->where('bulan2', $bulan);
             $this->db->where("status2 BETWEEN '5' AND '6'");
+            $this->db->where('tahun', $tahun);
 
 
             foreach ($this->db->get()->result_array() as $j) {
@@ -368,20 +381,22 @@ class M_ajuananggaran extends CI_Model
         // Notifikasi Sub bidang
         $sub = $this->db->get_where('notifikasi', array('tipe_notifikasi' => '1'));
         // Notifikasi DMPAU
-        $dmpau = $this->db->get_where('notifikasi', array('tipe_notifikasi' => '3'));
+        // $dmpau = $this->db->get_where('notifikasi', array('tipe_notifikasi' => '3'));
 
 
         // NotifikasiKoreksi
         $this->db->select('*');
         $this->db->from('notifikasi');
-        $this->db->where("`tipe_notifikasi` = '7'");
-        $this->db->where('id_anggota', $id_anggota);
+        $this->db->where("tipe_notifikasi", '7');
+        
         $koreksi = $this->db->get();
+       
 
 
         // Total notifikasi
-        $totalnotifikasi = $sub->num_rows()  + $koreksi->num_rows() +  $dmpau->num_rows();
-
+       
+        $totalnotifikasi = $sub->num_rows()  + $koreksi->num_rows();
+     
 
 
 
@@ -413,17 +428,22 @@ class M_ajuananggaran extends CI_Model
     {
 
 
-        $totalanggaran = $this->db->get_where('pengajuan_anggaran', array('status2>' => '1'))->num_rows();
-        $anggarandisetujui = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE status2='3'")->num_rows();
-        $revisi = $this->db->query("SELECT * FROM `pengajuan_anggaran` WHERE `status2` = '5' OR `status2`='6'")->num_rows();
+        $bulan = date('m');
+        $tahun = date('Y');
+
+        $totalanggaran = $this->db->get_where('pengajuan_anggaran', array( 'bulan2' => $bulan, 'status2>=' => '1', 'tahun' => $tahun))->num_rows();
+       
+        $anggarandisetujui = $this->db->get_where('pengajuan_anggaran', array( 'bulan2' => $bulan,'status2' => '3', 'tahun' => $tahun))->num_rows();
+  
+        $revisi = $this->db->query(sprintf("SELECT * FROM `pengajuan_anggaran` WHERE  'bulan2' = '%s' and 'tahun' = '%s' and `status2` BETWEEN '5' AND '6' ",$bulan, $tahun))->num_rows();
 
 
 
-        
+
         $dm = $this->db->get_where('notifikasi', array('tipe_notifikasi' => '2'));
 
         $koreksi = $this->db->get_where('notifikasi', array('tipe_notifikasi' => '8'));
-        
+
         $totalnotifikasi = $dm->num_rows()  + $koreksi->num_rows();
 
 

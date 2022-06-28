@@ -181,13 +181,17 @@ class C_ajuananggaran extends CI_Controller
 
 		$data['pos'] = $this->M_masterpos_subpos->show_posM();
 		$pos = $data['pos'];
+		
 		$hitungajuan = array();
 		$data['totalkeseluruhan'] = 0;
 		for ($i = 0; $i < count($pos); $i++) {
+			
 			$hitungajuan[$i] = $this->M_rekapanggaran->show_rekapanggaran($pos[$i]['id_pos']);
+			
 			$data['totalkeseluruhan'] += $hitungajuan[$i]['total'];
 		}
 		$data['hitungajuan'] = $hitungajuan;
+		
 
 
 
